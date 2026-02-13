@@ -7,16 +7,16 @@ export default function Footer() {
   return (
     <footer>
       {/* Botanical divider above footer */}
-      <div className="bg-cream flex justify-center pb-0">
-        <Image
-          src="/images/decorative/divider-botanical.svg"
-          alt=""
-          width={600}
-          height={60}
-          className="w-[40%] md:w-[30%] h-auto opacity-40"
-          aria-hidden="true"
-        />
-      </div>
+      <div
+        className="bg-cream w-full h-12 md:h-16 opacity-40"
+        style={{
+          backgroundImage: "url(/images/decorative/divider-botanical.svg)",
+          backgroundRepeat: "repeat-x",
+          backgroundPosition: "center",
+          backgroundSize: "auto 100%",
+        }}
+        aria-hidden="true"
+      />
 
       <div className="bg-[#3D2E1F] text-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
