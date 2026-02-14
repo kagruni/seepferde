@@ -22,7 +22,7 @@ export default function Card({
 }: CardProps) {
   const content = (
     <div
-      className={`group bg-white rounded-2xl shadow-sm border border-brown/12 overflow-hidden transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${className}`}
+      className={`group h-full flex flex-col bg-white rounded-2xl shadow-sm border border-brown/12 overflow-hidden transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${className}`}
     >
       {imageSrc && (
         <div className="relative h-52 md:h-64 overflow-hidden">
@@ -34,16 +34,16 @@ export default function Card({
           />
         </div>
       )}
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-1">
         <h3 className="text-xl md:text-2xl mb-2">{title}</h3>
-        <p className="text-text-secondary leading-relaxed">{description}</p>
+        <p className="text-text-secondary leading-relaxed flex-1">{description}</p>
         {children}
       </div>
     </div>
   );
 
   if (href) {
-    return <Link href={href} className="block">{content}</Link>;
+    return <Link href={href} className="block h-full">{content}</Link>;
   }
 
   return content;

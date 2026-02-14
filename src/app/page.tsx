@@ -125,7 +125,7 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            <ScrollReveal delay={0}>
+            <ScrollReveal delay={0} className="h-full">
               <Card
                 imageSrc="/images/angebote/reitunterricht-anfaenger.jpeg"
                 imageAlt="Anfängerin im Reitunterricht auf dem Reitplatz"
@@ -139,7 +139,7 @@ export default function Home() {
               </Card>
             </ScrollReveal>
 
-            <ScrollReveal delay={150}>
+            <ScrollReveal delay={150} className="h-full">
               <Card
                 imageSrc="/images/angebote/ponyreiten-1.jpeg"
                 imageAlt="Kind auf Shetland-Pony, geführt von Betreuerin"
@@ -153,7 +153,7 @@ export default function Home() {
               </Card>
             </ScrollReveal>
 
-            <ScrollReveal delay={300}>
+            <ScrollReveal delay={300} className="h-full">
               <Card
                 imageSrc="/images/angebote/schnupperstunde.jpeg"
                 imageAlt="Junge Frau streichelt ein Pferd am Stall — erste Begegnung"
