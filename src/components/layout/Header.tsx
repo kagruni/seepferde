@@ -56,7 +56,7 @@ export default function Header() {
             {/* Desktop CTA */}
             <div className="hidden lg:block">
               <Button href="/kontakt" variant="primary" size="sm">
-                Schnupperstunde
+                Angebot anfragen
               </Button>
             </div>
 

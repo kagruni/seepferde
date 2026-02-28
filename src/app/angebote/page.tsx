@@ -6,37 +6,54 @@ import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "Unsere Angebote",
-  description: "Reitunterricht, Ponyreiten, Longenstunden und Schnupperstunden — entdecken Sie unser vielfältiges Angebot auf dem Reiterhof Mandy Kolatka.",
+  description: "Pferdegestütztes Coaching, Teambuilding, Workshops und Erlebnistage — entdecken Sie unser vielfältiges Angebot auf dem Reiterhof Mandy Kolatka.",
 };
 
-const ANGEBOTE = [
+const SEMINARE = [
   {
-    title: "Reitunterricht",
-    description: "Von der ersten Longenstunde bis zum selbstständigen Reiten. Einzel- und Gruppenunterricht für Anfänger und Fortgeschrittene.",
-    imageSrc: "/images/angebote/reitunterricht-anfaenger.jpeg",
-    imageAlt: "Anfängerin im Reitunterricht",
-    href: "/angebote/reitunterricht",
+    title: "Coaching für Führungskräfte",
+    description: "Pferdegestütztes Leadership-Coaching — Pferde als Spiegel für Führungsverhalten.",
+    imageSrc: "/images/hero/hero-main.jpeg",
+    imageAlt: "Pferdegestütztes Führungskräfte-Coaching auf dem Reiterhof",
+    href: "/angebote/fuehrungskraefte-coaching",
   },
   {
-    title: "Ponyreiten",
-    description: "Geführtes Reiten für Kinder ab 3 Jahren auf unseren lieben, sicheren Schulponys. Ein unvergessliches Erlebnis.",
-    imageSrc: "/images/angebote/ponyreiten-1.jpeg",
-    imageAlt: "Kind auf Shetland-Pony",
-    href: "/angebote/ponyreiten",
+    title: "Teambuilding",
+    description: "Pferdegestütztes Teambuilding — das Pferd als neues Teammitglied.",
+    imageSrc: "/images/hero/hero-main.jpeg",
+    imageAlt: "Teambuilding mit Pferden auf dem Reiterhof",
+    href: "/angebote/teambuilding",
   },
   {
-    title: "Longenstunden",
-    description: "An der Longe lernen Sie die Grundlagen des Reitens in sicherer Umgebung — ideal für absolute Anfänger.",
-    imageSrc: "/images/angebote/longenstunde.jpeg",
-    imageAlt: "Longenstunde auf dem Reitplatz",
-    href: "/angebote/reitunterricht",
+    title: "Raus aus dem Alltag – rein ins Erleben!",
+    description: "Kreativer Erlebnistag — Teamgeist stärken durch gemeinsames Erleben.",
+    imageSrc: "/images/hero/hero-main.jpeg",
+    imageAlt: "Erlebnistag auf dem Reiterhof",
+    href: "/angebote/erlebnistag",
+  },
+];
+
+const WORKSHOPS = [
+  {
+    title: "Extreme-Trail",
+    description: "Erster Extreme-Trail Park in Sachsen! Vertrauen aufbauen für Mensch und Pferd.",
+    imageSrc: "/images/hero/hero-main.jpeg",
+    imageAlt: "Extreme-Trail Park mit natürlichen Hindernissen",
+    href: "/angebote/extreme-trail",
   },
   {
-    title: "Schnupperstunde",
-    description: "Noch unsicher? Lernen Sie unsere Pferde kennen und probieren Sie das Reiten unverbindlich aus.",
-    imageSrc: "/images/angebote/schnupperstunde.jpeg",
-    imageAlt: "Erste Begegnung mit dem Pferd",
-    href: "/kontakt",
+    title: "Working-Equitation",
+    description: "Motivations-Parcours für Pferd und Reiter — Dressur trifft Trail.",
+    imageSrc: "/images/hero/hero-main.jpeg",
+    imageAlt: "Working-Equitation Parcours",
+    href: "/angebote/working-equitation",
+  },
+  {
+    title: "Garrocha",
+    description: "Traditionelle südeuropäische Reitkunst — Motivation und Freude.",
+    imageSrc: "/images/hero/hero-main.jpeg",
+    imageAlt: "Garrocha — Reiten mit der traditionellen Stange",
+    href: "/angebote/garrocha",
   },
 ];
 
@@ -50,7 +67,7 @@ export default function Angebote() {
             <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Unser Angebot</p>
             <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4">Unsere Angebote</h1>
             <p className="text-text-secondary text-lg max-w-2xl">
-              Ob Anfänger oder Fortgeschrittener, Kind oder Erwachsener — auf dem Reiterhof Mandy Kolatka finden Sie das passende Angebot.
+              Pferdegestütztes Coaching, Teambuilding und einzigartige Workshops — entdecken Sie unsere vielfältigen Angebote für Unternehmen, Teams und Einzelpersonen.
             </p>
           </ScrollReveal>
         </div>
@@ -58,12 +75,19 @@ export default function Angebote() {
 
       <SectionDivider />
 
-      {/* Grid */}
+      {/* Seminare & Coaching */}
       <section className="bg-white py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {ANGEBOTE.map((angebot, i) => (
-              <ScrollReveal key={angebot.title} delay={i * 100}>
+          <ScrollReveal>
+            <div className="mb-10">
+              <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Für Unternehmen & Teams</p>
+              <h2 className="text-3xl sm:text-4xl">Seminare & Coaching</h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {SEMINARE.map((angebot, i) => (
+              <ScrollReveal key={angebot.title} delay={i * 100} className="h-full">
                 <Card
                   imageSrc={angebot.imageSrc}
                   imageAlt={angebot.imageAlt}
@@ -71,7 +95,37 @@ export default function Angebote() {
                   description={angebot.description}
                   href={angebot.href}
                 >
-                  <p className="mt-4 text-forest font-semibold text-sm">Mehr erfahren →</p>
+                  <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">Mehr erfahren →</p>
+                </Card>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* Workshops & Training */}
+      <section className="bg-beige py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="mb-10">
+              <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Für Reiter & Pferdebegeisterte</p>
+              <h2 className="text-3xl sm:text-4xl">Workshops & Training</h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {WORKSHOPS.map((angebot, i) => (
+              <ScrollReveal key={angebot.title} delay={i * 100} className="h-full">
+                <Card
+                  imageSrc={angebot.imageSrc}
+                  imageAlt={angebot.imageAlt}
+                  title={angebot.title}
+                  description={angebot.description}
+                  href={angebot.href}
+                >
+                  <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">Mehr erfahren →</p>
                 </Card>
               </ScrollReveal>
             ))}
@@ -85,11 +139,11 @@ export default function Angebote() {
       <section className="bg-forest text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl text-white mb-4">Bereit für Ihre erste Reitstunde?</h2>
+            <h2 className="text-3xl sm:text-4xl text-white mb-4">Interesse? Kontaktieren Sie uns</h2>
             <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">
-              Vereinbaren Sie eine unverbindliche Schnupperstunde und lernen Sie unseren Hof kennen.
+              Wir erstellen Ihnen gerne ein individuelles Angebot — passend zu Ihren Wünschen und Ihrem Team.
             </p>
-            <Button href="/kontakt" variant="primary" size="lg">Schnupperstunde vereinbaren</Button>
+            <Button href="/kontakt" variant="primary" size="lg">Angebot anfragen</Button>
           </ScrollReveal>
         </div>
       </section>

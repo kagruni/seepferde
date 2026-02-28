@@ -3,8 +3,21 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
-import { MapPin, Phone, Mail } from "lucide-react";
-import { CONTACT } from "@/lib/constants";
+import { MapPin, Phone, Mail, Calendar } from "lucide-react";
+import { CONTACT, EVENTS } from "@/lib/constants";
+
+const featuredEvent = EVENTS.find(
+  (e) => e.featured && e.status === "upcoming"
+);
+
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr + "T00:00:00");
+  return date.toLocaleDateString("de-DE", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
 export default function Home() {
   return (
@@ -30,14 +43,13 @@ export default function Home() {
           </ScrollReveal>
           <ScrollReveal delay={150}>
             <p className="mt-4 text-lg sm:text-xl text-cream/90 max-w-lg font-body drop-shadow-md">
-              Reitunterricht & Ponyreiten am Zwenkauer See — familiär,
-              naturverbunden, für jedes Alter.
+              Pferdegestütztes Coaching, Workshops & Erlebnisse am Zwenkauer See — individuell, naturverbunden, unvergesslich.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={300}>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button href="/kontakt" variant="primary" size="lg">
-                Schnupperstunde vereinbaren
+                Angebot anfragen
               </Button>
               <Button href="/angebote" variant="secondary" size="lg" className="border-white/60 text-white hover:bg-white hover:text-text">
                 Unsere Angebote
@@ -71,20 +83,20 @@ export default function Home() {
                   Ein Ort, an dem Pferdeträume wahr werden
                 </h2>
                 <p className="text-text-secondary text-lg leading-relaxed mb-4">
-                  Auf unserem familiären Reiterhof in Zwenkau, direkt am
-                  wunderschönen Zwenkauer See, bieten wir Reitunterricht und
-                  Ponyreiten in einer warmen, einladenden Atmosphäre.
+                  Auf unserem Reiterhof in Zwenkau, direkt am wunderschönen
+                  Zwenkauer See, verbinden wir die Kraft der Pferde mit
+                  Coaching, Workshops und unvergesslichen Erlebnistagen.
                 </p>
                 <p className="text-text-secondary text-lg leading-relaxed mb-4">
-                  Ob Sie Anfänger sind oder Ihre Reitkenntnisse vertiefen
-                  möchten — bei uns finden Sie den passenden Unterricht.
-                  Unsere erfahrenen Schulpferde und die persönliche Betreuung
-                  sorgen dafür, dass Sie sich vom ersten Moment an wohlfühlen.
+                  Unser pferdegestütztes Führungskräfte-Coaching und
+                  Teambuilding bietet Unternehmen eine einzigartige
+                  Möglichkeit, Führungsqualitäten zu entwickeln und
+                  Teamdynamiken nachhaltig zu stärken.
                 </p>
                 <p className="text-text-secondary text-lg leading-relaxed mb-8">
-                  Für die Kleinsten ab 3 Jahren bieten wir geführtes
-                  Ponyreiten — ein unvergessliches Erlebnis für die ganze
-                  Familie.
+                  In unseren Workshops — vom ersten Extreme-Trail Park
+                  Sachsens bis hin zu Working-Equitation und Garrocha —
+                  erleben Reiter und Pferdebegeisterte Motivation und Freude.
                 </p>
                 <Button href="/ueber-uns" variant="ghost">
                   Mehr über uns erfahren →
@@ -127,11 +139,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             <ScrollReveal delay={0} className="h-full">
               <Card
-                imageSrc="/images/angebote/reitunterricht-anfaenger.jpeg"
-                imageAlt="Anfängerin im Reitunterricht auf dem Reitplatz"
-                title="Reitunterricht"
-                description="Von der ersten Longenstunde bis zum selbstständigen Reiten — für Anfänger und Fortgeschrittene."
-                href="/angebote/reitunterricht"
+                imageSrc="/images/hero/hero-main.jpeg"
+                imageAlt="Pferdegestütztes Führungskräfte-Coaching"
+                title="Führungskräfte-Coaching"
+                description="Pferdegestütztes Leadership-Coaching — Pferde als Spiegel für Führungsverhalten."
+                href="/angebote/fuehrungskraefte-coaching"
               >
                 <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">
                   Mehr erfahren →
@@ -141,11 +153,11 @@ export default function Home() {
 
             <ScrollReveal delay={150} className="h-full">
               <Card
-                imageSrc="/images/angebote/ponyreiten-1.jpeg"
-                imageAlt="Kind auf Shetland-Pony, geführt von Betreuerin"
-                title="Ponyreiten"
-                description="Für Kinder ab 3 Jahren — geführtes Reiten auf unseren lieben Schulponys in sicherer Umgebung."
-                href="/angebote/ponyreiten"
+                imageSrc="/images/hero/hero-main.jpeg"
+                imageAlt="Extreme-Trail Park mit natürlichen Hindernissen"
+                title="Extreme-Trail"
+                description="Erster Extreme-Trail Park in Sachsen! Vertrauen aufbauen für Mensch und Pferd."
+                href="/angebote/extreme-trail"
               >
                 <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">
                   Mehr erfahren →
@@ -155,14 +167,14 @@ export default function Home() {
 
             <ScrollReveal delay={300} className="h-full">
               <Card
-                imageSrc="/images/angebote/schnupperstunde.jpeg"
-                imageAlt="Junge Frau streichelt ein Pferd am Stall — erste Begegnung"
-                title="Schnupperstunde"
-                description="Noch unsicher? Lernen Sie unsere Pferde kennen und probieren Sie das Reiten in einer unverbindlichen Probestunde."
-                href="/kontakt"
+                imageSrc="/images/hero/hero-main.jpeg"
+                imageAlt="Erlebnistag auf dem Reiterhof"
+                title="Erlebnistag"
+                description="Kreativer Erlebnistag — Teamgeist stärken durch gemeinsames Erleben mit Pferden."
+                href="/angebote/erlebnistag"
               >
                 <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">
-                  Jetzt anfragen →
+                  Mehr erfahren →
                 </p>
               </Card>
             </ScrollReveal>
@@ -177,6 +189,62 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* ─── VERANSTALTUNG ─── */}
+      {featuredEvent && (
+        <>
+          <SectionDivider />
+
+          <section className="bg-white py-20 md:py-28">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <ScrollReveal>
+                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                    <Image
+                      src={featuredEvent.imageSrc}
+                      alt={featuredEvent.imageAlt}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute top-4 left-4 bg-forest text-white text-xs font-semibold px-3 py-1.5 rounded-full uppercase tracking-wide">
+                      {featuredEvent.kategorie}
+                    </div>
+                  </div>
+                </ScrollReveal>
+
+                <ScrollReveal delay={150}>
+                  <div>
+                    <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
+                      Nächste Veranstaltung
+                    </p>
+                    <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] leading-tight mb-4">
+                      {featuredEvent.title}
+                    </h2>
+                    <p className="flex items-center gap-2 text-forest font-medium mb-4">
+                      <Calendar className="w-5 h-5" />
+                      {formatDate(featuredEvent.date)}
+                    </p>
+                    <p className="text-text-secondary text-lg leading-relaxed mb-8">
+                      {featuredEvent.description}
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                      <Button
+                        href={`/veranstaltungen/${featuredEvent.slug}`}
+                        variant="primary"
+                      >
+                        Mehr erfahren
+                      </Button>
+                      <Button href="/veranstaltungen" variant="ghost">
+                        Alle Veranstaltungen →
+                      </Button>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
 
       <SectionDivider />
 

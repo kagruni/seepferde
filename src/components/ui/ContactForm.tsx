@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 import Button from "./Button";
+import { CONTACT_SUBJECTS } from "@/lib/constants";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -10,7 +11,7 @@ export default function ContactForm() {
     name: "",
     email: "",
     phone: "",
-    subject: "Reitunterricht",
+    subject: CONTACT_SUBJECTS[0],
     message: "",
   });
 
@@ -118,10 +119,9 @@ export default function ContactForm() {
           onChange={handleChange}
           className={inputClasses}
         >
-          <option value="Reitunterricht">Reitunterricht</option>
-          <option value="Ponyreiten">Ponyreiten</option>
-          <option value="Schnupperstunde">Schnupperstunde</option>
-          <option value="Sonstiges">Sonstiges</option>
+          {CONTACT_SUBJECTS.map((subject) => (
+            <option key={subject} value={subject}>{subject}</option>
+          ))}
         </select>
       </div>
 

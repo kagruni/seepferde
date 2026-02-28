@@ -8,7 +8,7 @@ import { Info } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Preise",
-  description: "Preisübersicht für Reitunterricht, Ponyreiten und Schnupperstunden auf dem Reiterhof Mandy Kolatka in Zwenkau.",
+  description: "Preisübersicht für Coaching, Workshops und Erlebnistage auf dem Reiterhof Mandy Kolatka in Zwenkau.",
 };
 
 export default function Preise() {
@@ -21,7 +21,7 @@ export default function Preise() {
             <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Übersicht</p>
             <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4">Unsere Preise</h1>
             <p className="text-text-secondary text-lg max-w-2xl">
-              Transparent und fair — hier finden Sie eine Übersicht unserer aktuellen Preise.
+              Alle Preise auf Anfrage — individuelle Angebote für Unternehmen und Gruppen.
             </p>
           </ScrollReveal>
         </div>
@@ -45,9 +45,9 @@ export default function Preise() {
             <div className="mt-12 bg-beige rounded-2xl p-6 md:p-8 flex gap-4 items-start">
               <Info className="w-6 h-6 text-gold shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold mb-1">Hinweis zu den Preisen</p>
+                <p className="font-semibold mb-1">Individuelle Angebote für Unternehmen</p>
                 <p className="text-text-secondary text-sm leading-relaxed">
-                  Alle angegebenen Preise sind Platzhalter und werden in Kürze mit den aktuellen Preisen aktualisiert. Für verbindliche Preisinformationen kontaktieren Sie uns bitte direkt.
+                  Alle Preise werden individuell nach Ihren Anforderungen kalkuliert. Kontaktieren Sie uns für ein maßgeschneidertes Angebot — wir beraten Sie gerne persönlich.
                 </p>
               </div>
             </div>
@@ -59,11 +59,11 @@ export default function Preise() {
       <section className="bg-forest text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl text-white mb-4">Jetzt Schnupperstunde buchen</h2>
+            <h2 className="text-3xl sm:text-4xl text-white mb-4">Jetzt Angebot anfragen</h2>
             <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">
-              Überzeugen Sie sich selbst — Ihre erste Reitstunde wartet auf Sie.
+              Kontaktieren Sie uns für ein individuelles Angebot — passend zu Ihren Wünschen und Ihrem Budget.
             </p>
-            <Button href="/kontakt" variant="primary" size="lg">Schnupperstunde vereinbaren</Button>
+            <Button href="/kontakt" variant="primary" size="lg">Angebot anfragen</Button>
           </ScrollReveal>
         </div>
       </section>
