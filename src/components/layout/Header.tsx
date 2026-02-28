@@ -22,8 +22,8 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? "bg-cream/95 backdrop-blur-md shadow-sm border-b border-brown/10"
-            : "bg-cream/80 backdrop-blur-sm"
+            ? "bg-cream/85 backdrop-blur-md shadow-sm border-b border-brown/10"
+            : "bg-transparent backdrop-blur-sm"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,7 +35,9 @@ export default function Header() {
                 alt="Reiterhof Mandy Kolatka"
                 width={180}
                 height={50}
-                className="h-11 w-auto"
+                className={`h-11 w-auto transition-all duration-300 ${
+                  scrolled ? "" : "brightness-0 invert"
+                }`}
                 priority
               />
             </Link>
@@ -46,7 +48,11 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-3 py-2 text-sm font-medium text-text hover:text-forest transition-colors duration-200 rounded-lg hover:bg-forest/5"
+                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg ${
+                    scrolled
+                      ? "text-text hover:text-forest hover:bg-forest/5"
+                      : "text-white/90 hover:text-white hover:bg-white/10"
+                  }`}
                 >
                   {link.label}
                 </Link>
@@ -62,7 +68,9 @@ export default function Header() {
 
             {/* Mobile Hamburger */}
             <button
-              className="lg:hidden p-2 text-text hover:text-forest transition-colors cursor-pointer"
+              className={`lg:hidden p-2 transition-colors cursor-pointer ${
+                scrolled ? "text-text hover:text-forest" : "text-white hover:text-white/80"
+              }`}
               onClick={() => setMobileOpen(true)}
               aria-label="Menü öffnen"
             >

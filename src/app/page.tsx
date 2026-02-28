@@ -3,6 +3,7 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
+import WatercolorCanvas from "@/components/effects/WatercolorCanvas";
 import { MapPin, Phone, Mail, Calendar } from "lucide-react";
 import { CONTACT, EVENTS } from "@/lib/constants";
 
@@ -23,39 +24,38 @@ export default function Home() {
   return (
     <>
       {/* ─── HERO ─── */}
-      <section className="relative h-[80vh] min-h-[500px] lg:min-h-[600px] flex items-end">
-        <Image
-          src="/images/hero/hero-main.jpeg"
-          alt="Reiterhof Mandy Kolatka — Panorama mit Reitplatz und Zwenkauer See bei Sonnenuntergang"
-          fill
-          className="object-cover"
-          priority
-        />
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2A3F28]/80 via-[#2A3F28]/25 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#2A3F28]/30 to-transparent" />
+      {/* Outer section is 200vh: first 100vh of scroll drives the watercolor transition while hero stays pinned */}
+      <section className="relative h-[170vh]">
+        <div className="sticky top-0 h-screen flex items-end overflow-hidden">
+          <WatercolorCanvas
+            imageSrc="/images/hero/hero-main.jpeg"
+            watercolorSrc="/images/hero/hero-main-watercolor.png"
+            imageAlt="Reiterhof Mandy Kolatka — Panorama mit Reitplatz und Zwenkauer See bei Sonnenuntergang"
+            priority
+          />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-20 w-full">
-          <ScrollReveal>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight max-w-2xl drop-shadow-lg">
-              Willkommen auf dem Reiterhof Mandy Kolatka
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={150}>
-            <p className="mt-4 text-lg sm:text-xl text-cream/90 max-w-lg font-body drop-shadow-md">
-              Pferdegestütztes Coaching, Workshops & Erlebnisse am Zwenkauer See — individuell, naturverbunden, unvergesslich.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={300}>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button href="/kontakt" variant="primary" size="lg">
-                Angebot anfragen
-              </Button>
-              <Button href="/angebote" variant="secondary" size="lg" className="border-white/60 text-white hover:bg-white hover:text-text">
-                Unsere Angebote
-              </Button>
-            </div>
-          </ScrollReveal>
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-20 w-full">
+            <ScrollReveal>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight max-w-2xl drop-shadow-lg">
+                Willkommen bei Seepferde Zwenkau
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal delay={150}>
+              <p className="mt-4 text-lg sm:text-xl text-cream/90 max-w-lg font-body drop-shadow-md">
+                Pferdegestütztes Coaching, Workshops & Erlebnisse am Zwenkauer See — individuell, naturverbunden, unvergesslich.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={300}>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Button href="/kontakt" variant="primary" size="lg">
+                  Angebot anfragen
+                </Button>
+                <Button href="/angebote" variant="secondary" size="lg" className="border-white/60 text-white hover:bg-white/15 hover:text-white">
+                  Unsere Angebote
+                </Button>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
@@ -139,7 +139,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             <ScrollReveal delay={0} className="h-full">
               <Card
-                imageSrc="/images/hero/hero-main.jpeg"
+                imageSrc="/images/angebote/fuehrungskraefte-coaching.jpeg"
                 imageAlt="Pferdegestütztes Führungskräfte-Coaching"
                 title="Führungskräfte-Coaching"
                 description="Pferdegestütztes Leadership-Coaching — Pferde als Spiegel für Führungsverhalten."
@@ -153,7 +153,7 @@ export default function Home() {
 
             <ScrollReveal delay={150} className="h-full">
               <Card
-                imageSrc="/images/hero/hero-main.jpeg"
+                imageSrc="/images/angebote/extreme-trail.jpeg"
                 imageAlt="Extreme-Trail Park mit natürlichen Hindernissen"
                 title="Extreme-Trail"
                 description="Erster Extreme-Trail Park in Sachsen! Vertrauen aufbauen für Mensch und Pferd."
@@ -167,7 +167,7 @@ export default function Home() {
 
             <ScrollReveal delay={300} className="h-full">
               <Card
-                imageSrc="/images/hero/hero-main.jpeg"
+                imageSrc="/images/angebote/erlebnistag.jpeg"
                 imageAlt="Erlebnistag auf dem Reiterhof"
                 title="Erlebnistag"
                 description="Kreativer Erlebnistag — Teamgeist stärken durch gemeinsames Erleben mit Pferden."

@@ -22,7 +22,7 @@ export default function Erlebnistag() {
     <>
       {/* Hero */}
       <section className="relative h-[50vh] min-h-[350px] flex items-end">
-        <Image src="/images/hero/hero-main.jpeg" alt="Erlebnistag auf dem Reiterhof" fill className="object-cover" priority />
+        <Image src="/images/angebote/erlebnistag.jpeg" alt="Erlebnistag auf dem Reiterhof" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-gradient-to-t from-[#2A3F28]/70 via-[#2A3F28]/20 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           <ScrollReveal>
@@ -54,7 +54,7 @@ export default function Erlebnistag() {
               </div>
             </ScrollReveal>
             <ScrollReveal delay={200}>
-              <Image src="/images/hero/hero-main.jpeg" alt="Gruppe beim Erlebnistag auf dem Reiterhof" width={700} height={500} className="rounded-2xl w-full object-cover shadow-sm" />
+              <Image src="/images/angebote/erlebnistag.jpeg" alt="Gruppe beim Erlebnistag auf dem Reiterhof" width={700} height={500} className="rounded-2xl w-full object-cover shadow-sm" />
             </ScrollReveal>
           </div>
         </div>
@@ -67,7 +67,7 @@ export default function Erlebnistag() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <ScrollReveal>
-              <Image src="/images/hero/hero-main.jpeg" alt="Verschiedene Gruppen beim Erlebnistag" width={700} height={500} className="rounded-2xl w-full object-cover shadow-sm" />
+              <Image src="/images/angebote/erlebnistag.jpeg" alt="Verschiedene Gruppen beim Erlebnistag" width={700} height={500} className="rounded-2xl w-full object-cover shadow-sm" />
             </ScrollReveal>
             <ScrollReveal delay={150}>
               <div>

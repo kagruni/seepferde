@@ -24,7 +24,7 @@ export default function FuehrungskraefteCoaching() {
     <>
       {/* Hero */}
       <section className="relative h-[50vh] min-h-[350px] flex items-end">
-        <Image src="/images/hero/hero-main.jpeg" alt="Pferdegestütztes Führungskräfte-Coaching auf dem Reiterhof" fill className="object-cover" priority />
+        <Image src="/images/angebote/fuehrungskraefte-coaching.jpeg" alt="Pferdegestütztes Führungskräfte-Coaching auf dem Reiterhof" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-gradient-to-t from-[#2A3F28]/70 via-[#2A3F28]/20 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           <ScrollReveal>
@@ -56,7 +56,7 @@ export default function FuehrungskraefteCoaching() {
               </div>
             </ScrollReveal>
             <ScrollReveal delay={200}>
-              <Image src="/images/hero/hero-main.jpeg" alt="Führungskraft beim Coaching mit Pferd" width={700} height={500} className="rounded-2xl w-full object-cover shadow-sm" />
+              <Image src="/images/angebote/fuehrungskraefte-coaching.jpeg" alt="Führungskraft beim Coaching mit Pferd" width={700} height={500} className="rounded-2xl w-full object-cover shadow-sm" />
             </ScrollReveal>
           </div>
         </div>
