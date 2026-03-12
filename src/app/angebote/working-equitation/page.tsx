@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import Button from "@/components/ui/Button";
+import InquiryButton from "@/components/ui/InquiryButton";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import { Target, CircleDot, Route, Flag } from "lucide-react";
@@ -140,7 +140,7 @@ export default function WorkingEquitation() {
           <ScrollReveal>
             <h2 className="text-3xl sm:text-4xl text-white mb-4">Working-Equitation ausprobieren</h2>
             <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">Kontaktieren Sie uns und sichern Sie sich Ihren Platz im nächsten Workshop.</p>
-            <Button href="/kontakt" variant="primary" size="lg">Jetzt anfragen</Button>
+            <InquiryButton subject="Working-Equitation" label="Jetzt anfragen" size="lg" />
           </ScrollReveal>
         </div>
       </section>

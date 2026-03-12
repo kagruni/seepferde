@@ -35,6 +35,7 @@ export default function WatercolorCanvas({
   const uniformsRef = useRef<{
     u_progress: WebGLUniformLocation | null;
     u_resolution: WebGLUniformLocation | null;
+    u_image_resolution: WebGLUniformLocation | null;
     u_noise_scale: WebGLUniformLocation | null;
     u_photo: WebGLUniformLocation | null;
     u_watercolor: WebGLUniformLocation | null;
@@ -91,6 +92,7 @@ export default function WatercolorCanvas({
     const uniforms = {
       u_progress: gl.getUniformLocation(program, "u_progress"),
       u_resolution: gl.getUniformLocation(program, "u_resolution"),
+      u_image_resolution: gl.getUniformLocation(program, "u_image_resolution"),
       u_noise_scale: gl.getUniformLocation(program, "u_noise_scale"),
       u_photo: gl.getUniformLocation(program, "u_photo"),
       u_watercolor: gl.getUniformLocation(program, "u_watercolor"),
@@ -106,11 +108,16 @@ export default function WatercolorCanvas({
       loadTexture(gl, imageSrc),
       loadTexture(gl, watercolorSrc),
     ])
-      .then(([photoTex, watercolorTex]) => {
+      .then(([photoResult, watercolorResult]) => {
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, photoTex);
+        gl.bindTexture(gl.TEXTURE_2D, photoResult.texture);
         gl.activeTexture(gl.TEXTURE1);
-        gl.bindTexture(gl.TEXTURE_2D, watercolorTex);
+        gl.bindTexture(gl.TEXTURE_2D, watercolorResult.texture);
+
+        // Set image resolution for aspect-ratio-correct cover UV mapping
+        if (uniforms.u_image_resolution) {
+          gl.uniform2f(uniforms.u_image_resolution, photoResult.width, photoResult.height);
+        }
 
         updateSize();
         setWebglReady(true);

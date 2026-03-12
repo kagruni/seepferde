@@ -19,6 +19,7 @@ uniform sampler2D u_photo;
 uniform sampler2D u_watercolor;
 uniform float u_progress;
 uniform vec2 u_resolution;
+uniform vec2 u_image_resolution;
 uniform float u_noise_scale;
 
 varying vec2 v_uv;
@@ -73,9 +74,25 @@ float snoise(vec2 v) {
 }
 // --- End Simplex Noise ---
 
+// object-cover UV: crop image to fill container while preserving aspect ratio
+vec2 coverUV(vec2 uv, vec2 containerRes, vec2 imageRes) {
+  float containerAspect = containerRes.x / containerRes.y;
+  float imageAspect = imageRes.x / imageRes.y;
+  vec2 result = uv;
+  if (containerAspect > imageAspect) {
+    float scale = containerAspect / imageAspect;
+    result.y = (uv.y - 0.5) / scale + 0.5;
+  } else {
+    float scale = imageAspect / containerAspect;
+    result.x = (uv.x - 0.5) / scale + 0.5;
+  }
+  return result;
+}
+
 void main() {
-  vec4 photoColor = texture2D(u_photo, v_uv);
-  vec4 watercolorColor = texture2D(u_watercolor, v_uv);
+  vec2 cuv = coverUV(v_uv, u_resolution, u_image_resolution);
+  vec4 photoColor = texture2D(u_photo, cuv);
+  vec4 watercolorColor = texture2D(u_watercolor, cuv);
 
   // Primary noise for organic boundary
   float noise = snoise(v_uv * u_noise_scale);

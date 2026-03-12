@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import InquiryButton from "@/components/ui/InquiryButton";
 import Card from "@/components/ui/Card";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
@@ -47,9 +48,7 @@ export default function Home() {
             </ScrollReveal>
             <ScrollReveal delay={300}>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Button href="/kontakt" variant="primary" size="lg">
-                  Angebot anfragen
-                </Button>
+                <InquiryButton label="Angebot anfragen" size="lg" />
                 <Button href="/angebote" variant="secondary" size="lg" className="border-white/60 text-white hover:bg-white/15 hover:text-white">
                   Unsere Angebote
                 </Button>

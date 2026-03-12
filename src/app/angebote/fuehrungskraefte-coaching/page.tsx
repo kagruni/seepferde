@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import Button from "@/components/ui/Button";
+import InquiryButton from "@/components/ui/InquiryButton";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import { Crown, Compass, Shield, ArrowUpRight, Eye, BarChart3 } from "lucide-react";
@@ -131,7 +131,7 @@ export default function FuehrungskraefteCoaching() {
           <ScrollReveal>
             <h2 className="text-3xl sm:text-4xl text-white mb-4">Bereit für neue Perspektiven?</h2>
             <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">Kontaktieren Sie uns für ein individuelles Coaching-Angebot — wir beraten Sie gerne.</p>
-            <Button href="/kontakt" variant="primary" size="lg">Angebot anfragen</Button>
+            <InquiryButton subject="Führungskräfte-Coaching" label="Angebot anfragen" size="lg" />
           </ScrollReveal>
         </div>
       </section>

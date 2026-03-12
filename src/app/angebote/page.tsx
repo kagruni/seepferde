@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Card from "@/components/ui/Card";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
-import Button from "@/components/ui/Button";
+import InquiryButton from "@/components/ui/InquiryButton";
 
 export const metadata: Metadata = {
   title: "Unsere Angebote",
@@ -143,7 +143,7 @@ export default function Angebote() {
             <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">
               Wir erstellen Ihnen gerne ein individuelles Angebot — passend zu Ihren Wünschen und Ihrem Team.
             </p>
-            <Button href="/kontakt" variant="primary" size="lg">Angebot anfragen</Button>
+            <InquiryButton label="Angebot anfragen" size="lg" />
           </ScrollReveal>
         </div>
       </section>

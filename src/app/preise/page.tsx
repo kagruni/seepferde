@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PriceCard from "@/components/ui/PriceCard";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
-import Button from "@/components/ui/Button";
+import InquiryButton from "@/components/ui/InquiryButton";
 import { PRICES } from "@/lib/constants";
 import { Info } from "lucide-react";
 
@@ -63,7 +63,7 @@ export default function Preise() {
             <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">
               Kontaktieren Sie uns für ein individuelles Angebot — passend zu Ihren Wünschen und Ihrem Budget.
             </p>
-            <Button href="/kontakt" variant="primary" size="lg">Angebot anfragen</Button>
+            <InquiryButton label="Angebot anfragen" size="lg" />
           </ScrollReveal>
         </div>
       </section>

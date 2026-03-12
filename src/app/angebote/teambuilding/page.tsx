@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import Button from "@/components/ui/Button";
+import InquiryButton from "@/components/ui/InquiryButton";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import { Users, MessageCircle, Zap, Heart, ListChecks, Handshake, GitBranch } from "lucide-react";
@@ -133,7 +133,7 @@ export default function Teambuilding() {
           <ScrollReveal>
             <h2 className="text-3xl sm:text-4xl text-white mb-4">Stärken Sie Ihr Team</h2>
             <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">Kontaktieren Sie uns für ein individuelles Teambuilding-Angebot — wir gestalten den Tag nach Ihren Wünschen.</p>
-            <Button href="/kontakt" variant="primary" size="lg">Angebot anfragen</Button>
+            <InquiryButton subject="Teambuilding" label="Angebot anfragen" size="lg" />
           </ScrollReveal>
         </div>
       </section>

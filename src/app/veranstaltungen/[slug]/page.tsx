@@ -21,12 +21,13 @@ export function generateStaticParams() {
   return EVENTS.map((event) => ({ slug: event.slug }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
-}): Metadata {
-  const event = EVENTS.find((e) => e.slug === params.slug);
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const event = EVENTS.find((e) => e.slug === slug);
   if (!event) return { title: "Veranstaltung nicht gefunden" };
   return {
     title: `${event.title} — Reiterhof Mandy Kolatka`,
@@ -34,12 +35,13 @@ export function generateMetadata({
   };
 }
 
-export default function EventDetail({
+export default async function EventDetail({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const event = EVENTS.find((e) => e.slug === params.slug);
+  const { slug } = await params;
+  const event = EVENTS.find((e) => e.slug === slug);
   if (!event) notFound();
 
   const isPast = event.status === "past";

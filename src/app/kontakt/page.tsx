@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import ContactForm from "@/components/ui/ContactForm";
+import MultiStepForm from "@/components/ui/MultiStepForm";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import Map from "@/components/common/Map";
@@ -37,7 +37,7 @@ export default function Kontakt() {
               <div>
                 <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Schreiben Sie uns</p>
                 <h2 className="text-3xl sm:text-4xl leading-tight mb-8">Kontaktformular</h2>
-                <ContactForm />
+                <MultiStepForm variant="inline" />
               </div>
             </ScrollReveal>
 

@@ -86,10 +86,16 @@ export function createFullScreenQuad(
   );
 }
 
+export interface TextureResult {
+  texture: WebGLTexture;
+  width: number;
+  height: number;
+}
+
 export function loadTexture(
   gl: WebGLRenderingContext,
   src: string
-): Promise<WebGLTexture> {
+): Promise<TextureResult> {
   return new Promise((resolve, reject) => {
     const tex = gl.createTexture();
     if (!tex) {
@@ -117,7 +123,7 @@ export function loadTexture(
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 
-      resolve(tex);
+      resolve({ texture: tex, width: img.naturalWidth, height: img.naturalHeight });
     };
 
     img.onerror = () => reject(new Error(`Failed to load texture: ${src}`));

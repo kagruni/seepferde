@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import Button from "@/components/ui/Button";
+import InquiryButton from "@/components/ui/InquiryButton";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import { Swords, Focus, Move, Sparkles } from "lucide-react";
@@ -128,7 +128,7 @@ export default function Garrocha() {
           <ScrollReveal>
             <h2 className="text-3xl sm:text-4xl text-white mb-4">Garrocha erleben</h2>
             <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">Kontaktieren Sie uns und melden Sie sich für den nächsten Garrocha-Workshop an.</p>
-            <Button href="/kontakt" variant="primary" size="lg">Jetzt anfragen</Button>
+            <InquiryButton subject="Garrocha" label="Jetzt anfragen" size="lg" />
           </ScrollReveal>
         </div>
       </section>

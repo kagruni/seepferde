@@ -159,7 +159,7 @@ export const EVENTS: Event[] = [
       "Erleben Sie unseren Extreme-Trail Park im Frühling! Ein Tag voller Vertrauen, Kommunikation und Hindernisse aus natürlichen Materialien — für Mensch und Pferd.",
     longDescription:
       "Unser Frühjahrs-Workshop im ersten Extreme-Trail Park Sachsens bietet Ihnen die Möglichkeit, gemeinsam mit Ihrem Pferd natürliche Hindernisse zu meistern. Der Tag beginnt mit einer Einführung in die Grundlagen der Bodenarbeit und führt Sie Schritt für Schritt durch unseren abwechslungsreichen Parcours. Dabei stehen Vertrauen, Kommunikation und die Förderung der Eigenständigkeit Ihres Pferdes im Mittelpunkt. Ob Anfänger oder Fortgeschrittener — der Workshop ist für alle Reitweisen und Rassen geeignet. Teilnahme mit eigenem Pferd oder einem unserer Hofpferde möglich.",
-    imageSrc: "/images/hero/hero-main.jpeg",
+    imageSrc: "/images/angebote/extreme-trail.jpeg",
     imageAlt: "Extreme-Trail Workshop — Pferd und Reiter am Hindernis",
     kategorie: "workshop",
     highlights: [
@@ -182,7 +182,7 @@ export const EVENTS: Event[] = [
       "Ein intensiver Tageskurs rund um Working-Equitation — dressurmäßige Arbeit verbunden mit konkreten Trail-Aufgaben für Pferd und Reiter.",
     longDescription:
       "Unser Working-Equitation Tageskurs verbindet dressurmäßige Arbeit mit praxisnahen Trail-Aufgaben. Sie lernen, Ihr Pferd fein und präzise durch einen abwechslungsreichen Parcours zu führen. Der Kurs richtet sich an Einsteiger und Fortgeschrittene gleichermaßen. In kleinen Gruppen von 4–6 Teilnehmern erhalten Sie intensive Betreuung und individuelles Feedback. Ein Tag voller Motivation und Freude am gemeinsamen Reiten.",
-    imageSrc: "/images/hero/hero-main.jpeg",
+    imageSrc: "/images/angebote/working-equitation.jpeg",
     imageAlt: "Working-Equitation Kurs — Reiter im Parcours",
     kategorie: "workshop",
     highlights: [
@@ -203,7 +203,7 @@ export const EVENTS: Event[] = [
       "Einstieg in das Reiten mit der Garrocha — traditionelle südeuropäische Reitkunst als Motivation und Freude für Reiter und Pferd.",
     longDescription:
       "In diesem Einführungskurs lernen Sie die Grundlagen des Reitens mit der Garrocha kennen — einer traditionellen südeuropäischen Reitdisziplin, die Eleganz, Präzision und Freude vereint. Unter erfahrener Anleitung üben Sie den Umgang mit der Garrocha-Stange zunächst vom Boden aus, bevor es in den Sattel geht. Voraussetzung ist sicheres Reiten im Schritt und Trab sowie Grundkenntnisse im einhändigen Reiten. Ein unvergessliches Erlebnis für alle, die Neues ausprobieren möchten.",
-    imageSrc: "/images/hero/hero-main.jpeg",
+    imageSrc: "/images/angebote/garrocha.jpeg",
     imageAlt: "Garrocha Kurs — Reiter mit Garrocha-Stange",
     kategorie: "workshop",
     highlights: [
@@ -224,7 +224,7 @@ export const EVENTS: Event[] = [
       "Ein intensiver Coaching-Tag für Führungskräfte — pferdegestütztes Leadership-Training mit nachhaltiger Wirkung.",
     longDescription:
       "Unser Intensivtag für Führungskräfte verbindet pferdegestütztes Coaching mit praxisorientierten Leadership-Übungen. In kleiner Runde arbeiten Sie den ganzen Tag mit unseren Pferden und erleben hautnah, wie Ihre Führung wirkt. Die Pferde reagieren unmittelbar auf Ihre Körpersprache und innere Haltung — ehrlicher als jedes 360-Grad-Feedback. Keine Reiterfahrung nötig, die gesamte Arbeit findet am Boden statt.",
-    imageSrc: "/images/hero/hero-main.jpeg",
+    imageSrc: "/images/angebote/fuehrungskraefte-coaching.jpeg",
     imageAlt: "Führungskräfte-Coaching mit Pferd auf dem Reiterhof",
     kategorie: "seminar",
     highlights: [
@@ -334,36 +334,43 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     height: 800,
   },
   {
-    src: "/images/angebote/ponyreiten-1.jpeg",
-    alt: "Kind auf Shetland-Pony, geführt durch Reitlehrerin",
+    src: "/images/angebote/fuehrungskraefte-coaching.jpeg",
+    alt: "Pferdegestütztes Führungskräfte-Coaching",
     category: "unterricht",
     width: 1200,
     height: 800,
   },
   {
-    src: "/images/angebote/reitunterricht-anfaenger.jpeg",
-    alt: "Anfängerin im Reitunterricht mit Reitlehrerin",
+    src: "/images/angebote/teambuilding.jpeg",
+    alt: "Teambuilding mit Pferden auf dem Reiterhof",
     category: "unterricht",
     width: 1200,
     height: 800,
   },
   {
-    src: "/images/angebote/ponyreiten-2.jpeg",
-    alt: "Kind auf Pony auf ländlichem Weg mit Wildblumen",
+    src: "/images/angebote/erlebnistag.jpeg",
+    alt: "Erlebnistag auf dem Reiterhof",
+    category: "events",
+    width: 1200,
+    height: 800,
+  },
+  {
+    src: "/images/angebote/extreme-trail.jpeg",
+    alt: "Extreme-Trail Park — Pferd am natürlichen Hindernis",
     category: "unterricht",
     width: 1200,
     height: 800,
   },
   {
-    src: "/images/angebote/longenstunde.jpeg",
-    alt: "Longenstunde — Reiterin auf Schimmel mit ausgestreckten Armen",
+    src: "/images/angebote/working-equitation.jpeg",
+    alt: "Working-Equitation Parcours mit Reiter",
     category: "unterricht",
     width: 1200,
     height: 800,
   },
   {
-    src: "/images/angebote/schnupperstunde.jpeg",
-    alt: "Erste Begegnung — junge Frau streichelt Pferd am Stall",
+    src: "/images/angebote/garrocha.jpeg",
+    alt: "Garrocha — Reiter mit traditioneller Stange",
     category: "unterricht",
     width: 1200,
     height: 800,
