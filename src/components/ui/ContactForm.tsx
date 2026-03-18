@@ -3,15 +3,17 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 import Button from "./Button";
-import { CONTACT_SUBJECTS } from "@/lib/constants";
+import { useSiteData } from "@/components/common/SiteDataProvider";
 
 export default function ContactForm() {
+  const { contactSubjects, mailtoEmail } = useSiteData();
+  const defaultSubject = contactSubjects[0] ?? "Allgemeine Anfrage";
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    subject: CONTACT_SUBJECTS[0],
+    subject: defaultSubject,
     message: "",
   });
 
@@ -29,7 +31,7 @@ export default function ContactForm() {
     const mailtoBody = encodeURIComponent(
       `Name: ${formData.name}\nE-Mail: ${formData.email}\nTelefon: ${formData.phone || "nicht angegeben"}\n\n${formData.message}`
     );
-    window.location.href = `mailto:[wird ergänzt]?subject=${mailtoSubject}&body=${mailtoBody}`;
+    window.location.href = `mailto:${mailtoEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
     setSubmitted(true);
   };
 
@@ -119,7 +121,7 @@ export default function ContactForm() {
           onChange={handleChange}
           className={inputClasses}
         >
-          {CONTACT_SUBJECTS.map((subject) => (
+          {contactSubjects.map((subject) => (
             <option key={subject} value={subject}>{subject}</option>
           ))}
         </select>

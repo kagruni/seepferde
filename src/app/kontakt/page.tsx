@@ -4,7 +4,7 @@ import MultiStepForm from "@/components/ui/MultiStepForm";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import Map from "@/components/common/Map";
-import { CONTACT } from "@/lib/constants";
+import { getSiteSettings } from "@/lib/content";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default function Kontakt() {
+  const siteSettings = getSiteSettings();
+
   return (
     <>
       {/* Hero */}
@@ -54,7 +56,7 @@ export default function Kontakt() {
                     </div>
                     <div>
                       <p className="font-semibold mb-0.5">Adresse</p>
-                      <p className="text-text-secondary">{CONTACT.address}</p>
+                      <p className="text-text-secondary">{siteSettings.address}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -63,7 +65,7 @@ export default function Kontakt() {
                     </div>
                     <div>
                       <p className="font-semibold mb-0.5">Telefon</p>
-                      <p className="text-text-secondary">{CONTACT.phone}</p>
+                      <p className="text-text-secondary">{siteSettings.phone}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -72,7 +74,7 @@ export default function Kontakt() {
                     </div>
                     <div>
                       <p className="font-semibold mb-0.5">E-Mail</p>
-                      <p className="text-text-secondary">{CONTACT.email}</p>
+                      <p className="text-text-secondary">{siteSettings.email}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -81,12 +83,12 @@ export default function Kontakt() {
                     </div>
                     <div>
                       <p className="font-semibold mb-0.5">Öffnungszeiten</p>
-                      <p className="text-text-secondary">{CONTACT.hours}</p>
+                      <p className="text-text-secondary">{siteSettings.hours}</p>
                     </div>
                   </div>
                 </div>
 
-                <Map className="mt-6" />
+                <Map className="mt-6" embedUrl={siteSettings.mapEmbedUrl} />
               </div>
             </ScrollReveal>
           </div>

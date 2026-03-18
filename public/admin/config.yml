@@ -1,0 +1,229 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_ORG/YOUR_REPOSITORY
+  branch: main
+  base_url: https://YOUR-OAUTH-BRIDGE.example.com
+
+locale: de
+publish_mode: editorial_workflow
+media_folder: public/images/uploads
+public_folder: /images/uploads
+site_url: https://mandykolatka.kajik.dev
+display_url: https://mandykolatka.kajik.dev
+logo_url: /icons/logo.svg
+
+collections:
+  - name: settings
+    label: Einstellungen
+    files:
+      - name: site
+        label: Website & Kontakt
+        file: content/settings/site.json
+        fields:
+          - { label: Betriebsname, name: businessName, widget: string }
+          - { label: Rechtlicher Name, name: legalName, widget: string }
+          - { label: Website URL, name: siteUrl, widget: string }
+          - { label: Standardtitel, name: defaultTitle, widget: string }
+          - { label: Titel-Template, name: titleTemplate, widget: string }
+          - { label: Standardbeschreibung, name: defaultDescription, widget: text }
+          - { label: Adresse, name: address, widget: string }
+          - { label: Postleitzahl, name: postalCode, widget: string }
+          - { label: Ort, name: city, widget: string }
+          - { label: Land, name: country, widget: string }
+          - { label: Telefon, name: phone, widget: string }
+          - { label: Sichtbare E-Mail, name: email, widget: string }
+          - { label: Mailto-Ziel, name: mailtoEmail, widget: string }
+          - { label: Öffnungszeiten, name: hours, widget: string }
+          - { label: Footer-Hinweis, name: footerNote, widget: text }
+          - { label: Karten-Embed URL, name: mapEmbedUrl, widget: string }
+          - { label: Hero-Bild, name: heroImage, widget: image }
+          - { label: Hero-Aquarell-Bild, name: heroWatercolorImage, widget: image }
+          - { label: OG-Bild, name: ogImage, widget: image }
+          - label: Navigation
+            name: navLinks
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Link, name: href, widget: string }
+          - label: Formular-Betreffoptionen
+            name: contactSubjects
+            widget: list
+            field: { label: Betreff, name: subject, widget: string }
+      - name: home
+        label: Startseite
+        file: content/settings/home.json
+        fields:
+          - { label: Hero-Titel, name: heroTitle, widget: string }
+          - { label: Hero-Text, name: heroSubtitle, widget: text }
+          - { label: Hero CTA primär, name: heroPrimaryCtaLabel, widget: string }
+          - { label: Hero CTA sekundär, name: heroSecondaryCtaLabel, widget: string }
+          - { label: Willkommen Eyebrow, name: welcomeEyebrow, widget: string }
+          - { label: Willkommen Titel, name: welcomeTitle, widget: string }
+          - label: Willkommen Absätze
+            name: welcomeParagraphs
+            widget: list
+            field: { label: Absatz, name: paragraph, widget: text }
+          - { label: Angebote Eyebrow, name: offersEyebrow, widget: string }
+          - { label: Angebote Titel, name: offersTitle, widget: string }
+          - { label: Events Eyebrow, name: eventsEyebrow, widget: string }
+          - { label: Events Titel, name: eventsTitle, widget: string }
+          - { label: Kontakt Eyebrow, name: contactEyebrow, widget: string }
+          - { label: Kontakt Titel, name: contactTitle, widget: string }
+          - { label: Kontakt Text, name: contactText, widget: text }
+          - { label: Kontakt CTA, name: contactCtaLabel, widget: string }
+
+  - name: horses
+    label: Pferde
+    label_singular: Pferd
+    folder: content/horses
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Rasse, name: breed, widget: string }
+      - { label: Alter, name: age, widget: string, required: false }
+      - { label: Charakter, name: character, widget: text }
+      - { label: Einsatzbereich, name: role, widget: string }
+      - { label: Bild, name: imageSrc, widget: image }
+      - { label: Bild Alt-Text, name: imageAlt, widget: string }
+      - { label: Veröffentlicht, name: published, widget: boolean, default: true }
+      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
+
+  - name: events
+    label: Veranstaltungen
+    label_singular: Veranstaltung
+    folder: content/events
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Titel, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Datum, name: date, widget: datetime, time_format: false, format: "YYYY-MM-DD" }
+      - { label: Enddatum, name: endDate, widget: datetime, required: false, time_format: false, format: "YYYY-MM-DD" }
+      - { label: Ort, name: location, widget: string }
+      - { label: Kurzbeschreibung, name: description, widget: text }
+      - { label: Bild, name: imageSrc, widget: image }
+      - { label: Bild Alt-Text, name: imageAlt, widget: string }
+      - label: Kategorie
+        name: kategorie
+        widget: select
+        options: [seminar, workshop]
+      - label: Highlights
+        name: highlights
+        widget: list
+        field: { label: Highlight, name: highlight, widget: string }
+      - label: Status
+        name: status
+        widget: select
+        options: [draft, upcoming, past, cancelled]
+      - { label: Auf Startseite hervorheben, name: featured, widget: boolean, default: false }
+      - { label: Veröffentlicht, name: published, widget: boolean, default: true }
+      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
+      - { label: Inhalt, name: body, widget: markdown }
+
+  - name: offers
+    label: Angebote
+    label_singular: Angebot
+    folder: content/offers
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Titel, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Kurztext, name: summary, widget: text }
+      - { label: Beschreibung, name: description, widget: text }
+      - label: Kategorie
+        name: category
+        widget: select
+        options: [seminar, workshop]
+      - { label: Bild, name: imageSrc, widget: image }
+      - { label: Bild Alt-Text, name: imageAlt, widget: string }
+      - label: Highlights
+        name: highlights
+        widget: list
+        field: { label: Highlight, name: highlight, widget: string }
+      - label: Zielgruppe
+        name: audience
+        widget: list
+        required: false
+        field: { label: Zielgruppe, name: audienceItem, widget: string }
+      - { label: Format, name: format, widget: string, required: false }
+      - { label: Besonderheit, name: specialNote, widget: text, required: false }
+      - { label: Voraussetzungen, name: prerequisites, widget: text, required: false }
+      - { label: Teilnehmerzahl, name: participantCount, widget: string, required: false }
+      - { label: Veröffentlicht, name: published, widget: boolean, default: true }
+      - { label: Auf Startseite hervorheben, name: featured, widget: boolean, default: false }
+      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
+      - { label: Inhalt, name: body, widget: markdown }
+
+  - name: prices
+    label: Preise
+    label_singular: Preis
+    folder: content/prices
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Titel, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Preis, name: price, widget: string }
+      - { label: Einheit, name: unit, widget: string }
+      - label: Leistungen
+        name: features
+        widget: list
+        field: { label: Punkt, name: feature, widget: string }
+      - { label: Hervorgehoben, name: highlighted, widget: boolean, default: false }
+      - { label: Veröffentlicht, name: published, widget: boolean, default: true }
+      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
+
+  - name: announcements
+    label: Banner & Hinweise
+    label_singular: Hinweis
+    folder: content/announcements
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Titel, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Meldung, name: message, widget: text }
+      - { label: Aktiv, name: enabled, widget: boolean, default: true }
+      - label: Variante
+        name: variant
+        widget: select
+        options: [info, success, warning]
+      - { label: Startdatum, name: startDate, widget: datetime, required: false, time_format: false, format: "YYYY-MM-DD" }
+      - { label: Enddatum, name: endDate, widget: datetime, required: false, time_format: false, format: "YYYY-MM-DD" }
+      - { label: Link-Label, name: linkLabel, widget: string, required: false }
+      - { label: Link-Ziel, name: linkHref, widget: string, required: false }
+      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
+
+  - name: gallery
+    label: Galerie
+    label_singular: Galeriebild
+    folder: content/gallery
+    create: true
+    slug: "{{title | slugify}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Titel, name: title, widget: string }
+      - { label: Bild, name: src, widget: image }
+      - { label: Alt-Text, name: alt, widget: string }
+      - label: Kategorie
+        name: category
+        widget: select
+        options: [hof, pferde, unterricht, events]
+      - { label: Breite, name: width, widget: number, value_type: int }
+      - { label: Höhe, name: height, widget: number, value_type: int }
+      - { label: Veröffentlicht, name: published, widget: boolean, default: true }
+      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }

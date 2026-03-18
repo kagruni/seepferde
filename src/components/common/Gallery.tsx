@@ -15,6 +15,7 @@ const CATEGORIES = [
   { key: "hof", label: "Hof & Anlage" },
   { key: "pferde", label: "Pferde" },
   { key: "unterricht", label: "Unterricht" },
+  { key: "events", label: "Events" },
 ] as const;
 
 export default function Gallery({ images, showFilters = true }: GalleryProps) {

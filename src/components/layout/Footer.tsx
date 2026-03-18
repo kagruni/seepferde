@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { NAV_LINKS, CONTACT } from "@/lib/constants";
+import type { SiteSettings } from "@/types";
 
-export default function Footer() {
+export default function Footer({ siteSettings }: { siteSettings: SiteSettings }) {
   return (
     <footer>
       {/* Botanical divider above footer */}
@@ -41,15 +41,15 @@ export default function Footer() {
               <ul className="space-y-3 text-cream/80">
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 mt-0.5 text-gold/60 shrink-0" />
-                  <span>{CONTACT.address}</span>
+                  <span>{siteSettings.address}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Phone className="w-5 h-5 mt-0.5 text-gold/60 shrink-0" />
-                  <span>{CONTACT.phone}</span>
+                  <span>{siteSettings.phone}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Mail className="w-5 h-5 mt-0.5 text-gold/60 shrink-0" />
-                  <span>{CONTACT.email}</span>
+                  <span>{siteSettings.email}</span>
                 </li>
               </ul>
             </div>
@@ -60,7 +60,7 @@ export default function Footer() {
                 Navigation
               </h4>
               <ul className="space-y-2">
-                {NAV_LINKS.map((link) => (
+                {siteSettings.navLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
@@ -97,12 +97,11 @@ export default function Footer() {
               <ul className="space-y-3 text-cream/80">
                 <li className="flex items-start gap-3">
                   <Clock className="w-5 h-5 mt-0.5 text-gold/60 shrink-0" />
-                  <span>{CONTACT.hours}</span>
+                  <span>{siteSettings.hours}</span>
                 </li>
               </ul>
               <p className="mt-4 text-sm text-cream/50">
-                Termine nach Vereinbarung. Bitte kontaktieren Sie uns
-                telefonisch oder per E-Mail.
+                {siteSettings.footerNote}
               </p>
             </div>
           </div>

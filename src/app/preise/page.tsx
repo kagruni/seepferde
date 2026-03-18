@@ -3,7 +3,7 @@ import PriceCard from "@/components/ui/PriceCard";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import InquiryButton from "@/components/ui/InquiryButton";
-import { PRICES } from "@/lib/constants";
+import { getPrices } from "@/lib/content";
 import { Info } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function Preise() {
+  const prices = getPrices();
+
   return (
     <>
       {/* Header */}
@@ -33,7 +35,7 @@ export default function Preise() {
       <section className="bg-white py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {PRICES.map((price, i) => (
+            {prices.map((price, i) => (
               <ScrollReveal key={price.title} delay={i * 100}>
                 <PriceCard {...price} />
               </ScrollReveal>

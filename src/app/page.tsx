@@ -1,19 +1,21 @@
 import Image from "next/image";
-import Button from "@/components/ui/Button";
-import InquiryButton from "@/components/ui/InquiryButton";
-import Card from "@/components/ui/Card";
-import SectionDivider from "@/components/ui/SectionDivider";
+import { Calendar, Mail, MapPin, Phone } from "lucide-react";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import WatercolorCanvas from "@/components/effects/WatercolorCanvas";
-import { MapPin, Phone, Mail, Calendar } from "lucide-react";
-import { CONTACT, EVENTS } from "@/lib/constants";
-
-const featuredEvent = EVENTS.find(
-  (e) => e.featured && e.status === "upcoming"
-);
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
+import InquiryButton from "@/components/ui/InquiryButton";
+import SectionDivider from "@/components/ui/SectionDivider";
+import {
+  getActiveAnnouncements,
+  getFeaturedHomeOffers,
+  getFeaturedUpcomingEvent,
+  getHomePageContent,
+  getSiteSettings,
+} from "@/lib/content";
 
 function formatDate(dateStr: string): string {
-  const date = new Date(dateStr + "T00:00:00");
+  const date = new Date(`${dateStr}T00:00:00`);
   return date.toLocaleDateString("de-DE", {
     day: "numeric",
     month: "long",
@@ -22,35 +24,44 @@ function formatDate(dateStr: string): string {
 }
 
 export default function Home() {
+  const siteSettings = getSiteSettings();
+  const home = getHomePageContent();
+  const featuredOffers = getFeaturedHomeOffers(3);
+  const featuredEvent = getFeaturedUpcomingEvent();
+  const announcements = getActiveAnnouncements();
+
   return (
     <>
-      {/* ─── HERO ─── */}
-      {/* Outer section is 200vh: first 100vh of scroll drives the watercolor transition while hero stays pinned */}
       <section className="relative h-[170vh]">
         <div className="sticky top-0 h-screen flex items-end overflow-hidden">
           <WatercolorCanvas
-            imageSrc="/images/hero/hero-main.jpeg"
-            watercolorSrc="/images/hero/hero-main-watercolor.png"
-            imageAlt="Reiterhof Mandy Kolatka — Panorama mit Reitplatz und Zwenkauer See bei Sonnenuntergang"
+            imageSrc={siteSettings.heroImage}
+            watercolorSrc={siteSettings.heroWatercolorImage}
+            imageAlt={`${siteSettings.businessName} - Panorama mit Reitplatz und Zwenkauer See bei Sonnenuntergang`}
             priority
           />
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-20 w-full">
             <ScrollReveal>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight max-w-2xl drop-shadow-lg">
-                Willkommen bei Seepferde Zwenkau
+                {home.heroTitle}
               </h1>
             </ScrollReveal>
             <ScrollReveal delay={150}>
               <p className="mt-4 text-lg sm:text-xl text-cream/90 max-w-lg font-body drop-shadow-md">
-                Pferdegestütztes Coaching, Workshops & Erlebnisse am Zwenkauer See — individuell, naturverbunden, unvergesslich.
+                {home.heroSubtitle}
               </p>
             </ScrollReveal>
             <ScrollReveal delay={300}>
               <div className="mt-8 flex flex-wrap gap-4">
-                <InquiryButton label="Angebot anfragen" size="lg" />
-                <Button href="/angebote" variant="secondary" size="lg" className="border-white/60 text-white hover:bg-white/15 hover:text-white">
-                  Unsere Angebote
+                <InquiryButton label={home.heroPrimaryCtaLabel} size="lg" />
+                <Button
+                  href="/angebote"
+                  variant="secondary"
+                  size="lg"
+                  className="border-white/60 text-white hover:bg-white/15 hover:text-white"
+                >
+                  {home.heroSecondaryCtaLabel}
                 </Button>
               </div>
             </ScrollReveal>
@@ -60,9 +71,39 @@ export default function Home() {
 
       <SectionDivider />
 
-      {/* ─── WILLKOMMEN ─── */}
+      {announcements.length > 0 && (
+        <>
+          <section className="bg-cream py-5">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
+              {announcements.map((announcement) => (
+                <div
+                  key={announcement.slug}
+                  className="rounded-2xl border border-forest/10 bg-white px-5 py-4 text-center shadow-sm"
+                >
+                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-gold mb-1">
+                    {announcement.title}
+                  </p>
+                  <p className="text-text-secondary">
+                    {announcement.message}{" "}
+                    {announcement.linkHref && announcement.linkLabel ? (
+                      <Button
+                        href={announcement.linkHref}
+                        variant="ghost"
+                        className="inline-flex p-0 text-forest underline underline-offset-4"
+                      >
+                        {announcement.linkLabel}
+                      </Button>
+                    ) : null}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+          <SectionDivider />
+        </>
+      )}
+
       <section className="relative bg-white overflow-hidden">
-        {/* Paper texture overlay */}
         <div
           className="absolute inset-0 opacity-30 pointer-events-none"
           style={{
@@ -76,34 +117,25 @@ export default function Home() {
             <ScrollReveal>
               <div>
                 <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
-                  Herzlich willkommen
+                  {home.welcomeEyebrow}
                 </p>
                 <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] leading-tight mb-6">
-                  Ein Ort, an dem Pferdeträume wahr werden
+                  {home.welcomeTitle}
                 </h2>
-                <p className="text-text-secondary text-lg leading-relaxed mb-4">
-                  Auf unserem Reiterhof in Zwenkau, direkt am wunderschönen
-                  Zwenkauer See, verbinden wir die Kraft der Pferde mit
-                  Coaching, Workshops und unvergesslichen Erlebnistagen.
-                </p>
-                <p className="text-text-secondary text-lg leading-relaxed mb-4">
-                  Unser pferdegestütztes Führungskräfte-Coaching und
-                  Teambuilding bietet Unternehmen eine einzigartige
-                  Möglichkeit, Führungsqualitäten zu entwickeln und
-                  Teamdynamiken nachhaltig zu stärken.
-                </p>
-                <p className="text-text-secondary text-lg leading-relaxed mb-8">
-                  In unseren Workshops — vom ersten Extreme-Trail Park
-                  Sachsens bis hin zu Working-Equitation und Garrocha —
-                  erleben Reiter und Pferdebegeisterte Motivation und Freude.
-                </p>
+                {home.welcomeParagraphs.map((paragraph) => (
+                  <p
+                    key={paragraph}
+                    className="text-text-secondary text-lg leading-relaxed mb-4"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
                 <Button href="/ueber-uns" variant="ghost">
                   Mehr über uns erfahren →
                 </Button>
               </div>
             </ScrollReveal>
 
-            {/* Watercolor horse decorative element */}
             <ScrollReveal delay={200}>
               <div className="relative flex justify-center">
                 <Image
@@ -121,62 +153,35 @@ export default function Home() {
 
       <SectionDivider />
 
-      {/* ─── ANGEBOTE ─── */}
       <section className="bg-beige py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-14">
               <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
-                Was wir bieten
+                {home.offersEyebrow}
               </p>
               <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem]">
-                Unsere Angebote
+                {home.offersTitle}
               </h2>
             </div>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            <ScrollReveal delay={0} className="h-full">
-              <Card
-                imageSrc="/images/angebote/fuehrungskraefte-coaching.jpeg"
-                imageAlt="Pferdegestütztes Führungskräfte-Coaching"
-                title="Führungskräfte-Coaching"
-                description="Pferdegestütztes Leadership-Coaching — Pferde als Spiegel für Führungsverhalten."
-                href="/angebote/fuehrungskraefte-coaching"
-              >
-                <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">
-                  Mehr erfahren →
-                </p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={150} className="h-full">
-              <Card
-                imageSrc="/images/angebote/extreme-trail.jpeg"
-                imageAlt="Extreme-Trail Park mit natürlichen Hindernissen"
-                title="Extreme-Trail"
-                description="Erster Extreme-Trail Park in Sachsen! Vertrauen aufbauen für Mensch und Pferd."
-                href="/angebote/extreme-trail"
-              >
-                <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">
-                  Mehr erfahren →
-                </p>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={300} className="h-full">
-              <Card
-                imageSrc="/images/angebote/erlebnistag.jpeg"
-                imageAlt="Erlebnistag auf dem Reiterhof"
-                title="Erlebnistag"
-                description="Kreativer Erlebnistag — Teamgeist stärken durch gemeinsames Erleben mit Pferden."
-                href="/angebote/erlebnistag"
-              >
-                <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">
-                  Mehr erfahren →
-                </p>
-              </Card>
-            </ScrollReveal>
+            {featuredOffers.map((offer, index) => (
+              <ScrollReveal key={offer.slug} delay={index * 150} className="h-full">
+                <Card
+                  imageSrc={offer.imageSrc}
+                  imageAlt={offer.imageAlt}
+                  title={offer.title}
+                  description={offer.summary}
+                  href={`/angebote/${offer.slug}`}
+                >
+                  <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">
+                    Mehr erfahren →
+                  </p>
+                </Card>
+              </ScrollReveal>
+            ))}
           </div>
 
           <ScrollReveal delay={200}>
@@ -189,7 +194,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── VERANSTALTUNG ─── */}
       {featuredEvent && (
         <>
           <SectionDivider />
@@ -214,7 +218,7 @@ export default function Home() {
                 <ScrollReveal delay={150}>
                   <div>
                     <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
-                      Nächste Veranstaltung
+                      {home.eventsEyebrow}
                     </p>
                     <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] leading-tight mb-4">
                       {featuredEvent.title}
@@ -247,9 +251,7 @@ export default function Home() {
 
       <SectionDivider />
 
-      {/* ─── KONTAKT-TEASER ─── */}
       <section className="relative bg-forest text-white py-20 md:py-28 overflow-hidden">
-        {/* Decorative horseshoe */}
         <div className="absolute -right-16 -bottom-16 opacity-[0.08] pointer-events-none">
           <Image
             src="/images/decorative/watercolor-hufeisen.jpeg"
@@ -265,33 +267,34 @@ export default function Home() {
           <div className="max-w-2xl mx-auto text-center">
             <ScrollReveal>
               <p className="text-gold-light font-semibold tracking-widest uppercase text-sm mb-3">
-                Wir freuen uns auf Sie
+                {home.contactEyebrow}
               </p>
               <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] text-white mb-6">
-                Besuchen Sie uns
+                {home.contactTitle}
               </h2>
+              <p className="text-white/80 text-lg mb-10">{home.contactText}</p>
             </ScrollReveal>
 
             <ScrollReveal delay={150}>
               <div className="space-y-4 text-white/85 text-lg mb-10">
                 <p className="flex items-center justify-center gap-3">
                   <MapPin className="w-5 h-5 text-gold-light shrink-0" />
-                  {CONTACT.address}
+                  {siteSettings.address}
                 </p>
                 <p className="flex items-center justify-center gap-3">
                   <Phone className="w-5 h-5 text-gold-light shrink-0" />
-                  {CONTACT.phone}
+                  {siteSettings.phone}
                 </p>
                 <p className="flex items-center justify-center gap-3">
                   <Mail className="w-5 h-5 text-gold-light shrink-0" />
-                  {CONTACT.email}
+                  {siteSettings.email}
                 </p>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={300}>
               <Button href="/kontakt" variant="primary" size="lg">
-                Kontakt aufnehmen
+                {home.contactCtaLabel}
               </Button>
             </ScrollReveal>
           </div>

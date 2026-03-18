@@ -5,7 +5,11 @@ import Button from "@/components/ui/Button";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import { Calendar, MapPin } from "lucide-react";
-import { EVENTS } from "@/lib/constants";
+import {
+  getFeaturedUpcomingEvent,
+  getPastEvents,
+  getUpcomingEvents,
+} from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Veranstaltungen — Reiterhof Mandy Kolatka",
@@ -22,11 +26,11 @@ function formatDate(dateStr: string): string {
   });
 }
 
-const upcomingEvents = EVENTS.filter((e) => e.status === "upcoming");
-const featuredEvent = EVENTS.find((e) => e.featured && e.status === "upcoming");
-const pastEvents = EVENTS.filter((e) => e.status === "past");
-
 export default function Veranstaltungen() {
+  const upcomingEvents = getUpcomingEvents();
+  const featuredEvent = getFeaturedUpcomingEvent();
+  const pastEvents = getPastEvents();
+
   return (
     <>
       {/* Header */}

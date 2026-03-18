@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Lora, Source_Sans_3 } from "next/font/google";
+import { SiteDataProvider } from "@/components/common/SiteDataProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { getSiteSettings } from "@/lib/content";
 import "./globals.css";
 
 const lora = Lora({
@@ -16,24 +18,25 @@ const sourceSans = Source_Sans_3({
   display: "swap",
 });
 
+const siteSettings = getSiteSettings();
+
 export const metadata: Metadata = {
   title: {
-    default: "Reiterhof Mandy Kolatka — Reitunterricht & Ponyreiten in Zwenkau",
-    template: "%s — Reiterhof Mandy Kolatka",
+    default: siteSettings.defaultTitle,
+    template: siteSettings.titleTemplate,
   },
-  description:
-    "Familiärer Reiterhof mit Reitunterricht und Ponyreiten in Zwenkau bei Leipzig. Schnupperstunden, Einzelunterricht und Gruppenunterricht für Anfänger und Fortgeschrittene.",
-  metadataBase: new URL("https://mandykolatka.kajik.dev"),
+  description: siteSettings.defaultDescription,
+  metadataBase: new URL(siteSettings.siteUrl),
   openGraph: {
     type: "website",
     locale: "de_DE",
-    siteName: "Reiterhof Mandy Kolatka",
+    siteName: siteSettings.businessName,
     images: [
       {
-        url: "/images/hero/hero-main.jpeg",
+        url: siteSettings.ogImage,
         width: 1200,
         height: 800,
-        alt: "Reiterhof Mandy Kolatka — Reitplatz mit Pferden am Zwenkauer See",
+        alt: `${siteSettings.businessName} - Reitplatz mit Pferden am Zwenkauer See`,
       },
     ],
   },
@@ -53,25 +56,28 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              name: "Reiterhof Mandy Kolatka",
-              description:
-                "Familiärer Reiterhof mit Reitunterricht und Ponyreiten in Zwenkau bei Leipzig",
+              name: siteSettings.businessName,
+              description: siteSettings.defaultDescription,
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "Hafenstraße 20",
-                addressLocality: "Zwenkau",
-                postalCode: "04442",
-                addressCountry: "DE",
+                streetAddress: siteSettings.address.split(",")[0],
+                addressLocality: siteSettings.city,
+                postalCode: siteSettings.postalCode,
+                addressCountry: siteSettings.country,
               },
-              url: "https://mandykolatka.kajik.dev",
+              telephone: siteSettings.phone,
+              email: siteSettings.email,
+              url: siteSettings.siteUrl,
             }),
           }}
         />
       </head>
       <body className={`${lora.variable} ${sourceSans.variable} antialiased`}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <SiteDataProvider value={siteSettings}>
+          <Header />
+          <main>{children}</main>
+          <Footer siteSettings={siteSettings} />
+        </SiteDataProvider>
       </body>
     </html>
   );

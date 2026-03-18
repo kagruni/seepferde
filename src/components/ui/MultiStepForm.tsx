@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { Send, Check, ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "./Button";
-import { CONTACT_SUBJECTS } from "@/lib/constants";
+import { useSiteData } from "@/components/common/SiteDataProvider";
 
 interface MultiStepFormProps {
   preselectedSubject?: string;
@@ -33,6 +33,7 @@ export default function MultiStepForm({
   variant,
   onClose,
 }: MultiStepFormProps) {
+  const { contactSubjects, mailtoEmail } = useSiteData();
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
@@ -122,9 +123,9 @@ export default function MultiStepForm({
     }
 
     const mailtoBody = encodeURIComponent(lines.join("\n"));
-    window.location.href = `mailto:[wird ergänzt]?subject=${mailtoSubject}&body=${mailtoBody}`;
+    window.location.href = `mailto:${mailtoEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
     setSubmitted(true);
-  }, [formData]);
+  }, [formData, mailtoEmail]);
 
   const handleReset = useCallback(() => {
     setSubmitted(false);
@@ -212,6 +213,7 @@ export default function MultiStepForm({
         >
           {currentStep === 1 && (
             <StepSubjects
+              subjects={contactSubjects}
               selected={formData.subjects}
               onToggle={toggleSubject}
             />
@@ -279,15 +281,17 @@ export default function MultiStepForm({
 /* ------------------------------------------------------------------ */
 
 function StepSubjects({
+  subjects,
   selected,
   onToggle,
 }: {
+  subjects: string[];
   selected: string[];
   onToggle: (subject: string) => void;
 }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      {CONTACT_SUBJECTS.map((subject) => {
+      {subjects.map((subject) => {
         const isSelected = selected.includes(subject);
         return (
           <button

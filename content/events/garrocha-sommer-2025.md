@@ -1,0 +1,23 @@
+---
+title: Garrocha Einführungskurs
+slug: garrocha-sommer-2025
+date: 2025-06-14
+location: Reiterhof Mandy Kolatka, Zwenkau
+description: Einstieg in das Reiten mit der Garrocha - traditionelle südeuropäische Reitkunst als Motivation und Freude für Reiter und Pferd.
+imageSrc: /images/angebote/garrocha.jpeg
+imageAlt: Garrocha Kurs - Reiter mit Garrocha-Stange
+kategorie: workshop
+highlights:
+  - Traditionelle südeuropäische Reitkunst
+  - Einführung vom Boden und im Sattel
+  - Erfahrene Anleitung
+  - Sicheres Reiten im Schritt und Trab vorausgesetzt
+  - Grundlagen einhändiges Reiten
+status: past
+featured: false
+published: true
+sortOrder: 30
+---
+In diesem Einführungskurs lernen Sie die Grundlagen des Reitens mit der Garrocha kennen - einer traditionellen südeuropäischen Reitdisziplin, die Eleganz, Präzision und Freude vereint.
+
+Unter erfahrener Anleitung üben Sie den Umgang mit der Garrocha-Stange zunächst vom Boden aus, bevor es in den Sattel geht.

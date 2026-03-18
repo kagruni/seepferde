@@ -3,8 +3,8 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_LINKS } from "@/lib/constants";
 import Button from "@/components/ui/Button";
+import { useSiteData } from "@/components/common/SiteDataProvider";
 
 interface MobileMenuProps {
   open: boolean;
@@ -13,6 +13,7 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
+  const { navLinks } = useSiteData();
 
   useEffect(() => {
     if (open) {
@@ -92,7 +93,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
 
           {/* Nav links */}
           <nav className="flex flex-col gap-1 flex-1">
-            {NAV_LINKS.map((link, i) => (
+            {navLinks.map((link, i) => (
               <Link
                 key={link.href}
                 href={link.href}

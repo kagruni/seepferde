@@ -3,10 +3,11 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Button from "@/components/ui/Button";
+import MarkdownContent from "@/components/common/MarkdownContent";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import { Calendar, MapPin, Tag, ArrowLeft, CheckCircle2 } from "lucide-react";
-import { EVENTS } from "@/lib/constants";
+import { getEventBySlug, getEvents } from "@/lib/content";
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr + "T00:00:00");
@@ -18,7 +19,7 @@ function formatDate(dateStr: string): string {
 }
 
 export function generateStaticParams() {
-  return EVENTS.map((event) => ({ slug: event.slug }));
+  return getEvents().map((event) => ({ slug: event.slug }));
 }
 
 export async function generateMetadata({
@@ -27,7 +28,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const event = EVENTS.find((e) => e.slug === slug);
+  const event = getEventBySlug(slug);
   if (!event) return { title: "Veranstaltung nicht gefunden" };
   return {
     title: `${event.title} — Reiterhof Mandy Kolatka`,
@@ -41,7 +42,7 @@ export default async function EventDetail({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const event = EVENTS.find((e) => e.slug === slug);
+  const event = getEventBySlug(slug);
   if (!event) notFound();
 
   const isPast = event.status === "past";
@@ -102,19 +103,9 @@ export default async function EventDetail({
                 <h2 className="text-3xl sm:text-4xl leading-tight mb-6">
                   {isPast ? "So war es" : "Das erwartet Sie"}
                 </h2>
-                <div className="text-text-secondary text-lg leading-relaxed space-y-4">
-                  {event.longDescription.split(". ").reduce<string[][]>(
-                    (acc, sentence, i) => {
-                      const groupIndex = Math.floor(i / 3);
-                      if (!acc[groupIndex]) acc[groupIndex] = [];
-                      acc[groupIndex].push(sentence);
-                      return acc;
-                    },
-                    []
-                  ).map((group, i) => (
-                    <p key={i}>{group.join(". ")}{!group[group.length - 1].endsWith(".") ? "." : ""}</p>
-                  ))}
-                </div>
+                <MarkdownContent className="text-text-secondary text-lg leading-relaxed">
+                  {event.body}
+                </MarkdownContent>
               </ScrollReveal>
             </div>
 

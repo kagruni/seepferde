@@ -1,0 +1,40 @@
+{
+  "businessName": "Reiterhof Mandy Kolatka",
+  "legalName": "Mandy Kolatka",
+  "siteUrl": "https://mandykolatka.kajik.dev",
+  "defaultTitle": "Reiterhof Mandy Kolatka - Reitunterricht & Ponyreiten in Zwenkau",
+  "titleTemplate": "%s - Reiterhof Mandy Kolatka",
+  "defaultDescription": "Familiärer Reiterhof mit Reitunterricht und Ponyreiten in Zwenkau bei Leipzig. Schnupperstunden, Einzelunterricht und Gruppenunterricht für Anfänger und Fortgeschrittene.",
+  "address": "Hafenstraße 20, 04442 Zwenkau",
+  "postalCode": "04442",
+  "city": "Zwenkau",
+  "country": "DE",
+  "phone": "[wird ergänzt]",
+  "email": "[wird ergänzt]",
+  "mailtoEmail": "kontakt@example.com",
+  "hours": "Termine nach Vereinbarung",
+  "footerNote": "Termine nach Vereinbarung. Bitte kontaktieren Sie uns telefonisch oder per E-Mail.",
+  "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=12.3246%2C51.2180%2C12.3346%2C51.2230&layer=mapnik&marker=51.2205%2C12.3296",
+  "heroImage": "/images/hero/hero-main.jpeg",
+  "heroWatercolorImage": "/images/hero/hero-main-watercolor.png",
+  "ogImage": "/images/hero/hero-main.jpeg",
+  "navLinks": [
+    { "label": "Startseite", "href": "/" },
+    { "label": "Über uns", "href": "/ueber-uns" },
+    { "label": "Angebote", "href": "/angebote" },
+    { "label": "Pferde", "href": "/pferde" },
+    { "label": "Preise", "href": "/preise" },
+    { "label": "Galerie", "href": "/galerie" },
+    { "label": "Veranstaltungen", "href": "/veranstaltungen" },
+    { "label": "Kontakt", "href": "/kontakt" }
+  ],
+  "contactSubjects": [
+    "Führungskräfte-Coaching",
+    "Teambuilding",
+    "Erlebnistag",
+    "Extreme-Trail",
+    "Working-Equitation",
+    "Garrocha",
+    "Allgemeine Anfrage"
+  ]
+}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import Gallery from "@/components/common/Gallery";
-import { GALLERY_IMAGES } from "@/lib/constants";
+import { getGalleryImages } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Galerie",
@@ -10,6 +10,8 @@ export const metadata: Metadata = {
 };
 
 export default function Galerie() {
+  const images = getGalleryImages();
+
   return (
     <>
       {/* Header */}
@@ -30,7 +32,7 @@ export default function Galerie() {
       {/* Gallery */}
       <section className="bg-white py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Gallery images={GALLERY_IMAGES} showFilters />
+          <Gallery images={images} showFilters />
         </div>
       </section>
     </>

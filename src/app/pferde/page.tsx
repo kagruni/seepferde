@@ -3,7 +3,7 @@ import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import HorseProfile from "@/components/common/HorseProfile";
 import Button from "@/components/ui/Button";
-import { HORSES } from "@/lib/constants";
+import { getHorses } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Unsere Pferde",
@@ -11,6 +11,8 @@ export const metadata: Metadata = {
 };
 
 export default function Pferde() {
+  const horses = getHorses();
+
   return (
     <>
       {/* Header */}
@@ -32,7 +34,7 @@ export default function Pferde() {
       <section className="bg-white py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {HORSES.map((horse, i) => (
+            {horses.map((horse, i) => (
               <ScrollReveal key={horse.name} delay={i * 150}>
                 <HorseProfile horse={horse} />
               </ScrollReveal>
