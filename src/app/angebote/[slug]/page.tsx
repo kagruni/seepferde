@@ -137,8 +137,6 @@ export default async function AngebotDetail({
         </div>
       </section>
 
-      <SectionDivider />
-
       <section className="bg-beige py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
@@ -167,7 +165,6 @@ export default async function AngebotDetail({
 
       {offer.audience && offer.audience.length > 0 && (
         <>
-          <SectionDivider />
           <section className="bg-white py-20 md:py-28">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
               <ScrollReveal>
@@ -192,8 +189,6 @@ export default async function AngebotDetail({
           </section>
         </>
       )}
-
-      <SectionDivider />
 
       <section className="bg-forest text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -151,7 +151,6 @@ export default function Veranstaltungen() {
             </div>
           </section>
 
-          <SectionDivider />
         </>
       )}
 
@@ -208,7 +207,6 @@ export default function Veranstaltungen() {
             </div>
           </section>
 
-          <SectionDivider />
         </>
       )}
 

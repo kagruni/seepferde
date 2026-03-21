@@ -99,7 +99,6 @@ export default function Home() {
               ))}
             </div>
           </section>
-          <SectionDivider />
         </>
       )}
 
@@ -151,8 +150,6 @@ export default function Home() {
         </div>
       </section>
 
-      <SectionDivider />
-
       <section className="bg-beige py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
@@ -196,8 +193,6 @@ export default function Home() {
 
       {featuredEvent && (
         <>
-          <SectionDivider />
-
           <section className="bg-white py-20 md:py-28">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -248,8 +243,6 @@ export default function Home() {
           </section>
         </>
       )}
-
-      <SectionDivider />
 
       <section className="relative bg-forest text-white py-20 md:py-28 overflow-hidden">
         <div className="absolute -right-16 -bottom-16 opacity-[0.08] pointer-events-none">

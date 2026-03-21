@@ -16,7 +16,7 @@
   "footerNote": "Termine nach Vereinbarung. Bitte kontaktieren Sie uns telefonisch oder per E-Mail.",
   "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=12.3246%2C51.2180%2C12.3346%2C51.2230&layer=mapnik&marker=51.2205%2C12.3296",
   "heroImage": "/images/hero/hero-main.jpeg",
-  "heroWatercolorImage": "/images/hero/hero-main-watercolor.png",
+  "heroWatercolorImage": "/images/hero/hero-main-watercolor.jpeg",
   "ogImage": "/images/hero/hero-main.jpeg",
   "navLinks": [
     { "label": "Startseite", "href": "/" },

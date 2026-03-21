@@ -167,8 +167,6 @@ export default async function EventDetail({
         </div>
       </section>
 
-      <SectionDivider />
-
       {/* Highlights */}
       {event.highlights.length > 0 && (
         <>
@@ -198,7 +196,6 @@ export default async function EventDetail({
             </div>
           </section>
 
-          <SectionDivider />
         </>
       )}
 

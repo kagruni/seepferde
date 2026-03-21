@@ -1,10 +1,10 @@
 ---
-title: Reiterin auf dem Hof
+title: Mandy Kolatka am Hof
 src: /images/hero/hero-rider.jpeg
-alt: Reiterin auf dem Reiterhof Mandy Kolatka
-category: unterricht
-width: 1200
-height: 1600
+alt: Mandy Kolatka lehnt an einem Zaun auf dem Reiterhof am Zwenkauer See
+category: hof
+width: 1024
+height: 1536
 published: true
 sortOrder: 20
 ---

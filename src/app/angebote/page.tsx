@@ -69,8 +69,6 @@ export default function Angebote() {
         </div>
       </section>
 
-      <SectionDivider />
-
       <section className="bg-beige py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
@@ -101,8 +99,6 @@ export default function Angebote() {
           </div>
         </div>
       </section>
-
-      <SectionDivider />
 
       <section className="bg-forest text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

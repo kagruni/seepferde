@@ -62,8 +62,6 @@ export default function UeberUns() {
         </div>
       </section>
 
-      <SectionDivider />
-
       {/* Team */}
       <section className="bg-beige py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,8 +74,13 @@ export default function UeberUns() {
 
           <ScrollReveal delay={150}>
             <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border border-brown/12 p-8 md:p-10 text-center">
-              <div className="w-24 h-24 bg-beige rounded-full mx-auto mb-6 flex items-center justify-center">
-                <span className="text-3xl font-heading font-bold text-brown">MK</span>
+              <div className="w-32 h-32 rounded-full mx-auto mb-6 overflow-hidden relative">
+                <Image
+                  src="/images/team/mandy-portrait.jpeg"
+                  alt="Mandy Kolatka mit ihren Pferden"
+                  fill
+                  className="object-cover object-top"
+                />
               </div>
               <h3 className="text-2xl mb-1">Mandy Kolatka</h3>
               <p className="text-gold font-semibold text-sm tracking-wide uppercase mb-4">Inhaberin & Reitlehrerin</p>
