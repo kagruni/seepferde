@@ -1,10 +1,10 @@
 {
-  "businessName": "Reiterhof Mandy Kolatka",
+  "businessName": "See-Pferde Zwenkau",
   "legalName": "Mandy Kolatka",
   "siteUrl": "https://mandykolatka.kajik.dev",
-  "defaultTitle": "Reiterhof Mandy Kolatka - Reitunterricht & Ponyreiten in Zwenkau",
-  "titleTemplate": "%s - Reiterhof Mandy Kolatka",
-  "defaultDescription": "Familiärer Reiterhof mit Reitunterricht und Ponyreiten in Zwenkau bei Leipzig. Schnupperstunden, Einzelunterricht und Gruppenunterricht für Anfänger und Fortgeschrittene.",
+  "defaultTitle": "See-Pferde Zwenkau - Pferdegestütztes Coaching & Workshops in Zwenkau",
+  "titleTemplate": "%s - See-Pferde Zwenkau",
+  "defaultDescription": "Pferdegestütztes Coaching, Workshops und Erlebnistage am Zwenkauer See — individuell, naturverbunden, unvergesslich.",
   "address": "Hafenstraße 20, 04442 Zwenkau",
   "postalCode": "04442",
   "city": "Zwenkau",
@@ -19,13 +19,10 @@
   "heroWatercolorImage": "/images/hero/hero-main-watercolor.jpeg",
   "ogImage": "/images/hero/hero-main.jpeg",
   "navLinks": [
-    { "label": "Startseite", "href": "/" },
-    { "label": "Über uns", "href": "/ueber-uns" },
+    { "label": "Willkommen", "href": "/" },
     { "label": "Angebote", "href": "/angebote" },
-    { "label": "Pferde", "href": "/pferde" },
-    { "label": "Preise", "href": "/preise" },
-    { "label": "Galerie", "href": "/galerie" },
-    { "label": "Veranstaltungen", "href": "/veranstaltungen" },
+    { "label": "Workshops", "href": "/veranstaltungen" },
+    { "label": "Hof-Infos", "href": "/ueber-uns" },
     { "label": "Kontakt", "href": "/kontakt" }
   ],
   "contactSubjects": [

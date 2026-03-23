@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Lora, Source_Sans_3 } from "next/font/google";
+import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import { SiteDataProvider } from "@/components/common/SiteDataProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { getSiteSettings } from "@/lib/content";
 import "./globals.css";
 
-const lora = Lora({
+const playfair = Playfair_Display({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
@@ -72,7 +72,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${lora.variable} ${sourceSans.variable} antialiased`}>
+      <body className={`${playfair.variable} ${sourceSans.variable} antialiased`}>
         <SiteDataProvider value={siteSettings}>
           <Header />
           <main>{children}</main>

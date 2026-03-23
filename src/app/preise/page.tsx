@@ -8,7 +8,7 @@ import { Info } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Preise",
-  description: "Preisübersicht für Coaching, Workshops und Erlebnistage auf dem Reiterhof Mandy Kolatka in Zwenkau.",
+  description: "Preisübersicht für Coaching, Workshops und Erlebnistage bei See-Pferde Zwenkau.",
 };
 
 export default function Preise() {
@@ -58,7 +58,7 @@ export default function Preise() {
       </section>
 
       {/* CTA */}
-      <section className="bg-forest text-white py-16 md:py-20">
+      <section className="bg-[#3D2A35] text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <h2 className="text-3xl sm:text-4xl text-white mb-4">Jetzt Angebot anfragen</h2>

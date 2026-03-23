@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
-  description: "Datenschutzerklärung des Reiterhof Mandy Kolatka — Informationen zum Umgang mit Ihren personenbezogenen Daten.",
+  description: "Datenschutzerklärung von See-Pferde Zwenkau — Informationen zum Umgang mit Ihren personenbezogenen Daten.",
 };
 
 export default function Datenschutz() {
@@ -16,7 +16,7 @@ export default function Datenschutz() {
             <h2 className="text-xl font-heading font-semibold text-text mb-2">1. Verantwortlicher</h2>
             <p>
               Mandy Kolatka<br />
-              Reiterhof Mandy Kolatka<br />
+              See-Pferde Zwenkau<br />
               Hafenstraße 20<br />
               04442 Zwenkau<br />
               E-Mail: [wird ergänzt]<br />

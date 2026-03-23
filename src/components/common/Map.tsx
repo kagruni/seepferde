@@ -1,7 +1,7 @@
 export default function Map({
   className = "",
   embedUrl,
-  title = "Standort Reiterhof Mandy Kolatka",
+  title = "Standort See-Pferde Zwenkau",
 }: {
   className?: string;
   embedUrl: string;

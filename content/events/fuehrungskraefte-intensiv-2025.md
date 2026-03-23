@@ -2,7 +2,7 @@
 title: Führungskräfte-Coaching Intensivtag
 slug: fuehrungskraefte-intensiv-2025
 date: 2025-03-08
-location: Reiterhof Mandy Kolatka, Zwenkau
+location: See-Pferde Zwenkau, Zwenkau
 description: Ein intensiver Coaching-Tag für Führungskräfte - pferdegestütztes Leadership-Training mit nachhaltiger Wirkung.
 imageSrc: /images/angebote/fuehrungskraefte-coaching.jpeg
 imageAlt: Führungskräfte-Coaching mit Pferd auf dem Reiterhof

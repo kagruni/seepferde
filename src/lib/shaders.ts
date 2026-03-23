@@ -107,8 +107,8 @@ void main() {
   vec3 color = mix(watercolorColor.rgb, photoColor.rgb, mask);
 
   // Baked gradient overlays (matching existing CSS gradients)
-  // Bottom-to-top: from rgba(42,63,40,0.80) at bottom, via rgba(42,63,40,0.25) at 25%, to transparent
-  vec3 gradientColor = vec3(42.0/255.0, 63.0/255.0, 40.0/255.0);
+  // Bottom-to-top: from rgba(61,42,53,0.80) at bottom, via rgba(61,42,53,0.25) at 25%, to transparent
+  vec3 gradientColor = vec3(61.0/255.0, 42.0/255.0, 53.0/255.0);
   float vertGrad;
   if (v_uv.y > 0.75) {
     // Bottom 25%: lerp from 0.25 alpha to 0.80 alpha
@@ -118,7 +118,7 @@ void main() {
     vertGrad = mix(0.0, 0.25, v_uv.y / 0.75);
   }
 
-  // Left-to-right: from rgba(42,63,40,0.30) at left to transparent at right
+  // Left-to-right: from rgba(61,42,53,0.30) at left to transparent at right
   float horizGrad = 0.30 * (1.0 - v_uv.x);
 
   // Combine gradients (additive blend, clamped)

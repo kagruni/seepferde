@@ -7,7 +7,7 @@ import { getHorses } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Unsere Pferde",
-  description: "Lernen Sie die Pferde und Ponys des Reiterhof Mandy Kolatka kennen — treue Begleiter im Unterricht und auf dem Hof.",
+  description: "Lernen Sie die Pferde und Ponys von See-Pferde Zwenkau kennen — treue Begleiter im Unterricht und auf dem Hof.",
 };
 
 export default function Pferde() {

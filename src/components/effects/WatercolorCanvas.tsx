@@ -210,8 +210,8 @@ export default function WatercolorCanvas({
       {/* CSS gradient overlays for fallback (hidden when WebGL active, since shader has them baked in) */}
       {!webglReady && (
         <>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#2A3F28]/80 via-[#2A3F28]/25 via-25% to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#2A3F28]/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#3D2A35]/80 via-[#3D2A35]/25 via-25% to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#3D2A35]/30 to-transparent" />
         </>
       )}
       {/* WebGL canvas */}

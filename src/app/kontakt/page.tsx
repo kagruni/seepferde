@@ -9,7 +9,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Kontakt & Anfahrt",
-  description: "Kontaktieren Sie den Reiterhof Mandy Kolatka in Zwenkau — Kontaktformular, Anfahrt und Öffnungszeiten.",
+  description: "Kontaktieren Sie See-Pferde Zwenkau — Kontaktformular, Anfahrt und Öffnungszeiten.",
 };
 
 export default function Kontakt() {
@@ -19,8 +19,8 @@ export default function Kontakt() {
     <>
       {/* Hero */}
       <section className="relative h-[40vh] min-h-[300px] flex items-end">
-        <Image src="/images/kontakt/eingang.jpeg" alt="Eingang zum Reiterhof Mandy Kolatka" fill className="object-cover" priority />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2A3F28]/70 via-[#2A3F28]/20 to-transparent" />
+        <Image src="/images/kontakt/eingang.jpeg" alt="Eingang zu See-Pferde Zwenkau" fill className="object-cover" priority />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#3D2A35]/70 via-[#3D2A35]/20 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           <ScrollReveal>
             <h1 className="text-4xl sm:text-5xl font-heading font-bold text-white drop-shadow-lg">Kontakt & Anfahrt</h1>

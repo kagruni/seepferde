@@ -12,9 +12,9 @@ import {
 } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Veranstaltungen — Reiterhof Mandy Kolatka",
+  title: "Veranstaltungen — See-Pferde Zwenkau",
   description:
-    "Aktuelle und vergangene Veranstaltungen auf dem Reiterhof Mandy Kolatka — Workshops, Kurse und Seminare rund um Pferde in Zwenkau.",
+    "Aktuelle und vergangene Veranstaltungen bei See-Pferde Zwenkau — Workshops, Kurse und Seminare rund um Pferde in Zwenkau.",
 };
 
 function formatDate(dateStr: string): string {
@@ -44,7 +44,7 @@ export default function Veranstaltungen() {
               Veranstaltungen
             </h1>
             <p className="text-text-secondary text-lg max-w-2xl">
-              Workshops, Kurse und Seminare auf dem Reiterhof — entdecken Sie
+              Workshops, Kurse und Seminare bei See-Pferde Zwenkau — entdecken Sie
               unsere aktuellen Termine und lassen Sie sich von vergangenen
               Veranstaltungen inspirieren.
             </p>
@@ -211,7 +211,7 @@ export default function Veranstaltungen() {
       )}
 
       {/* CTA */}
-      <section className="bg-forest text-white py-16 md:py-20">
+      <section className="bg-[#3D2A35] text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <h2 className="text-3xl sm:text-4xl text-white mb-4">

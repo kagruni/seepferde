@@ -15,9 +15,9 @@ interface ButtonProps {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-gold text-white shadow-md shadow-brown/20 hover:bg-gold-dark border border-gold-dark/30",
+    "bg-gold text-white shadow-md shadow-gold-dark/20 hover:bg-gold-dark border border-gold-dark/30",
   secondary:
-    "bg-transparent border-2 border-brown text-brown hover:bg-brown hover:text-white",
+    "bg-transparent border-2 border-gold text-gold hover:bg-gold hover:text-white",
   ghost:
     "text-forest underline underline-offset-4 hover:text-forest-dark border-none bg-transparent shadow-none",
 };
@@ -37,7 +37,7 @@ export default function Button({
   type = "button",
   onClick,
 }: ButtonProps) {
-  const classes = `inline-flex items-center justify-center font-body font-semibold tracking-wide rounded-xl transition-all duration-300 cursor-pointer ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
+  const classes = `inline-flex items-center justify-center font-body font-semibold tracking-wide rounded-lg transition-all duration-300 cursor-pointer ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
 
   if (href) {
     return (

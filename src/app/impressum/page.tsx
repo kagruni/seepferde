@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Impressum des Reiterhof Mandy Kolatka, Zwenkau — Angaben gemäß §5 TMG.",
+  description: "Impressum von See-Pferde Zwenkau — Angaben gemäß §5 TMG.",
 };
 
 export default function Impressum() {
@@ -16,7 +16,7 @@ export default function Impressum() {
             <h2 className="text-xl font-heading font-semibold text-text mb-2">Angaben gemäß §5 TMG</h2>
             <p>
               Mandy Kolatka<br />
-              Reiterhof Mandy Kolatka<br />
+              See-Pferde Zwenkau<br />
               Hafenstraße 20<br />
               04442 Zwenkau
             </p>

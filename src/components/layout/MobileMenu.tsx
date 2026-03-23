@@ -65,7 +65,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           <div className="flex items-center justify-between mb-10">
             <Image
               src="/icons/logo.svg"
-              alt="Reiterhof Mandy Kolatka"
+              alt="See-Pferde Zwenkau"
               width={150}
               height={42}
               className="h-9 w-auto"
@@ -114,7 +114,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               size="lg"
               className="w-full"
             >
-              Schnupperstunde vereinbaren
+              Buchen
             </Button>
           </div>
         </div>

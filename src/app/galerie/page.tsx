@@ -6,7 +6,7 @@ import { getGalleryImages } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Galerie",
-  description: "Eindrücke vom Reiterhof Mandy Kolatka — Bilder von unserem Hof, den Pferden und dem Reitunterricht in Zwenkau.",
+  description: "Eindrücke von See-Pferde Zwenkau — Bilder von unserem Hof, den Pferden und dem Reitunterricht in Zwenkau.",
 };
 
 export default function Galerie() {

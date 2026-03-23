@@ -1,7 +1,7 @@
 ---
 title: Eingang zum Hof
 src: /images/kontakt/eingang.jpeg
-alt: Eingang zum Reiterhof Mandy Kolatka
+alt: Eingang zum See-Pferde Zwenkau
 category: hof
 width: 1600
 height: 1067

@@ -6,7 +6,7 @@ import ScrollReveal from "@/components/common/ScrollReveal";
 
 export const metadata: Metadata = {
   title: "Über uns",
-  description: "Lernen Sie den Reiterhof Mandy Kolatka in Zwenkau kennen — unsere Philosophie, unser Team und unsere Leidenschaft für Pferde und Reitunterricht.",
+  description: "Lernen Sie See-Pferde Zwenkau kennen — unsere Philosophie, unser Team und unsere Leidenschaft für Pferde und Reitunterricht.",
 };
 
 export default function UeberUns() {
@@ -21,7 +21,7 @@ export default function UeberUns() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2A3F28]/70 via-[#2A3F28]/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#3D2A35]/70 via-[#3D2A35]/20 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           <ScrollReveal>
             <h1 className="text-4xl sm:text-5xl font-heading font-bold text-white drop-shadow-lg">
@@ -43,7 +43,7 @@ export default function UeberUns() {
                 <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Unsere Philosophie</p>
                 <h2 className="text-3xl sm:text-4xl leading-tight mb-6">Mit Herz und Verstand — für Mensch und Pferd</h2>
                 <p className="text-text-secondary text-lg leading-relaxed mb-4">
-                  Auf dem Reiterhof Mandy Kolatka steht das Wohl der Pferde und die Freude am Reiten im Mittelpunkt. Wir glauben, dass ein behutsamer, respektvoller Umgang mit den Tieren die Grundlage für jedes erfolgreiche Reiterlebnis ist.
+                  Bei See-Pferde Zwenkau steht das Wohl der Pferde und die Freude am Reiten im Mittelpunkt. Wir glauben, dass ein behutsamer, respektvoller Umgang mit den Tieren die Grundlage für jedes erfolgreiche Reiterlebnis ist.
                 </p>
                 <p className="text-text-secondary text-lg leading-relaxed mb-4">
                   Unser Unterricht ist individuell auf die Bedürfnisse jedes Reiters abgestimmt — ob jung oder alt, Anfänger oder Fortgeschrittener. In kleinen Gruppen oder im Einzelunterricht nehmen wir uns die Zeit, die Sie brauchen.

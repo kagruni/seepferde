@@ -26,7 +26,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${offer.title} - Reiterhof Mandy Kolatka`,
+    title: `${offer.title} - See-Pferde Zwenkau`,
     description: offer.description,
   };
 }
@@ -51,7 +51,7 @@ export default async function AngebotDetail({
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2A3F28]/70 via-[#2A3F28]/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#3D2A35]/70 via-[#3D2A35]/20 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           <ScrollReveal>
             <Link
@@ -190,7 +190,7 @@ export default async function AngebotDetail({
         </>
       )}
 
-      <section className="bg-forest text-white py-16 md:py-20">
+      <section className="bg-[#3D2A35] text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <h2 className="text-3xl sm:text-4xl text-white mb-4">

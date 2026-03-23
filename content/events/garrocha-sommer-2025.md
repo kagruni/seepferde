@@ -2,7 +2,7 @@
 title: Garrocha Einführungskurs
 slug: garrocha-sommer-2025
 date: 2025-06-14
-location: Reiterhof Mandy Kolatka, Zwenkau
+location: See-Pferde Zwenkau, Zwenkau
 description: Einstieg in das Reiten mit der Garrocha - traditionelle südeuropäische Reitkunst als Motivation und Freude für Reiter und Pferd.
 imageSrc: /images/angebote/garrocha.jpeg
 imageAlt: Garrocha Kurs - Reiter mit Garrocha-Stange

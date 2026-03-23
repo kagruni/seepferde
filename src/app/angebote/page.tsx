@@ -8,7 +8,7 @@ import { getOffers } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Unsere Angebote",
   description:
-    "Pferdegestütztes Coaching, Teambuilding, Workshops und Erlebnistage - entdecken Sie unser vielfältiges Angebot auf dem Reiterhof Mandy Kolatka.",
+    "Pferdegestütztes Coaching, Teambuilding, Workshops und Erlebnistage - entdecken Sie unser vielfältiges Angebot bei See-Pferde Zwenkau.",
 };
 
 export default function Angebote() {
@@ -100,7 +100,7 @@ export default function Angebote() {
         </div>
       </section>
 
-      <section className="bg-forest text-white py-16 md:py-20">
+      <section className="bg-[#3D2A35] text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <h2 className="text-3xl sm:text-4xl text-white mb-4">

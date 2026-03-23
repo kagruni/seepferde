@@ -3,7 +3,7 @@ title: Extreme-Trail Workshop - Frühlingskurs
 slug: extreme-trail-fruehling-2026
 date: 2026-04-12
 endDate: 2026-04-12
-location: Reiterhof Mandy Kolatka, Zwenkau
+location: See-Pferde Zwenkau, Zwenkau
 description: Erleben Sie unseren Extreme-Trail Park im Frühling. Ein Tag voller Vertrauen, Kommunikation und Hindernisse aus natürlichen Materialien - für Mensch und Pferd.
 imageSrc: /images/angebote/extreme-trail.jpeg
 imageAlt: Extreme-Trail Workshop - Pferd und Reiter am Hindernis

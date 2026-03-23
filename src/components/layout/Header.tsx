@@ -23,7 +23,7 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? "bg-cream/85 backdrop-blur-md shadow-sm border-b border-brown/10"
+            ? "bg-cream/90 backdrop-blur-md shadow-sm border-b border-brown/10"
             : "bg-transparent backdrop-blur-sm"
         }`}
       >
@@ -33,7 +33,7 @@ export default function Header() {
             <Link href="/" className="shrink-0">
               <Image
                 src="/icons/logo.svg"
-                alt="Reiterhof Mandy Kolatka"
+                alt="See-Pferde Zwenkau"
                 width={180}
                 height={50}
                 className={`h-11 w-auto transition-all duration-300 ${
@@ -63,7 +63,7 @@ export default function Header() {
             {/* Desktop CTA */}
             <div className="hidden lg:block">
               <Button href="/kontakt" variant="primary" size="sm">
-                Angebot anfragen
+                Buchen
               </Button>
             </div>
 
