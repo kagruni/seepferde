@@ -1,15 +1,14 @@
-import Image from "next/image";
 import type { Metadata } from "next";
 import MultiStepForm from "@/components/ui/MultiStepForm";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import Map from "@/components/common/Map";
 import { getSiteSettings } from "@/lib/content";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Kontakt & Anfahrt",
-  description: "Kontaktieren Sie See-Pferde Zwenkau — Kontaktformular, Anfahrt und Öffnungszeiten.",
+  description: "Kontaktieren Sie See-Pferde Zwenkau — Kontaktformular und Anfahrt.",
 };
 
 export default function Kontakt() {
@@ -18,12 +17,18 @@ export default function Kontakt() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-[40vh] min-h-[300px] flex items-end">
-        <Image src="/images/kontakt/eingang.jpeg" alt="Eingang zu See-Pferde Zwenkau" fill className="object-cover" priority />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#3D2A35]/70 via-[#3D2A35]/20 to-transparent" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
+      <section className="bg-beige pt-28 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <h1 className="text-4xl sm:text-5xl font-heading font-bold text-white drop-shadow-lg">Kontakt & Anfahrt</h1>
+            <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
+              See-Pferde Zwenkau
+            </p>
+            <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4">
+              Kontakt & Anfahrt
+            </h1>
+            <p className="text-text-secondary text-lg max-w-2xl">
+              Wir freuen uns auf Ihre Nachricht — kontaktieren Sie uns gerne per Formular, Telefon oder E-Mail.
+            </p>
           </ScrollReveal>
         </div>
       </section>
@@ -75,15 +80,6 @@ export default function Kontakt() {
                     <div>
                       <p className="font-semibold mb-0.5">E-Mail</p>
                       <p className="text-text-secondary">{siteSettings.email}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-forest/10 rounded-full flex items-center justify-center shrink-0">
-                      <Clock className="w-5 h-5 text-forest" />
-                    </div>
-                    <div>
-                      <p className="font-semibold mb-0.5">Öffnungszeiten</p>
-                      <p className="text-text-secondary">{siteSettings.hours}</p>
                     </div>
                   </div>
                 </div>

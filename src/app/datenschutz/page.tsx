@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
@@ -15,10 +16,14 @@ export default function Datenschutz() {
           <div>
             <h2 className="text-xl font-heading font-semibold text-text mb-2">1. Verantwortlicher</h2>
             <p>
-              Mandy Kolatka<br />
-              See-Pferde Zwenkau<br />
+              K &amp; P Hausmanagement OHG<br />
               Hafenstraße 20<br />
               04442 Zwenkau<br />
+              Geschäftsführung: Josephine Kolatka &amp; Mandy Kolatka<br />
+              <br />
+              Amtsgericht Leipzig, HRA 18303<br />
+              Steuernummer: 232/157/45604<br />
+              <br />
               E-Mail: [wird ergänzt]<br />
               Telefon: [wird ergänzt]
             </p>
@@ -37,9 +42,6 @@ export default function Datenschutz() {
             <p>
               Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und sonstige Daten, die über eine Website generiert werden, handeln.
             </p>
-            <p>
-              Hosting-Anbieter: [wird ergänzt]
-            </p>
 
             <h3 className="text-lg font-heading font-semibold text-text mb-1 mt-4">Kontaktformular</h3>
             <p>
@@ -51,20 +53,27 @@ export default function Datenschutz() {
           </div>
 
           <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">4. Eingebettete Inhalte</h2>
+            <h2 className="text-xl font-heading font-semibold text-text mb-2">4. Cookies</h2>
+            <p>
+              Diese Website verwendet Cookies. Cookies sind kleine Textdateien, die auf Ihrem Endgerät gespeichert werden. Wir unterscheiden zwischen:
+            </p>
+            <ul className="list-disc pl-6 space-y-1 mt-2">
+              <li><strong>Technisch notwendige Cookies:</strong> Diese sind für den Betrieb der Website erforderlich und können nicht deaktiviert werden. Hierzu zählt z.&nbsp;B. die Speicherung Ihrer Cookie-Einstellungen.</li>
+              <li><strong>Eingebettete Inhalte:</strong> Externe Dienste wie OpenStreetMap können eigene Cookies setzen, wenn Sie deren Inhalte laden. Diese werden nur mit Ihrer Zustimmung geladen.</li>
+            </ul>
+            <p className="mt-2">
+              Sie können Ihre Cookie-Einstellungen jederzeit über den Cookie-Banner ändern oder in Ihren Browser-Einstellungen Cookies blockieren. Rechtsgrundlage für technisch notwendige Cookies ist Art. 6 Abs. 1 lit. f DSGVO. Für alle anderen Cookies holen wir Ihre Einwilligung ein (Art. 6 Abs. 1 lit. a DSGVO).
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-heading font-semibold text-text mb-2">5. Eingebettete Inhalte</h2>
             <h3 className="text-lg font-heading font-semibold text-text mb-1">OpenStreetMap</h3>
             <p>
               Wir nutzen den Kartendienst von OpenStreetMap (OSM). Anbieter ist die OpenStreetMap Foundation. Beim Aufruf der Kontaktseite wird eine Verbindung zu den Servern von OpenStreetMap hergestellt. Dabei kann Ihre IP-Adresse und weitere technische Daten an OpenStreetMap übermittelt werden.
             </p>
             <p>
               Die Nutzung von OpenStreetMap erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote und einer leichten Auffindbarkeit der von uns auf der Website angegebenen Orte. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">5. Cookies</h2>
-            <p>
-              Diese Website verwendet keine Cookies zu Tracking- oder Analysezwecken. Es werden lediglich technisch notwendige Cookies verwendet, die für den Betrieb der Website erforderlich sind.
             </p>
           </div>
 
@@ -87,7 +96,7 @@ export default function Datenschutz() {
             <p>
               Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen in der Datenschutzerklärung umzusetzen.
             </p>
-            <p className="text-sm text-text-light mt-4">Stand: Februar 2026</p>
+            <p className="text-sm text-text-light mt-4">Stand: März 2026</p>
           </div>
         </div>
       </div>

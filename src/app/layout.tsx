@@ -3,6 +3,7 @@ import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import { SiteDataProvider } from "@/components/common/SiteDataProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CookieConsent from "@/components/common/CookieConsent";
 import { getSiteSettings } from "@/lib/content";
 import "./globals.css";
 
@@ -77,6 +78,7 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer siteSettings={siteSettings} />
+          <CookieConsent />
         </SiteDataProvider>
       </body>
     </html>

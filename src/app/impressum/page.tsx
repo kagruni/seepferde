@@ -15,11 +15,28 @@ export default function Impressum() {
           <div>
             <h2 className="text-xl font-heading font-semibold text-text mb-2">Angaben gemäß §5 TMG</h2>
             <p>
-              Mandy Kolatka<br />
-              See-Pferde Zwenkau<br />
+              K &amp; P Hausmanagement OHG<br />
               Hafenstraße 20<br />
               04442 Zwenkau
             </p>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-heading font-semibold text-text mb-2">Handelsregister</h2>
+            <p>
+              Amtsgericht Leipzig<br />
+              HRA 18303
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-heading font-semibold text-text mb-2">Steuernummer</h2>
+            <p>232/157/45604</p>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-heading font-semibold text-text mb-2">Geschäftsführung</h2>
+            <p>Josephine Kolatka &amp; Mandy Kolatka</p>
           </div>
 
           <div>
@@ -27,14 +44,6 @@ export default function Impressum() {
             <p>
               Telefon: [wird ergänzt]<br />
               E-Mail: [wird ergänzt]
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">Umsatzsteuer-ID</h2>
-            <p>
-              Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:<br />
-              [wird ergänzt]
             </p>
           </div>
 

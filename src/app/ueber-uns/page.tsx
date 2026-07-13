@@ -13,20 +13,18 @@ export default function UeberUns() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-[50vh] min-h-[350px] flex items-end">
-        <Image
-          src="/images/hero/hero-rider.jpeg"
-          alt="Reiterin auf Fuchs im Schritt am Reitplatz"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#3D2A35]/70 via-[#3D2A35]/20 to-transparent" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
+      <section className="bg-beige pt-28 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <h1 className="text-4xl sm:text-5xl font-heading font-bold text-white drop-shadow-lg">
+            <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
+              See-Pferde Zwenkau
+            </p>
+            <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4">
               Über uns
             </h1>
+            <p className="text-text-secondary text-lg max-w-2xl">
+              Lernen Sie uns kennen — unsere Philosophie, unser Team und unsere Leidenschaft für Pferde und Reitunterricht.
+            </p>
           </ScrollReveal>
         </div>
       </section>

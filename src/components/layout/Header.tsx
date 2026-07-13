@@ -3,14 +3,26 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import Button from "@/components/ui/Button";
 import MobileMenu from "./MobileMenu";
 import { useSiteData } from "@/components/common/SiteDataProvider";
+
+// Pages with dark image heroes where the nav should start transparent with white text
+const DARK_HERO_PATHS = new Set(["/"]);
+const DARK_HERO_PREFIXES = ["/angebote/", "/veranstaltungen/"];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { navLinks } = useSiteData();
+  const pathname = usePathname();
+
+  // Pages without a dark hero image should always show the solid (scrolled) nav style
+  const hasDarkHero =
+    DARK_HERO_PATHS.has(pathname) ||
+    DARK_HERO_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+  const solid = scrolled || !hasDarkHero;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -22,7 +34,7 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled
+          solid
             ? "bg-cream/90 backdrop-blur-md shadow-sm border-b border-brown/10"
             : "bg-transparent backdrop-blur-sm"
         }`}
@@ -37,7 +49,7 @@ export default function Header() {
                 width={180}
                 height={50}
                 className={`h-11 w-auto transition-all duration-300 ${
-                  scrolled ? "" : "brightness-0 invert"
+                  solid ? "" : "brightness-0 invert"
                 }`}
                 priority
               />
@@ -50,7 +62,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   className={`px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg ${
-                    scrolled
+                    solid
                       ? "text-text hover:text-forest hover:bg-forest/5"
                       : "text-white/90 hover:text-white hover:bg-white/10"
                   }`}
@@ -70,7 +82,7 @@ export default function Header() {
             {/* Mobile Hamburger */}
             <button
               className={`lg:hidden p-2 transition-colors cursor-pointer ${
-                scrolled ? "text-text hover:text-forest" : "text-white hover:text-white/80"
+                solid ? "text-text hover:text-forest" : "text-white hover:text-white/80"
               }`}
               onClick={() => setMobileOpen(true)}
               aria-label="Menü öffnen"
