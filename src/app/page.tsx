@@ -212,7 +212,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#3D2A35]/70" />
           <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <ScrollReveal>
-              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/90 drop-shadow-sm">
                 {home.eventEyebrow}
               </p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-white leading-tight mb-6">
