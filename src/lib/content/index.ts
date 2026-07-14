@@ -18,6 +18,7 @@ import {
   type MarkdownDocument,
 } from "./readers";
 import {
+  accommodationPageSchema,
   aboutPageSchema,
   announcementSchema,
   contactPageSchema,
@@ -35,6 +36,7 @@ import {
   pricesPageSchema,
   siteSettingsSchema,
   teamMemberSchema,
+  type AccommodationPageContent,
   type AboutPageContent,
   type Announcement,
   type ContactPageContent,
@@ -85,6 +87,7 @@ interface ContentSnapshot {
   horsesPage: HorsesPageContent;
   pricesPage: PricesPageContent;
   galleryPage: GalleryPageContent;
+  accommodationPage: AccommodationPageContent;
   legal: LegalSettings;
   imprint: LegalPageContent;
   privacy: LegalPageContent;
@@ -111,6 +114,7 @@ const singletonFiles = {
   horsesPage: "pages/horses.json",
   pricesPage: "pages/prices.json",
   galleryPage: "pages/gallery.json",
+  accommodationPage: "pages/accommodation.json",
   legal: "settings/legal.json",
 } as const;
 
@@ -346,6 +350,11 @@ function buildContentSnapshot(options: { validateAdmin?: boolean } = {}): BuildR
   const horsesPage = parseJson(singletonFiles.horsesPage, horsesPageSchema, issues);
   const pricesPage = parseJson(singletonFiles.pricesPage, pricesPageSchema, issues);
   const galleryPage = parseJson(singletonFiles.galleryPage, galleryPageSchema, issues);
+  const accommodationPage = parseJson(
+    singletonFiles.accommodationPage,
+    accommodationPageSchema,
+    issues
+  );
   const legal = parseJson(singletonFiles.legal, legalSettingsSchema, issues);
   const imprint = parseLegalPage("legal/imprint.md", issues);
   const privacy = parseLegalPage("legal/privacy.md", issues);
@@ -427,6 +436,7 @@ function buildContentSnapshot(options: { validateAdmin?: boolean } = {}): BuildR
     horsesPage,
     pricesPage,
     galleryPage,
+    accommodationPage,
   ]) {
     validateSeoImages(page.value?.seo, page.filePath, issues);
   }
@@ -510,6 +520,7 @@ function buildContentSnapshot(options: { validateAdmin?: boolean } = {}): BuildR
     horsesPage.value,
     pricesPage.value,
     galleryPage.value,
+    accommodationPage.value,
     legal.value,
     imprint.value,
     privacy.value,
@@ -534,6 +545,7 @@ function buildContentSnapshot(options: { validateAdmin?: boolean } = {}): BuildR
       horsesPage: horsesPage.value!,
       pricesPage: pricesPage.value!,
       galleryPage: galleryPage.value!,
+      accommodationPage: accommodationPage.value!,
       legal: legal.value!,
       imprint: imprint.value!,
       privacy: privacy.value!,
@@ -608,6 +620,10 @@ export function getPricesPageContent(): PricesPageContent {
 
 export function getGalleryPageContent(): GalleryPageContent {
   return getSnapshot().galleryPage;
+}
+
+export function getAccommodationPageContent(): AccommodationPageContent {
+  return getSnapshot().accommodationPage;
 }
 
 export function getLegalSettings(): LegalSettings {
@@ -704,7 +720,11 @@ export function getPrices(): Price[] {
 }
 
 export function getContactSubjects(): string[] {
-  return [...getOffers().map((offer) => offer.title), "Allgemeine Anfrage"];
+  return [
+    ...getOffers().map((offer) => offer.title),
+    "Pferdeunterbringung",
+    "Allgemeine Anfrage",
+  ];
 }
 
 export { resolveSeo };

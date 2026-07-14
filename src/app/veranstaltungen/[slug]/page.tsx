@@ -7,7 +7,15 @@ import InquiryButton from "@/components/ui/InquiryButton";
 import MarkdownContent from "@/components/common/MarkdownContent";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
-import { Calendar, MapPin, Tag, ArrowLeft, CheckCircle2 } from "lucide-react";
+import {
+  ArrowLeft,
+  Calendar,
+  CheckCircle2,
+  ExternalLink,
+  MapPin,
+  Tag,
+  UserRound,
+} from "lucide-react";
 import { getEventBySlug, getEvents } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -164,6 +172,29 @@ export default async function EventDetail({
                         <p>{event.category === "seminar" ? "Seminar" : "Workshop"}</p>
                       </div>
                     </div>
+                    {event.instructorName ? (
+                      <div className="flex items-start gap-3">
+                        <UserRound className="w-5 h-5 text-forest mt-0.5 shrink-0" />
+                        <div>
+                          <p className="font-semibold text-text text-sm">Kursleitung</p>
+                          <p>{event.instructorName}</p>
+                          {event.instructorOrganization ? (
+                            <p className="text-sm">{event.instructorOrganization}</p>
+                          ) : null}
+                          {event.instructorUrl ? (
+                            <a
+                              href={event.instructorUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-forest underline underline-offset-4"
+                            >
+                              Website ansehen
+                              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                            </a>
+                          ) : null}
+                        </div>
+                      </div>
+                    ) : null}
                     {event.capacity ? (
                       <div>
                         <p className="font-semibold text-text text-sm">Teilnehmerzahl</p>

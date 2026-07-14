@@ -1,6 +1,7 @@
 import type { Offer } from "@/lib/content/schemas";
 
 export type {
+  AccommodationPageContent,
   AboutPageContent,
   Announcement,
   ContactPageContent,

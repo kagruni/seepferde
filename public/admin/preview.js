@@ -379,6 +379,9 @@
         ? date + " – " + formatDate(endDate)
         : date;
       var times = [field(props, "startTime", ""), field(props, "endTime", "")].filter(Boolean).join(" – ");
+      var instructor = [field(props, "instructorName", ""), field(props, "instructorOrganization", "")]
+        .filter(Boolean)
+        .join(" · ");
 
       return scaffold([
         h(
@@ -405,6 +408,8 @@
             ["Teilnehmerzahl", field(props, "capacity", "")],
             ["Preis", field(props, "priceDisplay", "")],
             ["Zugehöriges Angebot", field(props, "relatedOffer", "")],
+            ["Kursleitung", instructor],
+            ["Website der Kursleitung", field(props, "instructorUrl", "")],
           ]),
         ], "preview-section--alt"),
         section([richText(props, "body"), bulletList(listField(props, "highlights"))]),
@@ -535,6 +540,44 @@
     },
   });
 
+  var AccommodationPreview = createClass({
+    render: function renderAccommodation() {
+      var props = this.props;
+      var options = listField(props, "options");
+      return scaffold([
+        section([
+          eyebrow(field(props, "eyebrow", "")),
+          h("h1", null, field(props, "title", "Pferdeunterbringung")),
+          h("p", { className: "preview-lead" }, field(props, "intro", "")),
+        ]),
+        section([
+          h("h2", null, "Unterbringungsmöglichkeiten"),
+          h(
+            "div",
+            { className: "preview-grid" },
+            options.map(function renderOption(option, index) {
+              return h("article", { className: "preview-card", key: (option.title || "Option") + index }, [
+                h("div", { className: "preview-card__body" }, [
+                  h("h3", null, option.title || "Unterbringung"),
+                  h("p", null, option.availability || ""),
+                  option.price ? h("strong", null, option.price) : null,
+                  option.note ? h("p", { className: "preview-muted" }, option.note) : null,
+                ].filter(Boolean)),
+              ]);
+            }),
+          ),
+        ], "preview-section--alt"),
+        section([
+          h("h2", null, field(props, "extrasTitle", "Zusatzleistungen")),
+          h("p", null, field(props, "extrasBody", "")),
+          h("h2", null, field(props, "bookingTitle", "Unterbringung anfragen")),
+          h("p", null, field(props, "bookingBody", "")),
+          h("span", { className: "preview-button" }, field(props, "bookingCtaLabel", "Anfragen")),
+        ]),
+      ]);
+    },
+  });
+
   var LegalPreview = createClass({
     render: function renderLegal() {
       var props = this.props;
@@ -561,6 +604,7 @@
   CMS.registerPreviewTemplate("horses_page", SimplePagePreview);
   CMS.registerPreviewTemplate("prices_page", SimplePagePreview);
   CMS.registerPreviewTemplate("gallery_page", SimplePagePreview);
+  CMS.registerPreviewTemplate("accommodation", AccommodationPreview);
   CMS.registerPreviewTemplate("offers", OfferPreview);
   CMS.registerPreviewTemplate("events", EventPreview);
   CMS.registerPreviewTemplate("team", TeamPreview);

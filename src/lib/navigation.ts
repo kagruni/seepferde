@@ -16,6 +16,7 @@ export const primaryNavigation: NavigationLink[] = [
 
 export const footerNavigation: NavigationLink[] = [
   ...primaryNavigation,
+  { href: "/pferdeunterbringung", label: "Pferdeunterbringung" },
   { href: "/kontakt", label: "Kontakt" },
   { href: "/impressum", label: "Impressum" },
   { href: "/datenschutz", label: "Datenschutz" },

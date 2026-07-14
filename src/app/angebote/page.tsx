@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
+import { CircleCheck, House } from "lucide-react";
 import ScrollReveal from "@/components/common/ScrollReveal";
+import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import InquiryButton from "@/components/ui/InquiryButton";
 import SectionDivider from "@/components/ui/SectionDivider";
-import { getOffers, getOffersPageContent } from "@/lib/content";
+import {
+  getAccommodationPageContent,
+  getOffers,
+  getOffersPageContent,
+} from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 
 export function generateMetadata(): Metadata {
@@ -16,6 +22,7 @@ export function generateMetadata(): Metadata {
 
 export default function Angebote() {
   const page = getOffersPageContent();
+  const accommodation = getAccommodationPageContent();
   const offers = getOffers();
   const groups = [
     {
@@ -91,6 +98,40 @@ export default function Angebote() {
           </section>
         );
       })}
+
+      <section className="bg-white py-16 md:py-24">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+          <ScrollReveal>
+            <div className="flex min-h-72 items-center justify-center rounded-2xl bg-forest/10 p-8">
+              <div className="flex h-28 w-28 items-center justify-center rounded-full border border-forest/15 bg-cream text-forest shadow-sm">
+                <House className="h-14 w-14" aria-hidden="true" />
+              </div>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-gold">
+              {accommodation.eyebrow}
+            </p>
+            <h2 className="text-3xl sm:text-4xl">{accommodation.title}</h2>
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-text-secondary">
+              {accommodation.intro}
+            </p>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2" aria-label="Unterbringungsmöglichkeiten">
+              {accommodation.options.map((option) => (
+                <li key={option.title} className="flex items-start gap-2 text-text-secondary">
+                  <CircleCheck className="mt-0.5 h-5 w-5 shrink-0 text-forest" aria-hidden="true" />
+                  <span>
+                    <strong className="text-text">{option.title}:</strong> {option.price}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <Button href="/pferdeunterbringung" variant="primary" className="mt-8">
+              Details zur Unterbringung
+            </Button>
+          </ScrollReveal>
+        </div>
+      </section>
 
       {page.ctaTitle && page.ctaLabel ? (
         <section className="bg-[#3D2A35] text-white py-16 md:py-20">

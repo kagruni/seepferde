@@ -68,6 +68,9 @@ jobs:
       - name: Build static export
         run: npm run build
 
+      - name: Verify clean-route export
+        run: node scripts/verify-static-export.mjs
+
   build-and-deploy:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
@@ -112,8 +115,8 @@ jobs:
       - name: Build static export
         run: npm run build
 
-      - name: Verify export artifact
-        run: test -f out/index.html
+      - name: Verify clean-route export
+        run: node scripts/verify-static-export.mjs
 
       - name: Sync exported site to cPanel
         uses: burnett01/rsync-deployments@7.0.2

@@ -1,36 +1,43 @@
 ---
-title: Working-Equitation
-summary: Motivations-Parcours für Pferd und Reiter - Dressur trifft Trail.
-description: Dressurmäßige Arbeit mit konkreten Aufgaben im Parcours für mehr Motivation, Präzision und Freude.
+title: Working Equitation
+summary: Dressurarbeit trifft Trail-Parcours – abwechslungsreiches Training für Pferd und Reiter.
+description: Dressurmäßige Arbeit und konkrete Aufgaben im Parcours fördern Motivation, Präzision und eine feine Kommunikation.
 category: workshop
 imageSrc: /images/angebote/working-equitation.jpeg
-imageAlt: Working-Equitation Parcours
+imageAlt: Pferd und Reiter in einem Working-Equitation-Parcours
 highlights:
   - Tor, Glocke, Brücke und Slalom
-  - Dressur mit direktem Praxisbezug
-  - Kleine Gruppen
-  - Individuelles Feedback
+  - Dressurarbeit mit direktem Praxisbezug
+  - Abwechslungsreiche Aufgaben für Pferd und Reiter
+  - Individuelle Arbeit am jeweiligen Ausbildungsstand
 audience:
-  - Einsteiger mit Grundkenntnissen
-  - Fortgeschrittene Reiter
+  - Einsteiger und Fortgeschrittene
   - Pferde aller Rassen
-format: Ganztägiger Workshop mit Theorie und Praxis
-specialNote: Ideal für Reiter, die Dressur mit Sinn und Spaß verbinden möchten.
-participantCount: 4-6 aktive Teilnehmer plus Zuschauerplätze
+format: Kursformat mit Dressurarbeit und Working-Equitation-Parcours
+specialNote: Die konkreten Termine und Kursdetails finden Sie bei den Veranstaltungen.
+participantCount: Je nach ausgeschriebenem Kurstermin
+prerequisites: Sicheres Reiten im Schritt und Trab.
 pricingOptions:
-  - label: Working-Equitation
-    price: Preis auf Anfrage
-    unit: pro Teilnehmer
+  - label: Aktive Teilnahme
+    price: 210 €
+    unit: pro Teilnehmer und Tag
     features:
-      - Ganztägiger Workshop
-      - Parcours-Training
-      - Individuelles Feedback
-      - Kleine Gruppen
+      - 45 Minuten Dressurarbeit
+      - 45 Minuten Working Equitation
+      - Reiter-Yoga
+      - Snacks, Getränke und Mittagessen inklusive
+    highlighted: true
+  - label: Zuschauer
+    price: 15 €
+    unit: pro Person und Tag
+    features:
+      - Teilnahme als Zuschauer
+      - Ohne Verpflegung
     highlighted: false
 showOnPricesPage: true
 published: true
 sortOrder: 50
 ---
-Working-Equitation verbindet dressurmäßige Arbeit mit konkreten Trail-Aufgaben. Das Ergebnis ist ein Motivations-Parcours, der Pferd und Reiter gleichermaßen fordert und begeistert.
+Working Equitation verbindet dressurmäßige Arbeit mit konkreten Trail-Aufgaben. Die abwechslungsreichen Übungen fördern Aufmerksamkeit, Geschicklichkeit und eine feine Kommunikation zwischen Pferd und Reiter.
 
-Statt trockener Dressurarbeit erleben Sie, wie einzelne Lektionen plötzlich einen Zweck bekommen - das Tor wird geöffnet, der Pferch geschlossen, die Glocke geläutet.
+Im Parcours bekommen einzelne Lektionen einen direkten Praxisbezug: Ein Tor wird geöffnet, eine Brücke überquert oder die Glocke geläutet. Dabei wird jedes Paar entsprechend seinem Ausbildungsstand begleitet.

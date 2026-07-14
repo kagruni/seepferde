@@ -18,6 +18,19 @@ const optionalEmail = z.preprocess(
   z.string().trim().email("Bitte geben Sie eine gültige E-Mail-Adresse ein.").optional()
 );
 
+const optionalHttpsUrl = z.preprocess(
+  (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+  z
+    .string()
+    .trim()
+    .url("Bitte geben Sie eine vollständige Webadresse ein.")
+    .refine(
+      (value) => value.startsWith("https://"),
+      "Die Webadresse muss mit https:// beginnen."
+    )
+    .optional()
+);
+
 const dateString = z.preprocess(
   normalizeCalendarDate,
   z
@@ -356,6 +369,23 @@ export const galleryPageSchema = z.object({
   emptyState: requiredString(),
 });
 
+const accommodationOptionSchema = z.object({
+  title: requiredString(),
+  availability: requiredString(),
+  price: requiredString(),
+  note: optionalString,
+});
+
+export const accommodationPageSchema = z.object({
+  ...pageBase,
+  options: z.array(accommodationOptionSchema).min(1).max(6),
+  extrasTitle: requiredString(),
+  extrasBody: requiredString(),
+  bookingTitle: requiredString(),
+  bookingBody: requiredString(),
+  bookingCtaLabel: requiredString().max(30),
+});
+
 export type AboutPageContent = z.infer<typeof aboutPageSchema>;
 export type ContactPageContent = z.infer<typeof contactPageSchema>;
 export type OffersPageContent = z.infer<typeof offersPageSchema>;
@@ -363,6 +393,7 @@ export type EventsPageContent = z.infer<typeof eventsPageSchema>;
 export type HorsesPageContent = z.infer<typeof horsesPageSchema>;
 export type PricesPageContent = z.infer<typeof pricesPageSchema>;
 export type GalleryPageContent = z.infer<typeof galleryPageSchema>;
+export type AccommodationPageContent = z.infer<typeof accommodationPageSchema>;
 
 const pricingOptionSchema = z.object({
   label: requiredString(),
@@ -448,6 +479,9 @@ export const eventSchema = z.preprocess((value) => {
     location: requiredString(),
     category: z.enum(["seminar", "workshop"]),
     relatedOffer: optionalString,
+    instructorName: optionalString,
+    instructorOrganization: optionalString,
+    instructorUrl: optionalHttpsUrl,
     description: requiredString(),
     body: requiredString(),
     imageSrc: imagePath,
@@ -460,6 +494,13 @@ export const eventSchema = z.preprocess((value) => {
     seo: seoSchema,
   })
   .superRefine((event, context) => {
+    if ((event.instructorOrganization || event.instructorUrl) && !event.instructorName) {
+      context.addIssue({
+        code: "custom",
+        path: ["instructorName"],
+        message: "Bitte tragen Sie zur Organisation oder Website auch den Namen der Kursleitung ein.",
+      });
+    }
     if (event.endDate && event.endDate < event.date) {
       context.addIssue({
         code: "custom",

@@ -14,11 +14,12 @@
   "offersEyebrow": "Was wir bieten",
   "offersTitle": "Unsere Angebote",
   "featuredOffers": [
-    "fuehrungskraefte-coaching",
-    "erlebnistag",
-    "extreme-trail"
+    "working-equitation",
+    "extreme-trail",
+    "fuehrungskraefte-coaching"
   ],
   "eventEyebrow": "Nächste Veranstaltung",
+  "featuredEvent": "working-equitation-manuel-heindl-september-2026",
   "contactEyebrow": "Persönlich erreichbar",
   "contactTitle": "Lernen Sie den Hof kennen",
   "contactBody": "Ob Coaching, Workshop oder eine erste unverbindliche Anfrage: Wir beraten Sie persönlich und finden gemeinsam das passende Angebot.",

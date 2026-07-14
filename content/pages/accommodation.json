@@ -1,0 +1,35 @@
+{
+  "eyebrow": "Für Kurse & Aufenthalte",
+  "title": "Pferdeunterbringung",
+  "intro": "Für Ihr Pferd stehen während eines Kurses verschiedene Unterbringungsmöglichkeiten zur Verfügung. Bitte reservieren Sie den gewünschten Platz frühzeitig, da die Kapazitäten begrenzt sind.",
+  "options": [
+    {
+      "title": "Feste Box",
+      "availability": "2 Boxen verfügbar",
+      "price": "25 € pro Pferd und Tag",
+      "note": "Futter und Reinigung sind nicht enthalten."
+    },
+    {
+      "title": "Panelbox",
+      "availability": "2 Panelboxen verfügbar",
+      "price": "20 € pro Pferd und Tag",
+      "note": "Futter und Reinigung sind nicht enthalten."
+    },
+    {
+      "title": "Weidefläche zur Selbsteinzäunung",
+      "availability": "Nach Verfügbarkeit",
+      "price": "15 € pro Pferd und Tag",
+      "note": "Bitte bringen Sie geeignetes eigenes Zaunmaterial mit."
+    }
+  ],
+  "extrasTitle": "Futter & Reinigung",
+  "extrasBody": "Futter und Reinigung sind in den genannten Preisen nicht enthalten. Beides kann nach Absprache gegen Aufpreis übernommen werden; die Kosten teilen wir Ihnen bei der Anfrage mit.",
+  "bookingTitle": "Unterbringung anfragen",
+  "bookingBody": "Teilen Sie uns bei Ihrer Kursanfrage bitte mit, welche Unterbringung Sie benötigen und für welchen Zeitraum Sie reservieren möchten.",
+  "bookingCtaLabel": "Unterbringung anfragen",
+  "seo": {
+    "title": "Pferdeunterbringung",
+    "description": "Boxen, Panelboxen und Weidefläche für Kursteilnehmer bei See-Pferde Zwenkau.",
+    "noIndex": false
+  }
+}

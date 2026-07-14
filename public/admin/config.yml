@@ -329,6 +329,35 @@ collections:
           - { label: Abschluss · Button, name: ctaLabel, widget: string, required: false, pattern: ['^.{0,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
           - *seo_field
 
+      - name: accommodation
+        label: Pferdeunterbringung
+        file: content/pages/accommodation.json
+        preview_path: pferdeunterbringung
+        fields:
+          - { label: Kleine Überschrift, name: eyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Seitentitel, name: title, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Einleitung, name: intro, widget: text, hint: Erklären Sie kurz, für wen die Unterbringung gedacht ist und dass eine Reservierung nötig ist., pattern: ['^[\s\S]{1,360}$', 'Bitte verwenden Sie höchstens 360 Zeichen.'] }
+          - label: Unterbringungsmöglichkeiten
+            name: options
+            widget: list
+            min: 1
+            max: 6
+            collapsed: false
+            summary: '{{fields.title}} · {{fields.price}}'
+            label_singular: Möglichkeit hinzufügen
+            hint: Pflegen Sie verfügbare Plätze und Preise getrennt, damit Gäste sie schnell vergleichen können.
+            fields:
+              - { label: Bezeichnung, name: title, widget: string, pattern: ['^.{2,80}$', 'Bitte verwenden Sie 2 bis 80 Zeichen.'] }
+              - { label: Verfügbarkeit, name: availability, widget: string, hint: 'Zum Beispiel: „2 Boxen verfügbar“.', pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.'] }
+              - { label: Preis, name: price, widget: string, hint: 'Zum Beispiel: „25 € pro Pferd und Tag“.', pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.'] }
+              - { label: Hinweis, name: note, widget: text, required: false, pattern: ['^[\s\S]{0,220}$', 'Bitte verwenden Sie höchstens 220 Zeichen.'] }
+          - { label: Zusatzleistungen · Überschrift, name: extrasTitle, widget: string, pattern: ['^.{2,90}$', 'Bitte verwenden Sie 2 bis 90 Zeichen.'] }
+          - { label: Zusatzleistungen · Text, name: extrasBody, widget: text, hint: Beschreiben Sie hier zum Beispiel Futter und Reinigung gegen Aufpreis., pattern: ['^[\s\S]{2,400}$', 'Bitte verwenden Sie 2 bis 400 Zeichen.'] }
+          - { label: Anfrage · Überschrift, name: bookingTitle, widget: string, pattern: ['^.{2,90}$', 'Bitte verwenden Sie 2 bis 90 Zeichen.'] }
+          - { label: Anfrage · Text, name: bookingBody, widget: text, pattern: ['^[\s\S]{2,300}$', 'Bitte verwenden Sie 2 bis 300 Zeichen.'] }
+          - { label: Anfrage · Button, name: bookingCtaLabel, widget: string, pattern: ['^.{2,30}$', 'Bitte verwenden Sie 2 bis 30 Zeichen.'] }
+          - *seo_field
+
       - name: horses_page
         label: Pferdeübersicht
         file: content/pages/horses.json
@@ -602,6 +631,24 @@ collections:
           - field: published
             values: [true]
         hint: Optional. Verknüpft den Termin mit der passenden Angebotsseite.
+      - label: Kursleitung · Name
+        name: instructorName
+        widget: string
+        required: false
+        hint: Optional. Name der Trainerin oder des Trainers für diesen Termin.
+        pattern: ['^.{0,100}$', 'Bitte verwenden Sie höchstens 100 Zeichen.']
+      - label: Kursleitung · Organisation
+        name: instructorOrganization
+        widget: string
+        required: false
+        hint: Optional. Zum Beispiel der Reitbetrieb oder die Trainingsorganisation.
+        pattern: ['^.{0,120}$', 'Bitte verwenden Sie höchstens 120 Zeichen.']
+      - label: Kursleitung · Website
+        name: instructorUrl
+        widget: string
+        required: false
+        hint: Optional. Vollständige externe Website mit https://. Wird auf der Terminseite verlinkt.
+        pattern: ['^$|^https:\/\/.+', 'Bitte lassen Sie das Feld leer oder verwenden Sie eine vollständige https://-Adresse.']
       - label: Kurzbeschreibung
         name: description
         widget: text

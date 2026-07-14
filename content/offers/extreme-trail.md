@@ -1,36 +1,38 @@
 ---
 title: Extreme-Trail
-summary: Erster Extreme-Trail Park in Sachsen. Vertrauen aufbauen für Mensch und Pferd.
-description: Naturverbundener Workshop mit Hindernissen aus natürlichen Materialien und intensiver Vertrauensarbeit.
+summary: Natürliche Hindernisse gemeinsam meistern und das Vertrauen zwischen Mensch und Pferd stärken.
+description: Dreistündiges Training im Extreme-Trail-Park mit natürlichen Hindernissen und klarer, sicherheitsorientierter Begleitung.
 category: workshop
 imageSrc: /images/angebote/extreme-trail.jpeg
-imageAlt: Extreme-Trail Park mit natürlichen Hindernissen
+imageAlt: Pferd und Mensch an einem natürlichen Hindernis im Extreme-Trail-Park
 highlights:
-  - Gräben, Brücken und Baumstämme
-  - Verschiedene Untergründe
-  - Sicherheitsorientierte Begleitung
-  - Für Anfänger bis Fortgeschrittene
+  - Gräben, Brücken, Baumstämme und Felsen
+  - Vertrauensarbeit an natürlichen Hindernissen
+  - Erste Einheit mit Trainerbegleitung
+  - Weitere Einheiten nach Absprache
 audience:
   - Alle Pferderassen
-  - Alle Reitweisen
-  - Anfänger bis Fortgeschrittene
-format: Workshop mit Praxis am Parcours
-specialNote: Teilnahme mit eigenem Pferd oder mit einem Hofpferd möglich.
-participantCount: 4-8 aktive Teilnehmer plus Zuschauerplätze
+  - Junge und unsichere Pferde
+  - Ältere Pferde und Pferde mit Einschränkungen
+  - Pferd-Mensch-Paare, die Vertrauen aufbauen möchten
+format: Freitag 15:00–18:00 Uhr; Samstag 09:00–12:00 Uhr oder 15:00–18:00 Uhr
+specialNote: Die erste Buchung findet ausschließlich mit Trainerbegleitung statt. Weitere Einheiten sind nach Absprache möglich.
+participantCount: 4 aktive Teilnehmer
+prerequisites: Bitte bringen Sie ein passendes Knotenhalfter, ein Bodenarbeitsseil und Beinschutz für Ihr Pferd mit.
 pricingOptions:
   - label: Extreme-Trail
-    price: Preis auf Anfrage
-    unit: pro Teilnehmer
+    price: 120 €
+    unit: pro Teilnehmer und 3-Stunden-Einheit
     features:
       - Training im Extreme-Trail Park
-      - Für alle Reitweisen
-      - Mit eigenem Pferd oder Hofpferd
-      - Kleine Gruppen
-    highlighted: false
+      - Maximal 4 aktive Teilnehmer
+      - Erste Einheit mit Trainerbegleitung
+      - Weitere Einheiten nach Absprache
+    highlighted: true
 showOnPricesPage: true
 published: true
 sortOrder: 40
 ---
-Unser Extreme-Trail Park ist der erste in Sachsen. Auf einem naturnah gestalteten Parcours erwarten Sie und Ihr Pferd Hindernisse aus natürlichen Materialien - Gräben, Brücken, Baumstämme und Felsen.
+Im naturnah gestalteten Extreme-Trail-Park erwarten Sie und Ihr Pferd Hindernisse aus natürlichen Materialien – darunter Gräben, Brücken, Baumstämme und Felsen.
 
-Hier lernen Pferde, mutig und eigenständig Herausforderungen zu meistern. Gleichzeitig stärken Sie als Reiter das Vertrauen und die Partnerschaft mit Ihrem Pferd.
+Das gemeinsame Bewältigen der Aufgaben stärkt Vertrauen, Kommunikation und Partnerschaft. Das Training eignet sich auch für junge oder unsichere Pferde sowie für ältere Pferde und Pferde mit Einschränkungen.

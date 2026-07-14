@@ -1,6 +1,24 @@
-# Keep the canonical trailing slash for the static Decap admin directory.
+Options -Indexes
+DirectoryIndex index.html
+
 RewriteEngine On
+
+# Keep the canonical trailing slash for the static CMS directory.
 RewriteRule ^admin$ /admin/ [R=301,L]
+
+# Do not expose generated index.html filenames. CMS and authentication entry
+# points are excluded because they intentionally address physical files.
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html(?:[?\s]) [NC]
+RewriteCond %{REQUEST_URI} !^/(admin|cms-auth)(/|$) [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
+
+# Preserve links to the former flat static-export shape after switching to
+# trailing-slash exports (for example /kontakt.html -> /kontakt/). The file
+# system check prevents assets or arbitrary .html paths from being redirected.
+RewriteCond %{THE_REQUEST} \s/+[^?\ ]+\.html(?:[?\s]) [NC]
+RewriteCond %{REQUEST_URI} !^/(admin|cms-auth)(/|$) [NC]
+RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+RewriteRule ^(.+)\.html$ /$1/ [R=301,L]
 
 # Cache images for 1 day (so updates are picked up within 24h)
 <filesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
