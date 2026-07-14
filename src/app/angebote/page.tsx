@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { CircleCheck, House } from "lucide-react";
+import Image from "next/image";
+import { CircleCheck } from "lucide-react";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -102,10 +103,14 @@ export default function Angebote() {
       <section className="bg-white py-16 md:py-24">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <ScrollReveal>
-            <div className="flex min-h-72 items-center justify-center rounded-2xl bg-forest/10 p-8">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full border border-forest/15 bg-cream text-forest shadow-sm">
-                <House className="h-14 w-14" aria-hidden="true" />
-              </div>
+            <div className="relative min-h-80 overflow-hidden rounded-2xl shadow-sm lg:min-h-[30rem]">
+              <Image
+                src={accommodation.imageSrc}
+                alt={accommodation.imageAlt}
+                fill
+                sizes="(min-width: 1024px) 42vw, 100vw"
+                className="object-cover"
+              />
             </div>
           </ScrollReveal>
           <ScrollReveal delay={120}>

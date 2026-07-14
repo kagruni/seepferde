@@ -549,6 +549,13 @@
           eyebrow(field(props, "eyebrow", "")),
           h("h1", null, field(props, "title", "Pferdeunterbringung")),
           h("p", { className: "preview-lead" }, field(props, "intro", "")),
+          image(
+            props,
+            field(props, "imageSrc", ""),
+            field(props, "imageAlt", ""),
+            "preview-hero__image",
+            true,
+          ),
         ]),
         section([
           h("h2", null, "Unterbringungsmöglichkeiten"),

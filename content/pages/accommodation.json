@@ -2,6 +2,8 @@
   "eyebrow": "Für Kurse & Aufenthalte",
   "title": "Pferdeunterbringung",
   "intro": "Für Ihr Pferd stehen während eines Kurses verschiedene Unterbringungsmöglichkeiten zur Verfügung. Bitte reservieren Sie den gewünschten Platz frühzeitig, da die Kapazitäten begrenzt sind.",
+  "imageSrc": "/images/angebote/pferdeunterbringung-seeblick.webp",
+  "imageAlt": "Pferdeunterbringung mit Holzunterstand und Paddocks am Zwenkauer See",
   "options": [
     {
       "title": "Feste Box",

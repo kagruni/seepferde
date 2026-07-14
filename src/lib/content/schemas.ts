@@ -378,6 +378,8 @@ const accommodationOptionSchema = z.object({
 
 export const accommodationPageSchema = z.object({
   ...pageBase,
+  imageSrc: imagePath,
+  imageAlt: requiredString(),
   options: z.array(accommodationOptionSchema).min(1).max(6),
   extrasTitle: requiredString(),
   extrasBody: requiredString(),

@@ -337,6 +337,17 @@ collections:
           - { label: Kleine Überschrift, name: eyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
           - { label: Seitentitel, name: title, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
           - { label: Einleitung, name: intro, widget: text, hint: Erklären Sie kurz, für wen die Unterbringung gedacht ist und dass eine Reservierung nötig ist., pattern: ['^[\s\S]{1,360}$', 'Bitte verwenden Sie höchstens 360 Zeichen.'] }
+          - label: Bild auf der Angebotsübersicht
+            name: imageSrc
+            widget: image
+            choose_url: false
+            media_library: *image_upload_limit
+            hint: Zeigt die Unterbringung auf der Seite „Angebote“. Empfohlen ist ein ruhiges Querformat mit mindestens 1400 Pixel Breite.
+          - label: Bildbeschreibung für Barrierefreiheit
+            name: imageAlt
+            widget: string
+            hint: Beschreiben Sie knapp die sichtbare Unterkunft und Umgebung. Keine Dateinamen oder Werbeslogans.
+            pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.']
           - label: Unterbringungsmöglichkeiten
             name: options
             widget: list
