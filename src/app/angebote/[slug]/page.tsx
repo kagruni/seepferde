@@ -6,8 +6,12 @@ import { ArrowLeft, CheckCircle2, Users, Layers3 } from "lucide-react";
 import MarkdownContent from "@/components/common/MarkdownContent";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import InquiryButton from "@/components/ui/InquiryButton";
+import PriceCard from "@/components/ui/PriceCard";
 import SectionDivider from "@/components/ui/SectionDivider";
 import { getOfferBySlug, getOffers } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getOffers().map((offer) => ({ slug: offer.slug }));
@@ -25,10 +29,12 @@ export async function generateMetadata({
     return { title: "Angebot nicht gefunden" };
   }
 
-  return {
-    title: `${offer.title} - See-Pferde Zwenkau`,
+  return buildPageMetadata(offer.seo, {
+    title: offer.title,
     description: offer.description,
-  };
+    image: offer.imageSrc,
+    imageAlt: offer.imageAlt,
+  });
 }
 
 export default async function AngebotDetail({
@@ -189,6 +195,34 @@ export default async function AngebotDetail({
           </section>
         </>
       )}
+
+      {offer.pricingOptions.length > 0 ? (
+        <section className="bg-beige py-20 md:py-28">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="text-center mb-10">
+                <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
+                  Konditionen
+                </p>
+                <h2 className="text-3xl sm:text-4xl">Preise</h2>
+              </div>
+            </ScrollReveal>
+            <div className="grid gap-6 md:grid-cols-2">
+              {offer.pricingOptions.map((option, index) => (
+                <ScrollReveal key={`${option.label}-${option.price}`} delay={index * 80}>
+                  <PriceCard
+                    title={option.label}
+                    price={option.price}
+                    unit={option.unit || ""}
+                    features={option.features}
+                    highlighted={option.highlighted}
+                  />
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="bg-[#3D2A35] text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

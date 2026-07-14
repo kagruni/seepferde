@@ -1,6 +1,5 @@
 ---
 title: Working-Equitation
-slug: working-equitation
 summary: Motivations-Parcours für Pferd und Reiter - Dressur trifft Trail.
 description: Dressurmäßige Arbeit mit konkreten Aufgaben im Parcours für mehr Motivation, Präzision und Freude.
 category: workshop
@@ -18,8 +17,18 @@ audience:
 format: Ganztägiger Workshop mit Theorie und Praxis
 specialNote: Ideal für Reiter, die Dressur mit Sinn und Spaß verbinden möchten.
 participantCount: 4-6 aktive Teilnehmer plus Zuschauerplätze
+pricingOptions:
+  - label: Working-Equitation
+    price: Preis auf Anfrage
+    unit: pro Teilnehmer
+    features:
+      - Ganztägiger Workshop
+      - Parcours-Training
+      - Individuelles Feedback
+      - Kleine Gruppen
+    highlighted: false
+showOnPricesPage: true
 published: true
-featured: false
 sortOrder: 50
 ---
 Working-Equitation verbindet dressurmäßige Arbeit mit konkreten Trail-Aufgaben. Das Ergebnis ist ein Motivations-Parcours, der Pferd und Reiter gleichermaßen fordert und begeistert.

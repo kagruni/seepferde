@@ -143,6 +143,32 @@ export default function MultiStepForm({
     });
   }, [preselectedSubject]);
 
+  if (!mailtoEmail) {
+    return (
+      <div
+        className="rounded-2xl border border-gold/30 bg-gold/10 px-6 py-8 text-center"
+        role="status"
+      >
+        <h3 className="text-xl font-heading font-semibold text-text">
+          Das Anfrageformular wird gerade eingerichtet
+        </h3>
+        <p className="mt-2 text-text-secondary">
+          Die öffentliche E-Mail-Adresse ist noch nicht hinterlegt. Bitte
+          schauen Sie in Kürze wieder vorbei.
+        </p>
+        {variant === "modal" && onClose ? (
+          <button
+            type="button"
+            onClick={onClose}
+            className="mt-5 font-semibold text-forest underline underline-offset-4"
+          >
+            Fenster schließen
+          </button>
+        ) : null}
+      </div>
+    );
+  }
+
   if (submitted) {
     return (
       <div className="text-center py-6">

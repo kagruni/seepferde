@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated from the pinned CMS distribution by scripts/build-admin-cms.mjs.
+    "public/admin/decap-cms.js",
   ]),
 ]);
 

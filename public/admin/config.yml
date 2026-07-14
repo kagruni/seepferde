@@ -1,229 +1,994 @@
+# Website-Verwaltung for See-Pferde Zwenkau.
+# The owner signs in through the server-side username/password gateway. GitHub
+# App credentials and password hashes live only in the private cPanel config.
 backend:
   name: github
-  repo: YOUR_GITHUB_ORG/YOUR_REPOSITORY
+  repo: kagruni/seepferde
   branch: main
-  base_url: https://YOUR-OAUTH-BRIDGE.example.com
+  base_url: https://mandykolatka.kajik.dev
+  # The public route names deliberately avoid `auth`, `login`, and `api` because
+  # the cPanel ModSecurity rules reject those path segments with HTTP 406.
+  auth_endpoint: cms-auth/form
+  api_root: https://mandykolatka.kajik.dev/cms-auth/repository
+  site_domain: mandykolatka.kajik.dev
+  use_graphql: false
+  squash_merges: true
+  commit_messages:
+    create: 'CMS: {{collection}} „{{slug}}“ erstellen'
+    update: 'CMS: {{collection}} „{{slug}}“ aktualisieren'
+    delete: 'CMS: {{collection}} „{{slug}}“ löschen'
+    uploadMedia: 'CMS: Bild „{{path}}“ hochladen'
+    deleteMedia: 'CMS: Bild „{{path}}“ löschen'
 
+local_backend:
+  # 8081 is already used by another local project on this workstation.
+  # Use IPv4 explicitly because the proxy is intentionally bound to 127.0.0.1.
+  url: http://127.0.0.1:8082/api/v1
 locale: de
 publish_mode: editorial_workflow
-media_folder: public/images/uploads
-public_folder: /images/uploads
+
 site_url: https://mandykolatka.kajik.dev
 display_url: https://mandykolatka.kajik.dev
-logo_url: /icons/logo.svg
+show_preview_links: true
+
+logo:
+  src: /icons/logo.svg
+  show_in_header: true
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
 
 collections:
-  - name: settings
-    label: Einstellungen
+  - name: pages
+    label: Seiten
+    label_singular: Seite
+    description: Texte, Bilder und Suchmaschinen-Angaben der festen Website-Seiten.
+    delete: false
     files:
-      - name: site
-        label: Website & Kontakt
-        file: content/settings/site.json
-        fields:
-          - { label: Betriebsname, name: businessName, widget: string }
-          - { label: Rechtlicher Name, name: legalName, widget: string }
-          - { label: Website URL, name: siteUrl, widget: string }
-          - { label: Standardtitel, name: defaultTitle, widget: string }
-          - { label: Titel-Template, name: titleTemplate, widget: string }
-          - { label: Standardbeschreibung, name: defaultDescription, widget: text }
-          - { label: Adresse, name: address, widget: string }
-          - { label: Postleitzahl, name: postalCode, widget: string }
-          - { label: Ort, name: city, widget: string }
-          - { label: Land, name: country, widget: string }
-          - { label: Telefon, name: phone, widget: string }
-          - { label: Sichtbare E-Mail, name: email, widget: string }
-          - { label: Mailto-Ziel, name: mailtoEmail, widget: string }
-          - { label: Öffnungszeiten, name: hours, widget: string }
-          - { label: Footer-Hinweis, name: footerNote, widget: text }
-          - { label: Karten-Embed URL, name: mapEmbedUrl, widget: string }
-          - { label: Hero-Bild, name: heroImage, widget: image }
-          - { label: Hero-Aquarell-Bild, name: heroWatercolorImage, widget: image }
-          - { label: OG-Bild, name: ogImage, widget: image }
-          - label: Navigation
-            name: navLinks
-            widget: list
-            fields:
-              - { label: Label, name: label, widget: string }
-              - { label: Link, name: href, widget: string }
-          - label: Formular-Betreffoptionen
-            name: contactSubjects
-            widget: list
-            field: { label: Betreff, name: subject, widget: string }
       - name: home
         label: Startseite
-        file: content/settings/home.json
+        file: content/pages/home.json
+        preview_path: ''
         fields:
-          - { label: Hero-Titel, name: heroTitle, widget: string }
-          - { label: Hero-Text, name: heroSubtitle, widget: text }
-          - { label: Hero CTA primär, name: heroPrimaryCtaLabel, widget: string }
-          - { label: Hero CTA sekundär, name: heroSecondaryCtaLabel, widget: string }
-          - { label: Willkommen Eyebrow, name: welcomeEyebrow, widget: string }
-          - { label: Willkommen Titel, name: welcomeTitle, widget: string }
-          - label: Willkommen Absätze
-            name: welcomeParagraphs
+          - label: Hero · Titel
+            name: heroTitle
+            widget: string
+            hint: Die große Hauptüberschrift. Empfohlen sind höchstens 70 Zeichen.
+            pattern: ['^.{1,70}$', 'Bitte verwenden Sie höchstens 70 Zeichen.']
+          - label: Hero · Einleitung
+            name: heroSubtitle
+            widget: text
+            hint: Ein kurzer einladender Absatz direkt unter der Überschrift.
+            pattern: ['^[\s\S]{1,220}$', 'Bitte kürzen Sie den Text auf höchstens 220 Zeichen.']
+          - label: Hero · Hauptbild
+            name: heroImage
+            widget: image
+            choose_url: false
+            media_library: &image_upload_limit
+              config:
+                max_file_size: 2500000
+            hint: Ein ruhiges Querformat mit gut erkennbarem Hauptmotiv; empfohlen sind 1600 × 1000 Pixel.
+          - label: Hero · Bildbeschreibung für Barrierefreiheit
+            name: heroImageAlt
+            widget: string
+            hint: Beschreiben Sie knapp, was auf dem Bild zu sehen ist. Keine Dateinamen oder Werbeslogans.
+            pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.']
+          - label: Hero · Aquarellbild
+            name: heroWatercolorImage
+            widget: image
+            choose_url: false
+            media_library: *image_upload_limit
+            hint: Die zum Hauptbild passende Aquarellvariante für den Übergangseffekt.
+          - label: Hero · Text des Hauptbuttons
+            name: primaryCtaLabel
+            widget: string
+            hint: Zum Beispiel „Angebote entdecken“. Höchstens 30 Zeichen.
+            pattern: ['^.{1,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.']
+          - label: Hero · Ziel des Hauptbuttons
+            name: primaryCtaTarget
+            widget: select
+            hint: Wählen Sie ein festes Ziel, damit kein ungültiger Link entstehen kann.
+            options:
+              - { label: Angebote, value: /angebote }
+              - { label: Veranstaltungen, value: /veranstaltungen }
+              - { label: Über uns, value: /ueber-uns }
+              - { label: Kontakt, value: /kontakt }
+          - label: Willkommen · Kleine Überschrift
+            name: welcomeEyebrow
+            widget: string
+            pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.']
+          - label: Willkommen · Überschrift
+            name: welcomeTitle
+            widget: string
+            pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.']
+          - label: Willkommen · Inhalt
+            name: welcomeBody
+            widget: richtext
+            buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list, quote]
+            editor_components: []
+            modes: [rich_text]
+            sanitize_preview: true
+            hint: Erzählen Sie kurz, was den Hof und die Arbeit mit den Pferden auszeichnet.
+          - label: Willkommen · Bild
+            name: welcomeImage
+            widget: image
+            choose_url: false
+            media_library: *image_upload_limit
+          - label: Willkommen · Bildbeschreibung für Barrierefreiheit
+            name: welcomeImageAlt
+            widget: string
+            pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.']
+          - label: Angebote · Kleine Überschrift
+            name: offersEyebrow
+            widget: string
+            pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.']
+          - label: Angebote · Überschrift
+            name: offersTitle
+            widget: string
+            pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.']
+          - label: Angebote · Hervorgehobene Angebote
+            name: featuredOffers
+            widget: relation
+            collection: offers
+            multiple: true
+            min: 1
+            max: 3
+            search_fields: [title, summary]
+            value_field: '{{slug}}'
+            display_fields: ['{{title}} · {{category}}']
+            filters:
+              - field: published
+                values: [true]
+            hint: Wählen Sie ein bis drei sichtbare Angebote. Die Reihenfolge hier ist auch die Reihenfolge auf der Startseite.
+          - label: Veranstaltung · Kleine Überschrift
+            name: eventEyebrow
+            widget: string
+            pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.']
+          - label: Veranstaltung · Hervorgehobener Termin
+            name: featuredEvent
+            widget: relation
+            collection: events
+            required: false
+            search_fields: [title, date, description]
+            value_field: '{{slug}}'
+            display_fields: ['{{title}} · {{date}}']
+            filters:
+              - field: published
+                values: [true]
+              - field: state
+                values: [scheduled, sold_out]
+            hint: Optional. Ohne Auswahl wird der Terminbereich auf der Startseite ausgeblendet.
+          - label: Kontakt · Kleine Überschrift
+            name: contactEyebrow
+            widget: string
+            pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.']
+          - label: Kontakt · Überschrift
+            name: contactTitle
+            widget: string
+            pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.']
+          - label: Kontakt · Einleitung
+            name: contactBody
+            widget: text
+            pattern: ['^[\s\S]{1,260}$', 'Bitte kürzen Sie den Text auf höchstens 260 Zeichen.']
+          - label: Kontakt · Bild
+            name: contactImage
+            widget: image
+            choose_url: false
+            media_library: *image_upload_limit
+          - label: Kontakt · Bildbeschreibung für Barrierefreiheit
+            name: contactImageAlt
+            widget: string
+            pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.']
+          - label: Kontakt · Kurze Vorteile
+            name: contactHighlights
             widget: list
-            field: { label: Absatz, name: paragraph, widget: text }
-          - { label: Angebote Eyebrow, name: offersEyebrow, widget: string }
-          - { label: Angebote Titel, name: offersTitle, widget: string }
-          - { label: Events Eyebrow, name: eventsEyebrow, widget: string }
-          - { label: Events Titel, name: eventsTitle, widget: string }
-          - { label: Kontakt Eyebrow, name: contactEyebrow, widget: string }
-          - { label: Kontakt Titel, name: contactTitle, widget: string }
-          - { label: Kontakt Text, name: contactText, widget: text }
-          - { label: Kontakt CTA, name: contactCtaLabel, widget: string }
+            required: false
+            default: []
+            min: 1
+            max: 4
+            label_singular: Vorteil hinzufügen
+            hint: Optional, höchstens vier kurze Punkte.
+            field:
+              label: Vorteil
+              name: highlight
+              widget: string
+              pattern: ['^.{1,80}$', 'Bitte verwenden Sie höchstens 80 Zeichen.']
+          - label: Kontakt · Text des Buttons
+            name: contactCtaLabel
+            widget: string
+            pattern: ['^.{1,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.']
+          - &seo_field
+            label: SEO-Einstellungen
+            name: seo
+            widget: object
+            required: false
+            collapsed: true
+            summary: Optionale Angaben für Suchmaschinen und geteilte Links
+            hint: Die Website verwendet automatisch passende Standardwerte, wenn diese Felder leer bleiben.
+            fields:
+              - label: SEO-Titel
+                name: title
+                widget: string
+                required: false
+                hint: Höchstens 60 Zeichen. Wenn leer, wird die sichtbare Überschrift verwendet.
+                pattern: ['^.{0,60}$', 'Bitte verwenden Sie höchstens 60 Zeichen.']
+              - label: SEO-Beschreibung
+                name: description
+                widget: text
+                required: false
+                hint: Höchstens 160 Zeichen. Fassen Sie den Inhalt der Seite konkret zusammen.
+                pattern: ['^[\s\S]{0,160}$', 'Bitte verwenden Sie höchstens 160 Zeichen.']
+              - label: Vorschaubild für Social Media
+                name: socialImage
+                widget: image
+                choose_url: false
+                media_library: *image_upload_limit
+                required: false
+              - label: Bildbeschreibung des Vorschaubilds
+                name: socialImageAlt
+                widget: string
+                required: false
+                hint: Erforderlich, wenn ein eigenes Vorschaubild gewählt wird.
+                pattern: ['^$|^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.']
+              - label: Von Suchmaschinen ausschließen
+                name: noIndex
+                widget: boolean
+                required: false
+                default: false
+                hint: Nur für Sonderfälle aktivieren. Die Seite bleibt trotzdem öffentlich erreichbar.
 
-  - name: horses
-    label: Pferde
-    label_singular: Pferd
-    folder: content/horses
-    create: true
-    slug: "{{slug}}"
-    extension: md
-    format: frontmatter
-    fields:
-      - { label: Name, name: name, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Rasse, name: breed, widget: string }
-      - { label: Alter, name: age, widget: string, required: false }
-      - { label: Charakter, name: character, widget: text }
-      - { label: Einsatzbereich, name: role, widget: string }
-      - { label: Bild, name: imageSrc, widget: image }
-      - { label: Bild Alt-Text, name: imageAlt, widget: string }
-      - { label: Veröffentlicht, name: published, widget: boolean, default: true }
-      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
+      - name: about
+        label: Über uns
+        file: content/pages/about.json
+        preview_path: ueber-uns
+        fields:
+          - { label: Kleine Überschrift, name: eyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Seitentitel, name: title, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - label: Einleitung
+            name: intro
+            widget: text
+            pattern: ['^[\s\S]{1,260}$', 'Bitte kürzen Sie den Text auf höchstens 260 Zeichen.']
+          - { label: Philosophie · Kleine Überschrift, name: philosophyEyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Philosophie · Überschrift, name: philosophyTitle, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - label: Philosophie & Geschichte
+            name: philosophyBody
+            widget: richtext
+            buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list, quote]
+            editor_components: []
+            modes: [rich_text]
+            sanitize_preview: true
+          - label: Philosophie · Bild
+            name: philosophyImage
+            widget: image
+            choose_url: false
+            media_library: *image_upload_limit
+          - { label: Philosophie · Bildbeschreibung für Barrierefreiheit, name: philosophyImageAlt, widget: string, pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.'] }
+          - { label: Team · Kleine Überschrift, name: teamEyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Team · Überschrift, name: teamTitle, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Team · Einleitung, name: teamIntro, widget: text, required: false, pattern: ['^[\s\S]{0,260}$', 'Bitte verwenden Sie höchstens 260 Zeichen.'] }
+          - { label: Text des Kontaktbuttons, name: ctaLabel, widget: string, pattern: ['^.{1,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+          - *seo_field
 
-  - name: events
-    label: Veranstaltungen
-    label_singular: Veranstaltung
-    folder: content/events
-    create: true
-    slug: "{{slug}}"
-    extension: md
-    format: frontmatter
-    fields:
-      - { label: Titel, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Datum, name: date, widget: datetime, time_format: false, format: "YYYY-MM-DD" }
-      - { label: Enddatum, name: endDate, widget: datetime, required: false, time_format: false, format: "YYYY-MM-DD" }
-      - { label: Ort, name: location, widget: string }
-      - { label: Kurzbeschreibung, name: description, widget: text }
-      - { label: Bild, name: imageSrc, widget: image }
-      - { label: Bild Alt-Text, name: imageAlt, widget: string }
-      - label: Kategorie
-        name: kategorie
-        widget: select
-        options: [seminar, workshop]
-      - label: Highlights
-        name: highlights
-        widget: list
-        field: { label: Highlight, name: highlight, widget: string }
-      - label: Status
-        name: status
-        widget: select
-        options: [draft, upcoming, past, cancelled]
-      - { label: Auf Startseite hervorheben, name: featured, widget: boolean, default: false }
-      - { label: Veröffentlicht, name: published, widget: boolean, default: true }
-      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
-      - { label: Inhalt, name: body, widget: markdown }
+      - name: contact
+        label: Kontakt
+        file: content/pages/contact.json
+        preview_path: kontakt
+        fields:
+          - { label: Kleine Überschrift, name: eyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Seitentitel, name: title, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Einleitung, name: intro, widget: text, pattern: ['^[\s\S]{1,260}$', 'Bitte verwenden Sie höchstens 260 Zeichen.'] }
+          - { label: Formular · Kleine Überschrift, name: formEyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Formular · Überschrift, name: formTitle, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Kontaktdaten · Kleine Überschrift, name: contactEyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Kontaktdaten · Überschrift, name: contactTitle, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - label: Hinweis zur Erreichbarkeit
+            name: availabilityNote
+            widget: text
+            required: false
+            hint: Optionaler Hinweis oberhalb der Kontaktdaten, zum Beispiel zur besten Anrufzeit.
+            pattern: ['^[\s\S]{0,220}$', 'Bitte verwenden Sie höchstens 220 Zeichen.']
+          - *seo_field
+
+      - name: offers_page
+        label: Angebotsübersicht
+        file: content/pages/offers.json
+        preview_path: angebote
+        fields:
+          - { label: Kleine Überschrift, name: eyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Seitentitel, name: title, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Einleitung, name: intro, widget: text, pattern: ['^[\s\S]{1,300}$', 'Bitte verwenden Sie höchstens 300 Zeichen.'] }
+          - { label: Seminare · Kleine Überschrift, name: seminarEyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Seminare · Überschrift, name: seminarTitle, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Workshops · Kleine Überschrift, name: workshopEyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Workshops · Überschrift, name: workshopTitle, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Abschluss · Überschrift, name: ctaTitle, widget: string, required: false, pattern: ['^.{0,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Abschluss · Text, name: ctaBody, widget: text, required: false, pattern: ['^[\s\S]{0,260}$', 'Bitte verwenden Sie höchstens 260 Zeichen.'] }
+          - { label: Abschluss · Button, name: ctaLabel, widget: string, required: false, pattern: ['^.{0,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+          - *seo_field
+
+      - name: events_page
+        label: Veranstaltungsübersicht
+        file: content/pages/events.json
+        preview_path: veranstaltungen
+        fields:
+          - { label: Kleine Überschrift, name: eyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Seitentitel, name: title, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Einleitung, name: intro, widget: text, pattern: ['^[\s\S]{1,300}$', 'Bitte verwenden Sie höchstens 300 Zeichen.'] }
+          - { label: Kommende Termine · Kleine Überschrift, name: upcomingEyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Kommende Termine · Überschrift, name: upcomingTitle, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Vergangene Termine · Kleine Überschrift, name: pastEyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Vergangene Termine · Überschrift, name: pastTitle, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Text ohne kommende Termine, name: emptyState, widget: text, pattern: ['^[\s\S]{1,220}$', 'Bitte verwenden Sie höchstens 220 Zeichen.'] }
+          - { label: Abschluss · Überschrift, name: ctaTitle, widget: string, required: false, pattern: ['^.{0,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Abschluss · Text, name: ctaBody, widget: text, required: false, pattern: ['^[\s\S]{0,260}$', 'Bitte verwenden Sie höchstens 260 Zeichen.'] }
+          - { label: Abschluss · Button, name: ctaLabel, widget: string, required: false, pattern: ['^.{0,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+          - *seo_field
+
+      - name: horses_page
+        label: Pferdeübersicht
+        file: content/pages/horses.json
+        preview_path: pferde
+        fields:
+          - { label: Kleine Überschrift, name: eyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Seitentitel, name: title, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Einleitung, name: intro, widget: text, pattern: ['^[\s\S]{1,300}$', 'Bitte verwenden Sie höchstens 300 Zeichen.'] }
+          - { label: Text ohne Pferdeprofile, name: emptyState, widget: text, pattern: ['^[\s\S]{1,220}$', 'Bitte verwenden Sie höchstens 220 Zeichen.'] }
+          - { label: Abschluss · Überschrift, name: closingTitle, widget: string, required: false, pattern: ['^.{0,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Abschluss · Text, name: closingBody, widget: text, required: false, pattern: ['^[\s\S]{0,260}$', 'Bitte verwenden Sie höchstens 260 Zeichen.'] }
+          - { label: Abschluss · Button, name: closingCtaLabel, widget: string, required: false, pattern: ['^.{0,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+          - *seo_field
+
+      - name: prices_page
+        label: Preise
+        file: content/pages/prices.json
+        preview_path: preise
+        fields:
+          - { label: Kleine Überschrift, name: eyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Seitentitel, name: title, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Einleitung, name: intro, widget: text, pattern: ['^[\s\S]{1,300}$', 'Bitte verwenden Sie höchstens 300 Zeichen.'] }
+          - { label: Preishinweis · Überschrift, name: disclaimerTitle, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Preishinweis · Text, name: disclaimerBody, widget: text, pattern: ['^[\s\S]{1,300}$', 'Bitte verwenden Sie höchstens 300 Zeichen.'] }
+          - { label: Hinweis für Unternehmen, name: companyNote, widget: text, required: false, pattern: ['^[\s\S]{0,300}$', 'Bitte verwenden Sie höchstens 300 Zeichen.'] }
+          - { label: Abschluss · Überschrift, name: ctaTitle, widget: string, required: false, pattern: ['^.{0,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Abschluss · Text, name: ctaBody, widget: text, required: false, pattern: ['^[\s\S]{0,260}$', 'Bitte verwenden Sie höchstens 260 Zeichen.'] }
+          - { label: Abschluss · Button, name: ctaLabel, widget: string, required: false, pattern: ['^.{0,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+          - *seo_field
+
+      - name: gallery_page
+        label: Galerie
+        file: content/pages/gallery.json
+        preview_path: galerie
+        fields:
+          - { label: Kleine Überschrift, name: eyebrow, widget: string, pattern: ['^.{1,45}$', 'Bitte verwenden Sie höchstens 45 Zeichen.'] }
+          - { label: Seitentitel, name: title, widget: string, pattern: ['^.{1,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Einleitung, name: intro, widget: text, pattern: ['^[\s\S]{1,300}$', 'Bitte verwenden Sie höchstens 300 Zeichen.'] }
+          - label: Kategorienamen
+            name: categoryLabels
+            widget: object
+            collapsed: true
+            summary: Beschriftung der fünf Galerie-Filter
+            hint: Ändern Sie hier nur die sichtbaren Bezeichnungen. Die Zuordnung der Bilder bleibt erhalten.
+            fields:
+              - { label: Hof, name: hof, widget: string, pattern: ['^.{1,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+              - { label: Pferde, name: pferde, widget: string, pattern: ['^.{1,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+              - { label: Coaching, name: coaching, widget: string, pattern: ['^.{1,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+              - { label: Workshops, name: workshops, widget: string, pattern: ['^.{1,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+              - { label: Events, name: events, widget: string, pattern: ['^.{1,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+          - { label: Text ohne Galeriebilder, name: emptyState, widget: text, pattern: ['^[\s\S]{1,220}$', 'Bitte verwenden Sie höchstens 220 Zeichen.'] }
+          - { label: Abschluss · Überschrift, name: ctaTitle, widget: string, required: false, pattern: ['^.{0,90}$', 'Bitte verwenden Sie höchstens 90 Zeichen.'] }
+          - { label: Abschluss · Text, name: ctaBody, widget: text, required: false, pattern: ['^[\s\S]{0,260}$', 'Bitte verwenden Sie höchstens 260 Zeichen.'] }
+          - { label: Abschluss · Button, name: ctaLabel, widget: string, required: false, pattern: ['^.{0,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+          - *seo_field
 
   - name: offers
     label: Angebote
     label_singular: Angebot
+    description: Seminare, Workshops und die dazugehörigen Preisoptionen.
     folder: content/offers
     create: true
-    slug: "{{slug}}"
+    slug: '{{slug}}'
     extension: md
-    format: frontmatter
+    format: yaml-frontmatter
+    preview_path: angebote/{{slug}}
+    summary: '{{title}} · {{category}}'
+    sortable_fields: [sortOrder, title, category, commit_date]
+    view_filters:
+      - { label: Auf Website sichtbar, field: published, pattern: true }
+      - { label: Auf Website verborgen, field: published, pattern: false }
+      - { label: Seminare, field: category, pattern: seminar }
+      - { label: Workshops, field: category, pattern: workshop }
+    view_groups:
+      - { label: Kategorie, field: category }
     fields:
-      - { label: Titel, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Kurztext, name: summary, widget: text }
-      - { label: Beschreibung, name: description, widget: text }
+      - label: Titel
+        name: title
+        widget: string
+        hint: Der sichtbare Name des Angebots. Beim ersten Speichern entsteht daraus die Webadresse.
+        pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.']
+      - label: Auf Website anzeigen
+        name: published
+        widget: boolean
+        default: true
+        hint: Das Ausschalten verbirgt ein bereits veröffentlichtes Angebot. Ein gespeicherter Entwurf ist noch nicht automatisch öffentlich.
       - label: Kategorie
         name: category
         widget: select
-        options: [seminar, workshop]
-      - { label: Bild, name: imageSrc, widget: image }
-      - { label: Bild Alt-Text, name: imageAlt, widget: string }
-      - label: Highlights
+        options:
+          - { label: Seminar, value: seminar }
+          - { label: Workshop, value: workshop }
+      - label: Kurzbeschreibung
+        name: summary
+        widget: text
+        hint: Wird auf Angebotskarten angezeigt. Empfohlen sind 90 bis 160 Zeichen, maximal 180.
+        pattern: ['^[\s\S]{1,180}$', 'Bitte kürzen Sie die Kurzbeschreibung auf höchstens 180 Zeichen.']
+      - label: Einleitung
+        name: description
+        widget: text
+        hint: Kurzer Einstieg auf der Detailseite und Ersatz für eine leere SEO-Beschreibung.
+        pattern: ['^[\s\S]{1,280}$', 'Bitte kürzen Sie die Einleitung auf höchstens 280 Zeichen.']
+      - &richtext_body
+        label: Ausführlicher Inhalt
+        name: body
+        widget: richtext
+        buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list, quote]
+        editor_components: []
+        modes: [rich_text]
+        sanitize_preview: true
+        hint: Beschreiben Sie Ablauf, Nutzen und Atmosphäre. Die Seitenüberschrift wird automatisch ergänzt.
+      - label: Hauptbild
+        name: imageSrc
+        widget: image
+        choose_url: false
+        media_library: *image_upload_limit
+        hint: Empfohlen ist ein Querformat mit mindestens 1400 Pixel Breite und höchstens 2,5 MB.
+      - label: Bildbeschreibung für Barrierefreiheit
+        name: imageAlt
+        widget: string
+        hint: Beschreiben Sie das sichtbare Motiv, nicht den Dateinamen.
+        pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.']
+      - label: Das erwartet die Teilnehmer
         name: highlights
         widget: list
-        field: { label: Highlight, name: highlight, widget: string }
+        min: 1
+        max: 8
+        label_singular: Punkt hinzufügen
+        collapsed: false
+        hint: Ein bis acht kurze, konkrete Vorteile oder Programmpunkte.
+        field:
+          label: Punkt
+          name: highlight
+          widget: string
+          pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.']
       - label: Zielgruppe
         name: audience
         widget: list
         required: false
-        field: { label: Zielgruppe, name: audienceItem, widget: string }
-      - { label: Format, name: format, widget: string, required: false }
-      - { label: Besonderheit, name: specialNote, widget: text, required: false }
-      - { label: Voraussetzungen, name: prerequisites, widget: text, required: false }
-      - { label: Teilnehmerzahl, name: participantCount, widget: string, required: false }
-      - { label: Veröffentlicht, name: published, widget: boolean, default: true }
-      - { label: Auf Startseite hervorheben, name: featured, widget: boolean, default: false }
-      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
-      - { label: Inhalt, name: body, widget: markdown }
-
-  - name: prices
-    label: Preise
-    label_singular: Preis
-    folder: content/prices
-    create: true
-    slug: "{{slug}}"
-    extension: md
-    format: frontmatter
-    fields:
-      - { label: Titel, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Preis, name: price, widget: string }
-      - { label: Einheit, name: unit, widget: string }
-      - label: Leistungen
-        name: features
+        default: []
+        min: 1
+        max: 8
+        label_singular: Zielgruppe hinzufügen
+        hint: Optional. Für wen eignet sich das Angebot?
+        field:
+          label: Zielgruppe
+          name: audienceItem
+          widget: string
+          pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.']
+      - { label: Format, name: format, widget: string, required: false, hint: 'Zum Beispiel: „Ganztägiger Workshop mit Theorie und Praxis“.', pattern: ['^.{0,140}$', 'Bitte verwenden Sie höchstens 140 Zeichen.'] }
+      - { label: Teilnehmerzahl, name: participantCount, widget: string, required: false, hint: 'Zum Beispiel: „4–8 aktive Teilnehmer“.', pattern: ['^.{0,100}$', 'Bitte verwenden Sie höchstens 100 Zeichen.'] }
+      - { label: Voraussetzungen, name: prerequisites, widget: text, required: false, pattern: ['^[\s\S]{0,300}$', 'Bitte verwenden Sie höchstens 300 Zeichen.'] }
+      - { label: Besonderer Hinweis, name: specialNote, widget: text, required: false, pattern: ['^[\s\S]{0,300}$', 'Bitte verwenden Sie höchstens 300 Zeichen.'] }
+      - label: Preise
+        name: pricingOptions
         widget: list
-        field: { label: Punkt, name: feature, widget: string }
-      - { label: Hervorgehoben, name: highlighted, widget: boolean, default: false }
-      - { label: Veröffentlicht, name: published, widget: boolean, default: true }
-      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
+        required: false
+        collapsed: true
+        summary: '{{fields.label}} · {{fields.price}}'
+        label_singular: Preisoption hinzufügen
+        min: 1
+        max: 8
+        hint: Legen Sie alle buchbaren Varianten direkt beim Angebot an.
+        fields:
+          - { label: Bezeichnung, name: label, widget: string, hint: 'Zum Beispiel: „Tagesworkshop“.', pattern: ['^.{2,80}$', 'Bitte verwenden Sie 2 bis 80 Zeichen.'] }
+          - { label: Preis, name: price, widget: string, hint: 'Zum Beispiel: „120 €“, „ab 120 €“ oder „Preis auf Anfrage“.', pattern: ['^.{2,80}$', 'Bitte verwenden Sie 2 bis 80 Zeichen.'] }
+          - { label: Einheit, name: unit, widget: string, required: false, hint: 'Zum Beispiel: „pro Person“ oder „pro Gruppe“.', pattern: ['^.{0,60}$', 'Bitte verwenden Sie höchstens 60 Zeichen.'] }
+          - label: Enthaltene Leistungen
+            name: features
+            widget: list
+            required: false
+            default: []
+            min: 1
+            max: 8
+            label_singular: Leistung hinzufügen
+            field: { label: Leistung, name: feature, widget: string, pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.'] }
+          - { label: Hervorheben, name: highlighted, widget: boolean, default: false, hint: Pro Angebot darf höchstens eine Preisoption hervorgehoben sein. }
+      - { label: Auf der Preisseite anzeigen, name: showOnPricesPage, widget: boolean, default: true, hint: Nur aktivieren, wenn mindestens eine Preisoption gepflegt ist. }
+      - { label: Reihenfolge, name: sortOrder, widget: number, value_type: int, min: 0, max: 9999, default: 100, hint: Kleine Zahlen erscheinen zuerst. Bei gleicher Zahl wird alphabetisch sortiert. }
+      - *seo_field
 
-  - name: announcements
-    label: Banner & Hinweise
-    label_singular: Hinweis
-    folder: content/announcements
+  - name: events
+    label: Veranstaltungen
+    label_singular: Veranstaltung
+    description: Termine, Anmeldestatus und Veranstaltungsdetails. Ob ein Termin künftig oder vergangen ist, berechnet die Website aus dem Datum.
+    folder: content/events
     create: true
-    slug: "{{slug}}"
+    slug: '{{slug}}'
     extension: md
-    format: frontmatter
+    format: yaml-frontmatter
+    preview_path: veranstaltungen/{{slug}}
+    summary: '{{title}} · {{date}} · {{state}}'
+    sortable_fields: [date, sortOrder, title, state, commit_date]
+    view_filters:
+      - { label: Anmeldung möglich, field: state, pattern: scheduled }
+      - { label: Ausgebucht, field: state, pattern: sold_out }
+      - { label: Abgesagt, field: state, pattern: cancelled }
+      - { label: Auf Website sichtbar, field: published, pattern: true }
+      - { label: Auf Website verborgen, field: published, pattern: false }
+    view_groups:
+      - { label: Jahr, field: date, pattern: '\d{4}' }
+      - { label: Kategorie, field: category }
     fields:
-      - { label: Titel, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Meldung, name: message, widget: text }
-      - { label: Aktiv, name: enabled, widget: boolean, default: true }
-      - label: Variante
-        name: variant
+      - label: Titel
+        name: title
+        widget: string
+        hint: Der sichtbare Veranstaltungsname. Beim ersten Speichern entsteht daraus die Webadresse.
+        pattern: ['^.{2,110}$', 'Bitte verwenden Sie 2 bis 110 Zeichen.']
+      - label: Auf Website anzeigen
+        name: published
+        widget: boolean
+        default: true
+        hint: Das Ausschalten verbirgt einen bereits veröffentlichten Termin. Ein gespeicherter Entwurf ist noch nicht automatisch öffentlich.
+      - label: Anmeldestatus
+        name: state
         widget: select
-        options: [info, success, warning]
-      - { label: Startdatum, name: startDate, widget: datetime, required: false, time_format: false, format: "YYYY-MM-DD" }
-      - { label: Enddatum, name: endDate, widget: datetime, required: false, time_format: false, format: "YYYY-MM-DD" }
-      - { label: Link-Label, name: linkLabel, widget: string, required: false }
-      - { label: Link-Ziel, name: linkHref, widget: string, required: false }
-      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
+        default: scheduled
+        hint: „Geplant“ zeigt den Anmeldebutton. „Ausgebucht“ und „Abgesagt“ deaktivieren ihn.
+        options:
+          - { label: Geplant · Anmeldung möglich, value: scheduled }
+          - { label: Ausgebucht, value: sold_out }
+          - { label: Abgesagt, value: cancelled }
+      - label: Startdatum
+        name: date
+        widget: datetime
+        date_format: DD.MM.YYYY
+        time_format: false
+        format: YYYY-MM-DD
+        picker_utc: false
+      - label: Enddatum
+        name: endDate
+        widget: datetime
+        required: false
+        date_format: DD.MM.YYYY
+        time_format: false
+        format: YYYY-MM-DD
+        picker_utc: false
+        hint: Nur bei mehrtägigen Veranstaltungen ausfüllen. Das Enddatum darf nicht vor dem Start liegen.
+      - label: Beginn
+        name: startTime
+        widget: string
+        required: false
+        hint: Optional im 24-Stunden-Format, zum Beispiel 09:30.
+        pattern: ['^$|^(?:[01]\d|2[0-3]):[0-5]\d$', 'Bitte verwenden Sie das Format HH:MM, zum Beispiel 09:30.']
+      - label: Ende
+        name: endTime
+        widget: string
+        required: false
+        hint: Optional im 24-Stunden-Format, zum Beispiel 16:00.
+        pattern: ['^$|^(?:[01]\d|2[0-3]):[0-5]\d$', 'Bitte verwenden Sie das Format HH:MM, zum Beispiel 16:00.']
+      - label: Ort
+        name: location
+        widget: string
+        default: See-Pferde Zwenkau, Zwenkau
+        pattern: ['^.{2,140}$', 'Bitte verwenden Sie 2 bis 140 Zeichen.']
+      - label: Kategorie
+        name: category
+        widget: select
+        options:
+          - { label: Seminar, value: seminar }
+          - { label: Workshop, value: workshop }
+      - label: Zugehöriges Angebot
+        name: relatedOffer
+        widget: relation
+        collection: offers
+        required: false
+        search_fields: [title, summary]
+        value_field: '{{slug}}'
+        display_fields: ['{{title}} · {{category}}']
+        filters:
+          - field: published
+            values: [true]
+        hint: Optional. Verknüpft den Termin mit der passenden Angebotsseite.
+      - label: Kurzbeschreibung
+        name: description
+        widget: text
+        hint: Wird auf Terminkarten angezeigt und als SEO-Ersatz verwendet. Maximal 220 Zeichen.
+        pattern: ['^[\s\S]{1,220}$', 'Bitte kürzen Sie die Kurzbeschreibung auf höchstens 220 Zeichen.']
+      - *richtext_body
+      - label: Hauptbild
+        name: imageSrc
+        widget: image
+        choose_url: false
+        media_library: *image_upload_limit
+        hint: Empfohlen ist ein Querformat mit mindestens 1400 Pixel Breite und höchstens 2,5 MB.
+      - { label: Bildbeschreibung für Barrierefreiheit, name: imageAlt, widget: string, pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.'] }
+      - label: Highlights
+        name: highlights
+        widget: list
+        min: 1
+        max: 8
+        label_singular: Highlight hinzufügen
+        field: { label: Highlight, name: highlight, widget: string, pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.'] }
+      - { label: Teilnehmerzahl, name: capacity, widget: string, required: false, hint: 'Zum Beispiel: „4–8 Personen“.', pattern: ['^.{0,100}$', 'Bitte verwenden Sie höchstens 100 Zeichen.'] }
+      - { label: Preisangabe, name: priceDisplay, widget: string, required: false, hint: 'Nur für diesen Termin, zum Beispiel: „120 € pro Person“.', pattern: ['^.{0,100}$', 'Bitte verwenden Sie höchstens 100 Zeichen.'] }
+      - { label: Text des Anmeldebuttons, name: registrationLabel, widget: string, required: false, default: Jetzt anmelden, hint: Falls leer, wird „Jetzt anmelden“ verwendet., pattern: ['^.{0,30}$', 'Bitte verwenden Sie höchstens 30 Zeichen.'] }
+      - { label: Reihenfolge bei gleichem Datum, name: sortOrder, widget: number, value_type: int, min: 0, max: 9999, default: 100, hint: Kleine Zahlen erscheinen zuerst. }
+      - *seo_field
+
+  - name: team
+    label: Team
+    label_singular: Teammitglied
+    description: Personen, die auf der Seite „Über uns“ vorgestellt werden.
+    folder: content/team
+    create: true
+    identifier_field: name
+    slug: '{{slug}}'
+    extension: md
+    format: yaml-frontmatter
+    preview_path: ueber-uns
+    summary: '{{name}} · {{role}}'
+    sortable_fields: [sortOrder, name, role, commit_date]
+    view_filters:
+      - { label: Auf Website sichtbar, field: published, pattern: true }
+      - { label: Auf Website verborgen, field: published, pattern: false }
+    fields:
+      - { label: Name, name: name, widget: string, hint: Beim ersten Speichern entsteht daraus der interne Dateiname., pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.'] }
+      - { label: Auf Website anzeigen, name: published, widget: boolean, default: true, hint: Das Ausschalten verbirgt das Profil auf der Seite „Über uns“. }
+      - { label: Rolle, name: role, widget: string, hint: 'Zum Beispiel: „Inhaberin & Coach“.', pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.'] }
+      - label: Kurzbiografie
+        name: shortBio
+        widget: text
+        hint: Der Text auf der Profilkarte. Maximal 220 Zeichen.
+        pattern: ['^[\s\S]{1,220}$', 'Bitte kürzen Sie die Kurzbiografie auf höchstens 220 Zeichen.']
+      - label: Ausführlicher Inhalt
+        name: body
+        widget: richtext
+        required: false
+        buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list, quote]
+        editor_components: []
+        modes: [rich_text]
+        sanitize_preview: true
+        hint: Optionaler längerer Werdegang oder persönliche Vorstellung.
+      - label: Porträt
+        name: imageSrc
+        widget: image
+        choose_url: false
+        media_library: *image_upload_limit
+        hint: Ein freundliches Hochformat oder quadratisches Bild, höchstens 2,5 MB.
+      - { label: Bildbeschreibung für Barrierefreiheit, name: imageAlt, widget: string, pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.'] }
+      - label: Qualifikationen
+        name: qualifications
+        widget: list
+        required: false
+        default: []
+        min: 1
+        max: 8
+        label_singular: Qualifikation hinzufügen
+        field: { label: Qualifikation, name: qualification, widget: string, pattern: ['^.{2,120}$', 'Bitte verwenden Sie 2 bis 120 Zeichen.'] }
+      - { label: Reihenfolge, name: sortOrder, widget: number, value_type: int, min: 0, max: 9999, default: 100, hint: Kleine Zahlen erscheinen zuerst. }
+
+  - name: horses
+    label: Pferde
+    label_singular: Pferd
+    description: Pferdeprofile für die Seite „Unsere Pferde“.
+    folder: content/horses
+    create: true
+    identifier_field: name
+    slug: '{{slug}}'
+    extension: md
+    format: yaml-frontmatter
+    preview_path: pferde
+    summary: '{{name}} · {{breed}}'
+    sortable_fields: [sortOrder, name, breed, birthYear, commit_date]
+    view_filters:
+      - { label: Auf Website sichtbar, field: published, pattern: true }
+      - { label: Auf Website verborgen, field: published, pattern: false }
+    fields:
+      - { label: Name, name: name, widget: string, hint: Beim ersten Speichern entsteht daraus der interne Dateiname., pattern: ['^.{2,80}$', 'Bitte verwenden Sie 2 bis 80 Zeichen.'] }
+      - { label: Auf Website anzeigen, name: published, widget: boolean, default: true, hint: Das Ausschalten verbirgt das Pferdeprofil. }
+      - { label: Rasse, name: breed, widget: string, pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.'] }
+      - label: Geburtsjahr
+        name: birthYear
+        widget: number
+        value_type: int
+        required: false
+        min: 1980
+        max: 2100
+        hint: Wenn bekannt, wird daraus das Alter automatisch berechnet. Andernfalls das Feld „Altersangabe“ verwenden.
+      - label: Altersangabe
+        name: ageText
+        widget: string
+        required: false
+        hint: Nur verwenden, wenn das genaue Geburtsjahr unbekannt ist, zum Beispiel „etwa 12 Jahre“.
+        pattern: ['^.{0,60}$', 'Bitte verwenden Sie höchstens 60 Zeichen.']
+      - label: Charakter
+        name: character
+        widget: text
+        pattern: ['^[\s\S]{1,300}$', 'Bitte verwenden Sie höchstens 300 Zeichen.']
+      - label: Einsatzbereiche
+        name: roles
+        widget: list
+        min: 1
+        max: 6
+        label_singular: Einsatzbereich hinzufügen
+        field: { label: Einsatzbereich, name: role, widget: string, pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.'] }
+      - label: Hauptbild
+        name: imageSrc
+        widget: image
+        choose_url: false
+        media_library: *image_upload_limit
+        hint: Ein gut erkennbares Porträt oder Ganzkörperbild, höchstens 2,5 MB.
+      - { label: Bildbeschreibung für Barrierefreiheit, name: imageAlt, widget: string, pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.'] }
+      - { label: Reihenfolge, name: sortOrder, widget: number, value_type: int, min: 0, max: 9999, default: 100, hint: Kleine Zahlen erscheinen zuerst. }
 
   - name: gallery
     label: Galerie
     label_singular: Galeriebild
+    description: Bilder für die öffentliche Galerie. Bildmaße werden beim Build automatisch ermittelt.
     folder: content/gallery
     create: true
-    slug: "{{title | slugify}}"
+    slug: '{{slug}}'
     extension: md
-    format: frontmatter
+    format: yaml-frontmatter
+    preview_path: galerie
+    summary: '{{title}} · {{category}}'
+    sortable_fields: [sortOrder, title, category, commit_date]
+    view_filters:
+      - { label: Auf Website sichtbar, field: published, pattern: true }
+      - { label: Auf Website verborgen, field: published, pattern: false }
+      - { label: Hof, field: category, pattern: hof }
+      - { label: Pferde, field: category, pattern: pferde }
+      - { label: Coaching, field: category, pattern: coaching }
+      - { label: Workshops, field: category, pattern: workshops }
+      - { label: Events, field: category, pattern: events }
+    view_groups:
+      - { label: Kategorie, field: category }
     fields:
-      - { label: Titel, name: title, widget: string }
-      - { label: Bild, name: src, widget: image }
-      - { label: Alt-Text, name: alt, widget: string }
+      - { label: Titel, name: title, widget: string, hint: Ein kurzer interner Name, der das Bild leicht wiedererkennbar macht., pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.'] }
+      - { label: Auf Website anzeigen, name: published, widget: boolean, default: true, hint: Das Ausschalten verbirgt das Bild in der Galerie. }
+      - label: Bild
+        name: src
+        widget: image
+        choose_url: false
+        media_library: *image_upload_limit
+        hint: WebP oder JPEG, längste Kante empfohlen höchstens 2400 Pixel, Datei höchstens 2,5 MB.
+      - { label: Bildbeschreibung für Barrierefreiheit, name: alt, widget: string, hint: Beschreiben Sie Motiv und Situation. Keine Dateinamen., pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.'] }
+      - { label: Bildunterschrift, name: caption, widget: text, required: false, hint: Optionaler sichtbarer Zusatz in der vergrößerten Ansicht., pattern: ['^[\s\S]{0,220}$', 'Bitte verwenden Sie höchstens 220 Zeichen.'] }
       - label: Kategorie
         name: category
         widget: select
-        options: [hof, pferde, unterricht, events]
-      - { label: Breite, name: width, widget: number, value_type: int }
-      - { label: Höhe, name: height, widget: number, value_type: int }
-      - { label: Veröffentlicht, name: published, widget: boolean, default: true }
-      - { label: Sortierung, name: sortOrder, widget: number, default: 100, value_type: int }
+        options:
+          - { label: Hof, value: hof }
+          - { label: Pferde, value: pferde }
+          - { label: Coaching, value: coaching }
+          - { label: Workshops, value: workshops }
+          - { label: Events, value: events }
+      - label: Zugehöriges Pferd
+        name: relatedHorse
+        widget: relation
+        collection: horses
+        required: false
+        search_fields: [name, breed]
+        value_field: '{{slug}}'
+        display_fields: ['{{name}} · {{breed}}']
+        filters:
+          - field: published
+            values: [true]
+      - label: Zugehörige Veranstaltung
+        name: relatedEvent
+        widget: relation
+        collection: events
+        required: false
+        search_fields: [title, date]
+        value_field: '{{slug}}'
+        display_fields: ['{{title}} · {{date}}']
+        filters:
+          - field: published
+            values: [true]
+      - { label: Reihenfolge, name: sortOrder, widget: number, value_type: int, min: 0, max: 9999, default: 100, hint: Kleine Zahlen erscheinen zuerst. }
+
+  - name: announcements
+    label: Hinweise & Banner
+    label_singular: Hinweis
+    description: Zeitlich begrenzte Meldungen oberhalb der Website. Neue Hinweise sind standardmäßig ausgeschaltet.
+    folder: content/announcements
+    create: true
+    slug: '{{slug}}'
+    extension: md
+    format: yaml-frontmatter
+    preview_path: ''
+    summary: '{{title}} · aktiv: {{enabled}}'
+    sortable_fields: [sortOrder, startDate, endDate, title, commit_date]
+    view_filters:
+      - { label: Eingeschaltet, field: enabled, pattern: true }
+      - { label: Ausgeschaltet, field: enabled, pattern: false }
+      - { label: Information, field: variant, pattern: info }
+      - { label: Erfolg, field: variant, pattern: success }
+      - { label: Wichtig, field: variant, pattern: warning }
+    view_groups:
+      - { label: Art, field: variant }
+    fields:
+      - { label: Titel, name: title, widget: string, hint: Kurzer interner Name und kleine öffentliche Kennzeichnung., pattern: ['^.{2,90}$', 'Bitte verwenden Sie 2 bis 90 Zeichen.'] }
+      - { label: Auf Website anzeigen, name: enabled, widget: boolean, default: false, hint: Erst einschalten, wenn Text, Zeitraum und Link geprüft sind. Ein gespeicherter Entwurf ist trotzdem noch nicht veröffentlicht. }
+      - label: Meldung
+        name: message
+        widget: text
+        hint: Die eigentliche Banner-Nachricht. Maximal 220 Zeichen.
+        pattern: ['^[\s\S]{1,220}$', 'Bitte kürzen Sie die Meldung auf höchstens 220 Zeichen.']
+      - label: Darstellung
+        name: variant
+        widget: select
+        default: info
+        options:
+          - { label: Information, value: info }
+          - { label: Erfolg, value: success }
+          - { label: Wichtig, value: warning }
+      - label: Startdatum
+        name: startDate
+        widget: datetime
+        required: false
+        date_format: DD.MM.YYYY
+        time_format: false
+        format: YYYY-MM-DD
+        picker_utc: false
+        hint: Optional und einschließlich. Ohne Datum erscheint ein eingeschalteter Hinweis sofort nach der Veröffentlichung.
+      - label: Enddatum
+        name: endDate
+        widget: datetime
+        required: false
+        date_format: DD.MM.YYYY
+        time_format: false
+        format: YYYY-MM-DD
+        picker_utc: false
+        hint: Optional und einschließlich. Geplante Wechsel werden durch den täglichen statischen Build sichtbar.
+      - { label: Link-Text, name: linkLabel, widget: string, required: false, hint: Muss zusammen mit einem Link-Ziel ausgefüllt werden., pattern: ['^.{0,40}$', 'Bitte verwenden Sie höchstens 40 Zeichen.'] }
+      - label: Link-Ziel
+        name: linkHref
+        widget: string
+        required: false
+        hint: Interne Links beginnen mit /, externe Links vollständig mit https://.
+        pattern: ['^$|^(\/|https:\/\/).+', 'Bitte verwenden Sie einen internen Link ab / oder eine vollständige https://-Adresse.']
+      - { label: Reihenfolge, name: sortOrder, widget: number, value_type: int, min: 0, max: 9999, default: 100, hint: Wenn mehrere Hinweise gleichzeitig gelten, erscheinen kleine Zahlen zuerst. }
+
+  - name: legal
+    label: Rechtliches
+    label_singular: Rechtlicher Inhalt
+    description: Unternehmensangaben, Impressum und Datenschutz. Änderungen an Rechtstexten müssen fachlich geprüft werden.
+    delete: false
+    files:
+      - name: legal_settings
+        label: Unternehmensangaben
+        file: content/settings/legal.json
+        preview_path: impressum
+        fields:
+          - { label: Rechtlicher Name, name: legalName, widget: string, pattern: ['^.{2,140}$', 'Bitte verwenden Sie 2 bis 140 Zeichen.'] }
+          - { label: Rechtsform, name: legalForm, widget: string, required: false, hint: Nur ausfüllen, wenn eine Rechtsform geführt wird., pattern: ['^.{0,80}$', 'Bitte verwenden Sie höchstens 80 Zeichen.'] }
+          - { label: Registergericht, name: registerCourt, widget: string, required: false, pattern: ['^.{0,120}$', 'Bitte verwenden Sie höchstens 120 Zeichen.'] }
+          - { label: Registernummer, name: registerNumber, widget: string, required: false, pattern: ['^.{0,80}$', 'Bitte verwenden Sie höchstens 80 Zeichen.'] }
+          - { label: Steuernummer, name: taxNumber, widget: string, required: false, hint: Nur veröffentlichen, wenn dies rechtlich vorgesehen und fachlich geprüft wurde., pattern: ['^.{0,80}$', 'Bitte verwenden Sie höchstens 80 Zeichen.'] }
+          - label: Vertretungsberechtigte Personen
+            name: managingPersons
+            widget: list
+            min: 1
+            max: 8
+            label_singular: Person hinzufügen
+            field: { label: Name, name: person, widget: string, pattern: ['^.{2,120}$', 'Bitte verwenden Sie 2 bis 120 Zeichen.'] }
+          - { label: Inhaltlich verantwortliche Person, name: contentResponsibleName, widget: string, pattern: ['^.{2,120}$', 'Bitte verwenden Sie 2 bis 120 Zeichen.'] }
+          - { label: Anschrift der inhaltlich verantwortlichen Person, name: contentResponsibleAddress, widget: text, hint: Nur ausfüllen, wenn diese Anschrift von den Website-Einstellungen abweicht oder ausdrücklich benötigt wird., pattern: ['^[\s\S]{2,260}$', 'Bitte verwenden Sie 2 bis 260 Zeichen.'] }
+
+      - name: imprint
+        label: Impressum
+        file: content/legal/imprint.md
+        preview_path: impressum
+        fields:
+          - { label: Seitentitel, name: title, widget: string, pattern: ['^.{2,90}$', 'Bitte verwenden Sie 2 bis 90 Zeichen.'] }
+          - label: Zuletzt fachlich geprüft am
+            name: lastReviewedAt
+            widget: datetime
+            required: false
+            date_format: DD.MM.YYYY
+            time_format: false
+            format: YYYY-MM-DD
+            picker_utc: false
+            hint: Dieses Datum bestätigt keine automatische Rechtssicherheit. Tragen Sie nur eine echte fachliche Prüfung ein.
+          - { label: Geprüft durch, name: reviewedBy, widget: string, required: false, hint: Name oder Stelle, die den Inhalt zuletzt fachlich geprüft hat., pattern: ['^$|^.{2,140}$', 'Bitte leer lassen oder 2 bis 140 Zeichen verwenden.'] }
+          - label: Rechtlicher Inhalt
+            name: body
+            widget: richtext
+            buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list, quote]
+            editor_components: []
+            modes: [rich_text]
+            sanitize_preview: true
+            hint: Rechtstexte bitte nur nach fachlicher Prüfung ändern. Kontaktdaten und Unternehmensangaben werden, soweit möglich, automatisch ergänzt.
+
+      - name: privacy
+        label: Datenschutz
+        file: content/legal/privacy.md
+        preview_path: datenschutz
+        fields:
+          - { label: Seitentitel, name: title, widget: string, pattern: ['^.{2,90}$', 'Bitte verwenden Sie 2 bis 90 Zeichen.'] }
+          - label: Zuletzt fachlich geprüft am
+            name: lastReviewedAt
+            widget: datetime
+            required: false
+            date_format: DD.MM.YYYY
+            time_format: false
+            format: YYYY-MM-DD
+            picker_utc: false
+            hint: Dieses Datum bestätigt keine automatische Rechtssicherheit. Tragen Sie nur eine echte fachliche Prüfung ein.
+          - { label: Geprüft durch, name: reviewedBy, widget: string, required: false, hint: Name oder Stelle, die den Inhalt zuletzt fachlich geprüft hat., pattern: ['^$|^.{2,140}$', 'Bitte leer lassen oder 2 bis 140 Zeichen verwenden.'] }
+          - label: Rechtlicher Inhalt
+            name: body
+            widget: richtext
+            buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list, quote]
+            editor_components: []
+            modes: [rich_text]
+            sanitize_preview: true
+            hint: Rechtstexte bitte nur nach fachlicher Prüfung ändern. Prüfen Sie insbesondere Kontaktformular, Karten, Hosting und eingebundene Dienste.
+
+  - name: settings
+    label: Website-Einstellungen
+    label_singular: Website-Einstellung
+    description: Selten geänderte Kontaktdaten, Adresse und globale Suchmaschinen-Angaben. Änderungen wirken an vielen Stellen der Website.
+    delete: false
+    files:
+      - name: site
+        label: Kontakt & Website
+        file: content/settings/site.json
+        preview_path: kontakt
+        fields:
+          - { label: Öffentlicher Betriebsname, name: businessName, widget: string, hint: Dieser Name erscheint unter anderem im Footer und in Suchmaschinen-Daten., pattern: ['^.{2,120}$', 'Bitte verwenden Sie 2 bis 120 Zeichen.'] }
+          - label: Telefonnummer
+            name: phone
+            widget: string
+            required: false
+            hint: Öffentlich sichtbar. Bitte mit Vorwahl eingeben, zum Beispiel +49 341 1234567.
+            pattern: ['^$|^\+?[0-9][0-9 ()\/.-]{5,}$', 'Bitte lassen Sie das Feld leer oder geben Sie eine echte Telefonnummer mit Vorwahl ein; Platzhalter sind nicht zulässig.']
+          - label: E-Mail-Adresse
+            name: email
+            widget: string
+            required: false
+            hint: Öffentlich sichtbar und Ziel der Kontaktanfragen.
+            pattern: ['^$|^[^\s@]+@[^\s@]+\.[^\s@]+$', 'Bitte lassen Sie das Feld leer oder geben Sie eine vollständige E-Mail-Adresse wie name@beispiel.de ein.']
+          - { label: Erreichbarkeit, name: availabilityText, widget: string, hint: 'Zum Beispiel: „Termine nach Vereinbarung“.', pattern: ['^.{2,120}$', 'Bitte verwenden Sie 2 bis 120 Zeichen.'] }
+          - { label: Hinweis im Footer, name: footerNote, widget: text, hint: Ein kurzer hilfreicher Satz unter den Kontaktdaten., pattern: ['^[\s\S]{2,260}$', 'Bitte verwenden Sie 2 bis 260 Zeichen.'] }
+          - { label: Straße und Hausnummer, name: street, widget: string, pattern: ['^.{2,120}$', 'Bitte verwenden Sie 2 bis 120 Zeichen.'] }
+          - { label: Postleitzahl, name: postalCode, widget: string, pattern: ['^\d{5}$', 'Bitte geben Sie eine fünfstellige deutsche Postleitzahl ein.'] }
+          - { label: Ort, name: city, widget: string, pattern: ['^.{2,100}$', 'Bitte verwenden Sie 2 bis 100 Zeichen.'] }
+          - label: Land
+            name: countryCode
+            widget: select
+            default: DE
+            options:
+              - { label: Deutschland, value: DE }
+          - label: Standort auf der Karte
+            name: mapLocation
+            widget: map
+            type: Point
+            decimals: 6
+            hint: Setzen Sie den Punkt genau am Hof. Daraus erzeugt die Website die OpenStreetMap-Karte und Standortdaten.
+          - label: Standardbeschreibung für Suchmaschinen
+            name: defaultDescription
+            widget: text
+            hint: Wird verwendet, wenn eine Seite keine eigene SEO-Beschreibung hat. Maximal 160 Zeichen.
+            pattern: ['^[\s\S]{1,160}$', 'Bitte verwenden Sie höchstens 160 Zeichen.']
+          - label: Standard-Vorschaubild für Social Media
+            name: defaultSocialImage
+            widget: image
+            choose_url: false
+            media_library: *image_upload_limit
+            hint: Querformat, empfohlen 1200 × 630 Pixel.
+          - { label: Bildbeschreibung des Standard-Vorschaubilds, name: defaultSocialImageAlt, widget: string, pattern: ['^[\s\S]{8,180}$', 'Bitte schreiben Sie eine aussagekräftige Bildbeschreibung mit 8 bis 180 Zeichen.'] }

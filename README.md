@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# See-Pferde Zwenkau
 
-## Getting Started
+Statische Website für See-Pferde Zwenkau mit Next.js 16, TypeScript,
+Tailwind CSS und einem Git-basierten Decap CMS.
 
-First, run the development server:
+## Entwicklung
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Die Website läuft anschließend unter `http://localhost:3000` beziehungsweise
+dem nächsten freien Port. Gleichzeitig startet der lokale CMS-Inhaltsdienst auf
+Port `8082`, sodass `/admin` lokal ohne Produktionsanmeldung geöffnet werden
+kann. Die lokale Proxy-Anmeldung wird automatisch bestätigt; die
+Inhaltsübersicht erscheint direkt.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## CMS lokal testen
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`http://localhost:3000/admin` öffnen. Inhalte liegen unter `content/`,
+Uploads unter `public/images/uploads/`. Die lokale Entwicklungsumgebung leitet
+automatisch auf die statische CMS-Datei weiter. `npm run cms:proxy` bleibt als
+separater Diagnosebefehl verfügbar; `npm run dev:web` startet nur Next.js.
 
-## Learn More
+## Qualitätsprüfungen
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run cms:bundle:check
+npm run content:validate
+npm run typecheck
+npm run lint
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Der statische Export wird in `out/` erzeugt. Dynamische Angebote und
+Veranstaltungen werden zur Build-Zeit als statische Routen generiert.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Dokumentation
 
-## Deploy on Vercel
+- `CMS_IMPLEMENTATION_SPEC.md`: Architektur, Inhaltsmodell, UX- und
+  Abnahmespezifikation
+- `CMS_SETUP.md`: Eigentümer-Login, GitHub-App-Einrichtung, Redaktionsablauf, Deployment und
+  Fehlerbehebung
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vor dem produktiven CMS-Start müssen die private cPanel-Konfiguration für den
+Eigentümer-Login, die Repository-spezifische GitHub App sowie die öffentliche
+Telefonnummer und E-Mail-Adresse hinterlegt werden.

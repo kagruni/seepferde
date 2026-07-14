@@ -1,86 +1,107 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import MarkdownContent from "@/components/common/MarkdownContent";
+import { getImprintContent, getLegalSettings, getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Impressum von See-Pferde Zwenkau — Angaben gemäß §5 TMG.",
+  description: "Impressum und Anbieterkennzeichnung von See-Pferde Zwenkau.",
 };
 
 export default function Impressum() {
+  const page = getImprintContent();
+  const legal = getLegalSettings();
+  const site = getSiteSettings();
+
   return (
     <section className="bg-white pt-28 pb-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-heading font-bold mb-10">Impressum</h1>
+        <h1 className="text-4xl font-heading font-bold mb-10">{page.title}</h1>
 
-        <div className="prose prose-lg max-w-none text-text-secondary space-y-8">
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">Angaben gemäß §5 TMG</h2>
+        <div className="space-y-8 text-text-secondary">
+          <LegalSection title="Angaben zum Anbieter">
             <p>
-              K &amp; P Hausmanagement OHG<br />
-              Hafenstraße 20<br />
-              04442 Zwenkau
+              {legal.legalName}
+              {legal.legalForm && !legal.legalName.includes(legal.legalForm)
+                ? ` ${legal.legalForm}`
+                : ""}
+              <br />
+              {site.address}
             </p>
-          </div>
+          </LegalSection>
 
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">Handelsregister</h2>
-            <p>
-              Amtsgericht Leipzig<br />
-              HRA 18303
+          {legal.registerCourt || legal.registerNumber ? (
+            <LegalSection title="Handelsregister">
+              <p>
+                {legal.registerCourt}
+                {legal.registerCourt && legal.registerNumber ? <br /> : null}
+                {legal.registerNumber}
+              </p>
+            </LegalSection>
+          ) : null}
+
+          {legal.taxNumber ? (
+            <LegalSection title="Steuernummer">
+              <p>{legal.taxNumber}</p>
+            </LegalSection>
+          ) : null}
+
+          <LegalSection title="Geschäftsführung">
+            <p>{legal.managingPersons.join(" & ")}</p>
+          </LegalSection>
+
+          {site.phone || site.email ? (
+            <LegalSection title="Kontakt">
+              <p>
+                {site.phone ? (
+                  <>
+                    Telefon: <a href={`tel:${site.phone}`}>{site.phone}</a>
+                    <br />
+                  </>
+                ) : null}
+                {site.email ? (
+                  <>
+                    E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a>
+                  </>
+                ) : null}
+              </p>
+            </LegalSection>
+          ) : null}
+
+          <LegalSection title="Verantwortlich für den Inhalt">
+            <p className="whitespace-pre-line">
+              {legal.contentResponsibleName}
+              {"\n"}
+              {legal.contentResponsibleAddress}
             </p>
-          </div>
+          </LegalSection>
 
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">Steuernummer</h2>
-            <p>232/157/45604</p>
-          </div>
+          <MarkdownContent>{page.body}</MarkdownContent>
 
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">Geschäftsführung</h2>
-            <p>Josephine Kolatka &amp; Mandy Kolatka</p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">Kontakt</h2>
-            <p>
-              Telefon: [wird ergänzt]<br />
-              E-Mail: [wird ergänzt]
+          {page.lastReviewedAt || page.reviewedBy ? (
+            <p className="border-t border-brown/10 pt-5 text-sm text-text-light">
+              Fachlich geprüft
+              {page.lastReviewedAt ? ` am ${page.lastReviewedAt}` : ""}
+              {page.reviewedBy ? ` von ${page.reviewedBy}` : ""}.
             </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">Verantwortlich für den Inhalt nach §55 Abs. 2 RStV</h2>
-            <p>
-              Mandy Kolatka<br />
-              Hafenstraße 20<br />
-              04442 Zwenkau
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">Haftung für Inhalte</h2>
-            <p>
-              Als Diensteanbieter sind wir gemäß §7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
-            </p>
-            <p>
-              Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">Haftung für Links</h2>
-            <p>
-              Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-heading font-semibold text-text mb-2">Urheberrecht</h2>
-            <p>
-              Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
-            </p>
-          </div>
+          ) : null}
         </div>
       </div>
+    </section>
+  );
+}
+
+function LegalSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <section>
+      <h2 className="text-xl font-heading font-semibold text-text mb-2">{title}</h2>
+      {children}
     </section>
   );
 }

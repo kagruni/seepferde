@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import type { SiteSettings } from "@/types";
+import { footerNavigation } from "@/lib/navigation";
 
 export default function Footer({ siteSettings }: { siteSettings: SiteSettings }) {
   return (
@@ -31,14 +32,22 @@ export default function Footer({ siteSettings }: { siteSettings: SiteSettings })
                   <MapPin className="w-5 h-5 mt-0.5 text-brown/60 shrink-0" />
                   <span>{siteSettings.address}</span>
                 </li>
-                <li className="flex items-start gap-3">
-                  <Phone className="w-5 h-5 mt-0.5 text-brown/60 shrink-0" />
-                  <span>{siteSettings.phone}</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 mt-0.5 text-brown/60 shrink-0" />
-                  <span>{siteSettings.email}</span>
-                </li>
+                {siteSettings.phone ? (
+                  <li className="flex items-start gap-3">
+                    <Phone className="w-5 h-5 mt-0.5 text-brown/60 shrink-0" />
+                    <a href={`tel:${siteSettings.phone}`} className="hover:text-brown-light">
+                      {siteSettings.phone}
+                    </a>
+                  </li>
+                ) : null}
+                {siteSettings.email ? (
+                  <li className="flex items-start gap-3">
+                    <Mail className="w-5 h-5 mt-0.5 text-brown/60 shrink-0" />
+                    <a href={`mailto:${siteSettings.email}`} className="hover:text-brown-light">
+                      {siteSettings.email}
+                    </a>
+                  </li>
+                ) : null}
               </ul>
             </div>
 
@@ -48,7 +57,7 @@ export default function Footer({ siteSettings }: { siteSettings: SiteSettings })
                 Hofkarte &amp; Mehr
               </h4>
               <ul className="space-y-2">
-                {siteSettings.navLinks.map((link) => (
+                {footerNavigation.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
@@ -58,46 +67,6 @@ export default function Footer({ siteSettings }: { siteSettings: SiteSettings })
                     </Link>
                   </li>
                 ))}
-                <li>
-                  <Link
-                    href="/pferde"
-                    className="text-cream/80 hover:text-brown-light transition-colors duration-200"
-                  >
-                    Pferde
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/preise"
-                    className="text-cream/80 hover:text-brown-light transition-colors duration-200"
-                  >
-                    Preise
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/galerie"
-                    className="text-cream/80 hover:text-brown-light transition-colors duration-200"
-                  >
-                    Galerie
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/impressum"
-                    className="text-cream/80 hover:text-brown-light transition-colors duration-200"
-                  >
-                    Impressum
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/datenschutz"
-                    className="text-cream/80 hover:text-brown-light transition-colors duration-200"
-                  >
-                    Datenschutz
-                  </Link>
-                </li>
               </ul>
             </div>
 
@@ -109,11 +78,13 @@ export default function Footer({ siteSettings }: { siteSettings: SiteSettings })
               <ul className="space-y-3 text-cream/80">
                 <li className="flex items-start gap-3">
                   <Clock className="w-5 h-5 mt-0.5 text-brown/60 shrink-0" />
-                  <span>{siteSettings.hours}</span>
+                  <span>{siteSettings.availabilityText}</span>
                 </li>
               </ul>
               <p className="mt-4 text-sm text-cream/50">
-                {siteSettings.footerNote}
+                {siteSettings.phone || siteSettings.email
+                  ? siteSettings.footerNote
+                  : siteSettings.availabilityText}
               </p>
             </div>
           </div>
@@ -122,7 +93,7 @@ export default function Footer({ siteSettings }: { siteSettings: SiteSettings })
         {/* Copyright */}
         <div className="border-t border-cream/10 py-6">
           <p className="text-center text-sm text-cream/40">
-            &copy; {new Date().getFullYear()} See-Pferde Zwenkau. Alle
+            &copy; {new Date().getFullYear()} {siteSettings.businessName}. Alle
             Rechte vorbehalten.
           </p>
         </div>

@@ -1,0 +1,15 @@
+Options -Indexes
+DirectoryIndex disabled
+
+RewriteEngine On
+RewriteRule ^form/?$ auth.php [END]
+RewriteRule ^repository/(.*)$ api.php?path=$1 [QSA,END,B]
+
+<FilesMatch "^_">
+  Require all denied
+</FilesMatch>
+
+<FilesMatch "\.(php|json)$">
+  Header set Cache-Control "no-store, max-age=0"
+  Header set X-Robots-Tag "noindex, nofollow, noarchive"
+</FilesMatch>

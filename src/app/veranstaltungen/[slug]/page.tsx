@@ -3,18 +3,23 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Button from "@/components/ui/Button";
+import InquiryButton from "@/components/ui/InquiryButton";
 import MarkdownContent from "@/components/common/MarkdownContent";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import { Calendar, MapPin, Tag, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { getEventBySlug, getEvents } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const dynamicParams = false;
 
 function formatDate(dateStr: string): string {
-  const date = new Date(dateStr + "T00:00:00");
+  const date = new Date(`${dateStr}T00:00:00Z`);
   return date.toLocaleDateString("de-DE", {
     day: "numeric",
     month: "long",
     year: "numeric",
+    timeZone: "UTC",
   });
 }
 
@@ -30,10 +35,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const event = getEventBySlug(slug);
   if (!event) return { title: "Veranstaltung nicht gefunden" };
-  return {
-    title: `${event.title} — See-Pferde Zwenkau`,
+  return buildPageMetadata(event.seo, {
+    title: event.title,
     description: event.description,
-  };
+    image: event.imageSrc,
+    imageAlt: event.imageAlt,
+  });
 }
 
 export default async function EventDetail({
@@ -45,7 +52,10 @@ export default async function EventDetail({
   const event = getEventBySlug(slug);
   if (!event) notFound();
 
-  const isPast = event.status === "past";
+  const isPast = event.chronology === "past";
+  const isCancelled = event.state === "cancelled";
+  const isSoldOut = event.state === "sold_out";
+  const registrationUnavailable = isPast || isCancelled || isSoldOut;
 
   return (
     <>
@@ -71,6 +81,11 @@ export default async function EventDetail({
             <h1 className="text-4xl sm:text-5xl font-heading font-bold text-white drop-shadow-lg">
               {event.title}
             </h1>
+            {isCancelled || isSoldOut ? (
+              <p className="mt-3 inline-flex rounded-full bg-white/90 px-3 py-1 text-sm font-semibold text-text">
+                {isCancelled ? "Abgesagt" : "Ausgebucht"}
+              </p>
+            ) : null}
             <div className="mt-3 flex flex-wrap items-center gap-4 text-cream/90">
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4" />
@@ -125,6 +140,12 @@ export default async function EventDetail({
                             <> – {formatDate(event.endDate)}</>
                           )}
                         </p>
+                        {event.startTime ? (
+                          <p className="text-sm">
+                            {event.startTime} Uhr
+                            {event.endTime ? ` – ${event.endTime} Uhr` : ""}
+                          </p>
+                        ) : null}
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
@@ -140,25 +161,47 @@ export default async function EventDetail({
                         <p className="font-semibold text-text text-sm">
                           Kategorie
                         </p>
-                        <p className="capitalize">{event.kategorie}</p>
+                        <p>{event.category === "seminar" ? "Seminar" : "Workshop"}</p>
                       </div>
                     </div>
+                    {event.capacity ? (
+                      <div>
+                        <p className="font-semibold text-text text-sm">Teilnehmerzahl</p>
+                        <p>{event.capacity}</p>
+                      </div>
+                    ) : null}
+                    {event.priceDisplay ? (
+                      <div>
+                        <p className="font-semibold text-text text-sm">Preis</p>
+                        <p>{event.priceDisplay}</p>
+                      </div>
+                    ) : null}
+                    {event.relatedOffer ? (
+                      <Link
+                        href={`/angebote/${event.relatedOffer}`}
+                        className="inline-flex font-semibold text-forest underline underline-offset-4"
+                      >
+                        Passendes Angebot ansehen
+                      </Link>
+                    ) : null}
                   </div>
 
-                  {isPast ? (
+                  {registrationUnavailable ? (
                     <div className="bg-brown/10 rounded-xl p-4 text-center">
                       <p className="text-text-secondary text-sm font-medium">
-                        Diese Veranstaltung hat bereits stattgefunden.
+                        {isCancelled
+                          ? "Diese Veranstaltung wurde abgesagt."
+                          : isSoldOut
+                            ? "Diese Veranstaltung ist bereits ausgebucht."
+                            : "Diese Veranstaltung hat bereits stattgefunden."}
                       </p>
                     </div>
                   ) : (
-                    <Button
-                      href="/kontakt"
-                      variant="primary"
+                    <InquiryButton
+                      subject={event.title}
+                      label={event.registrationLabel || "Jetzt anmelden"}
                       className="w-full"
-                    >
-                      Jetzt anmelden
-                    </Button>
+                    />
                   )}
                 </div>
               </ScrollReveal>
@@ -204,19 +247,25 @@ export default async function EventDetail({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <h2 className="text-3xl sm:text-4xl text-white mb-4">
-              {isPast
-                ? "Neugierig geworden?"
-                : "Bereit für dieses Erlebnis?"}
+              {registrationUnavailable ? "Interesse an weiteren Terminen?" : "Bereit für dieses Erlebnis?"}
             </h2>
             <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">
-              {isPast
-                ? "Schauen Sie sich unsere aktuellen Termine an oder kontaktieren Sie uns für individuelle Anfragen."
-                : "Kontaktieren Sie uns für Anmeldung und weitere Informationen — wir freuen uns auf Sie."}
+              {registrationUnavailable
+                ? "Schauen Sie sich unsere aktuellen Termine an oder kontaktieren Sie uns für eine individuelle Anfrage."
+                : `Senden Sie uns Ihre Anfrage. Wir melden uns über die in den Website-Einstellungen hinterlegte Kontaktadresse bei Ihnen zurück.`}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button href="/kontakt" variant="primary" size="lg">
-                Kontakt aufnehmen
-              </Button>
+              {registrationUnavailable ? (
+                <Button href="/kontakt" variant="primary" size="lg">
+                  Kontakt aufnehmen
+                </Button>
+              ) : (
+                <InquiryButton
+                  subject={event.title}
+                  label={event.registrationLabel || "Jetzt anmelden"}
+                  size="lg"
+                />
+              )}
               <Button
                 href="/veranstaltungen"
                 variant="secondary"

@@ -1,6 +1,5 @@
 ---
 title: Garrocha
-slug: garrocha
 summary: Traditionelle südeuropäische Reitkunst - Motivation und Freude mit der Garrocha.
 description: Einstieg in eine elegante, präzise Reitdisziplin mit Bodenarbeit und Übungen im Sattel.
 category: workshop
@@ -18,8 +17,18 @@ format: Einführungskurs in kleiner Gruppe
 specialNote: Grundlagen im einhändigen Reiten sind hilfreich.
 participantCount: Kleine Gruppen
 prerequisites: Sicheres Reiten im Schritt und Trab, enge Volten und Grundkenntnisse im einhändigen Reiten.
+pricingOptions:
+  - label: Garrocha
+    price: Preis auf Anfrage
+    unit: pro Teilnehmer
+    features:
+      - Einführungskurs
+      - Übungen vom Boden und im Sattel
+      - Kleine Gruppen
+      - Für fortgeschrittene Einsteiger
+    highlighted: false
+showOnPricesPage: true
 published: true
-featured: false
 sortOrder: 60
 ---
 In diesem Kurs lernen Sie die Grundlagen des Reitens mit der Garrocha kennen - einer traditionellen südeuropäischen Reitdisziplin, die Eleganz, Präzision und Freude vereint.

@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { MapPin, Phone, Mail } from "lucide-react";
+import type { Metadata } from "next";
 import ScrollReveal from "@/components/common/ScrollReveal";
+import MarkdownContent from "@/components/common/MarkdownContent";
 import WatercolorCanvas from "@/components/effects/WatercolorCanvas";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -10,11 +11,20 @@ import {
   getFeaturedHomeOffers,
   getFeaturedUpcomingEvent,
   getHomePageContent,
-  getSiteSettings,
 } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
+
+export function generateMetadata(): Metadata {
+  const home = getHomePageContent();
+  return buildPageMetadata(home.seo, {
+    title: home.heroTitle,
+    description: home.heroSubtitle,
+    image: home.heroImage,
+    imageAlt: home.heroImageAlt,
+  });
+}
 
 export default function Home() {
-  const siteSettings = getSiteSettings();
   const home = getHomePageContent();
   const featuredOffers = getFeaturedHomeOffers(3);
   const featuredEvent = getFeaturedUpcomingEvent();
@@ -26,9 +36,9 @@ export default function Home() {
       <section className="relative h-[170vh]">
         <div className="sticky top-0 h-screen flex items-end overflow-hidden">
           <WatercolorCanvas
-            imageSrc={siteSettings.heroImage}
-            watercolorSrc={siteSettings.heroWatercolorImage}
-            imageAlt={`${siteSettings.businessName} — Panorama mit Reitplatz und Zwenkauer See bei Sonnenuntergang`}
+            imageSrc={home.heroImage}
+            watercolorSrc={home.heroWatercolorImage}
+            imageAlt={home.heroImageAlt}
             priority
           />
 
@@ -46,12 +56,12 @@ export default function Home() {
             <ScrollReveal delay={300}>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Button
-                  href="/angebote"
+                  href={home.primaryCtaTarget}
                   variant="secondary"
                   size="lg"
                   className="border-white/80 text-white hover:bg-white hover:text-text bg-transparent"
                 >
-                  {home.heroPrimaryCtaLabel}
+                  {home.primaryCtaLabel}
                 </Button>
               </div>
             </ScrollReveal>
@@ -69,7 +79,13 @@ export default function Home() {
             {announcements.map((announcement) => (
               <div
                 key={announcement.slug}
-                className="rounded-2xl border border-forest/10 bg-white px-5 py-4 text-center shadow-sm"
+                className={`rounded-2xl border px-5 py-4 text-center shadow-sm ${
+                  announcement.variant === "warning"
+                    ? "border-gold/30 bg-gold/10"
+                    : announcement.variant === "success"
+                      ? "border-forest/20 bg-forest/10"
+                      : "border-brown/15 bg-white"
+                }`}
               >
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-gold mb-1">
                   {announcement.title}
@@ -112,14 +128,9 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] leading-tight mb-6">
                   {home.welcomeTitle}
                 </h2>
-                {home.welcomeParagraphs.map((paragraph) => (
-                  <p
-                    key={paragraph}
-                    className="text-text-secondary text-lg leading-relaxed mb-4"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
+                <MarkdownContent className="text-text-secondary text-lg" >
+                  {home.welcomeBody}
+                </MarkdownContent>
                 <Button href="/ueber-uns" variant="ghost">
                   Mehr über uns erfahren →
                 </Button>
@@ -129,8 +140,8 @@ export default function Home() {
             <ScrollReveal delay={200}>
               <div className="relative flex justify-center">
                 <Image
-                  src="/images/decorative/watercolor-horse.jpeg"
-                  alt="Aquarell-Illustration eines Pferdes im Trab"
+                  src={home.welcomeImage}
+                  alt={home.welcomeImageAlt}
                   width={500}
                   height={500}
                   className="w-full max-w-md opacity-80 drop-shadow-sm"
@@ -201,6 +212,9 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#3D2A35]/70" />
           <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <ScrollReveal>
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+                {home.eventEyebrow}
+              </p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-white leading-tight mb-6">
                 {featuredEvent.title}
               </h2>
@@ -226,8 +240,8 @@ export default function Home() {
             <ScrollReveal>
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/hero/hero-main.jpeg"
-                  alt="Ansicht des Reiterhofs See-Pferde Zwenkau"
+                  src={home.contactImage}
+                  alt={home.contactImageAlt}
                   fill
                   className="object-cover"
                 />
@@ -236,27 +250,26 @@ export default function Home() {
 
             <ScrollReveal delay={150}>
               <div>
+                <p className="text-gold font-semibold tracking-[0.2em] uppercase text-sm mb-3">
+                  {home.contactEyebrow}
+                </p>
                 <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] leading-tight mb-4">
                   {home.contactTitle}
                 </h2>
                 <p className="text-text-secondary text-lg leading-relaxed mb-6">
-                  {home.contactText}
+                  {home.contactBody}
                 </p>
 
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center gap-3 text-text-secondary">
-                    <span className="w-2 h-2 bg-gold rounded-full shrink-0" />
-                    Pferdegestütztes Coaching
-                  </li>
-                  <li className="flex items-center gap-3 text-text-secondary">
-                    <span className="w-2 h-2 bg-gold rounded-full shrink-0" />
-                    Reiten &amp; Sport
-                  </li>
-                  <li className="flex items-center gap-3 text-text-secondary">
-                    <span className="w-2 h-2 bg-gold rounded-full shrink-0" />
-                    Events &amp; Sport
-                  </li>
-                </ul>
+                {home.contactHighlights.length > 0 ? (
+                  <ul className="space-y-3 mb-8">
+                    {home.contactHighlights.map((highlight) => (
+                      <li key={highlight} className="flex items-center gap-3 text-text-secondary">
+                        <span className="w-2 h-2 bg-gold rounded-full shrink-0" />
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
 
                 <Button href="/ueber-uns" variant="primary">
                   {home.contactCtaLabel}

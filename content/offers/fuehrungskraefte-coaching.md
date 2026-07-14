@@ -1,6 +1,5 @@
 ---
 title: Führungskräfte-Coaching
-slug: fuehrungskraefte-coaching
 summary: Pferdegestütztes Leadership-Coaching - Pferde als Spiegel für Führungsverhalten.
 description: Pferdegestütztes Coaching für Führungskräfte, die ihre Wirkung klarer verstehen und ihre Führung authentisch weiterentwickeln wollen.
 category: seminar
@@ -21,8 +20,18 @@ audience:
 format: Einzel- und Gruppencoaching, auch für Unternehmen
 specialNote: Keine Reiterfahrung nötig - die Arbeit findet am Boden statt.
 participantCount: Individuell planbar
+pricingOptions:
+  - label: Führungskräfte-Coaching
+    price: Preis auf Anfrage
+    unit: pro Teilnehmer
+    features:
+      - Pferdegestütztes Leadership-Coaching
+      - Einzel- und Gruppencoaching
+      - Keine Reiterfahrung nötig
+      - Auch für Unternehmen
+    highlighted: false
+showOnPricesPage: true
 published: true
-featured: true
 sortOrder: 10
 ---
 Pferde reagieren unmittelbar auf Körpersprache, Klarheit und innere Haltung. Genau deshalb eignen sie sich als außergewöhnlich ehrliche Sparringspartner für Führungskräfte.

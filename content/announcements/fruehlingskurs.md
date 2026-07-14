@@ -1,6 +1,5 @@
 ---
 title: Frühlingskurs 2026
-slug: fruehlingskurs-2026
 message: Jetzt für den Extreme-Trail Frühlingskurs am 12. April 2026 anmelden.
 enabled: true
 variant: success

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 
 const COOKIE_KEY = "cookie-consent";
@@ -31,15 +31,9 @@ function setConsent(value: "accepted" | "declined") {
 }
 
 export default function CookieConsent() {
-  const [visible, setVisible] = useState(false);
   const consent = useCookieConsent();
 
-  useEffect(() => {
-    if (!consent) setVisible(true);
-    else setVisible(false);
-  }, [consent]);
-
-  if (!visible) return null;
+  if (consent) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6">

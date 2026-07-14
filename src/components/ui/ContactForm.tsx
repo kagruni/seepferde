@@ -17,6 +17,20 @@ export default function ContactForm() {
     message: "",
   });
 
+  if (!mailtoEmail) {
+    return (
+      <div className="rounded-2xl border border-gold/30 bg-gold/10 p-8 text-center" role="status">
+        <h3 className="text-xl font-heading font-semibold text-text">
+          Das Kontaktformular wird gerade eingerichtet
+        </h3>
+        <p className="mt-2 text-text-secondary">
+          Die öffentliche E-Mail-Adresse ist noch nicht hinterlegt. Bitte
+          schauen Sie in Kürze wieder vorbei.
+        </p>
+      </div>
+    );
+  }
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {

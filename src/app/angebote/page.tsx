@@ -3,18 +3,34 @@ import ScrollReveal from "@/components/common/ScrollReveal";
 import Card from "@/components/ui/Card";
 import InquiryButton from "@/components/ui/InquiryButton";
 import SectionDivider from "@/components/ui/SectionDivider";
-import { getOffers } from "@/lib/content";
+import { getOffers, getOffersPageContent } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Unsere Angebote",
-  description:
-    "Pferdegestütztes Coaching, Teambuilding, Workshops und Erlebnistage - entdecken Sie unser vielfältiges Angebot bei See-Pferde Zwenkau.",
-};
+export function generateMetadata(): Metadata {
+  const page = getOffersPageContent();
+  return buildPageMetadata(page.seo, {
+    title: page.title,
+    description: page.intro,
+  });
+}
 
 export default function Angebote() {
+  const page = getOffersPageContent();
   const offers = getOffers();
-  const seminars = offers.filter((offer) => offer.category === "seminar");
-  const workshops = offers.filter((offer) => offer.category === "workshop");
+  const groups = [
+    {
+      category: "seminar" as const,
+      eyebrow: page.seminarEyebrow,
+      title: page.seminarTitle,
+      background: "bg-white",
+    },
+    {
+      category: "workshop" as const,
+      eyebrow: page.workshopEyebrow,
+      title: page.workshopTitle,
+      background: "bg-beige",
+    },
+  ];
 
   return (
     <>
@@ -22,98 +38,75 @@ export default function Angebote() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
-              Unser Angebot
+              {page.eyebrow}
             </p>
             <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4">
-              Unsere Angebote
+              {page.title}
             </h1>
-            <p className="text-text-secondary text-lg max-w-2xl">
-              Pferdegestütztes Coaching, Teambuilding und einzigartige Workshops
-              - entdecken Sie unsere vielfältigen Angebote für Unternehmen,
-              Teams und Einzelpersonen.
-            </p>
+            <p className="text-text-secondary text-lg max-w-2xl">{page.intro}</p>
           </ScrollReveal>
         </div>
       </section>
 
       <SectionDivider />
 
-      <section className="bg-white py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="mb-10">
-              <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
-                Für Unternehmen & Teams
-              </p>
-              <h2 className="text-3xl sm:text-4xl">Seminare & Coaching</h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {seminars.map((offer, index) => (
-              <ScrollReveal key={offer.slug} delay={index * 100} className="h-full">
-                <Card
-                  imageSrc={offer.imageSrc}
-                  imageAlt={offer.imageAlt}
-                  title={offer.title}
-                  description={offer.summary}
-                  href={`/angebote/${offer.slug}`}
-                >
-                  <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">
-                    Mehr erfahren →
+      {groups.map((group) => {
+        const groupOffers = offers.filter((offer) => offer.category === group.category);
+        return (
+          <section key={group.category} className={`${group.background} py-16 md:py-24`}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <ScrollReveal>
+                <div className="mb-10">
+                  <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
+                    {group.eyebrow}
                   </p>
-                </Card>
+                  <h2 className="text-3xl sm:text-4xl">{group.title}</h2>
+                </div>
               </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      <section className="bg-beige py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="mb-10">
-              <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
-                Für Reiter & Pferdebegeisterte
-              </p>
-              <h2 className="text-3xl sm:text-4xl">Workshops & Training</h2>
+              {groupOffers.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                  {groupOffers.map((offer, index) => (
+                    <ScrollReveal key={offer.slug} delay={index * 100} className="h-full">
+                      <Card
+                        imageSrc={offer.imageSrc}
+                        imageAlt={offer.imageAlt}
+                        title={offer.title}
+                        description={offer.summary}
+                        href={`/angebote/${offer.slug}`}
+                      >
+                        <p className="mt-4 text-forest font-semibold text-sm">
+                          Mehr erfahren →
+                        </p>
+                      </Card>
+                    </ScrollReveal>
+                  ))}
+                </div>
+              ) : (
+                <p className="rounded-2xl bg-cream/70 p-6 text-text-secondary">
+                  In diesem Bereich sind aktuell keine Angebote veröffentlicht.
+                </p>
+              )}
             </div>
-          </ScrollReveal>
+          </section>
+        );
+      })}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {workshops.map((offer, index) => (
-              <ScrollReveal key={offer.slug} delay={index * 100} className="h-full">
-                <Card
-                  imageSrc={offer.imageSrc}
-                  imageAlt={offer.imageAlt}
-                  title={offer.title}
-                  description={offer.summary}
-                  href={`/angebote/${offer.slug}`}
-                >
-                  <p className="mt-4 text-forest font-semibold text-sm hover:text-forest-dark transition-colors">
-                    Mehr erfahren →
-                  </p>
-                </Card>
-              </ScrollReveal>
-            ))}
+      {page.ctaTitle && page.ctaLabel ? (
+        <section className="bg-[#3D2A35] text-white py-16 md:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <ScrollReveal>
+              <h2 className="text-3xl sm:text-4xl text-white mb-4">{page.ctaTitle}</h2>
+              {page.ctaBody ? (
+                <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">
+                  {page.ctaBody}
+                </p>
+              ) : null}
+              <InquiryButton label={page.ctaLabel} size="lg" />
+            </ScrollReveal>
           </div>
-        </div>
-      </section>
-
-      <section className="bg-[#3D2A35] text-white py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl text-white mb-4">
-              Interesse? Kontaktieren Sie uns
-            </h2>
-            <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">
-              Wir erstellen Ihnen gerne ein individuelles Angebot - passend zu
-              Ihren Wünschen und Ihrem Team.
-            </p>
-            <InquiryButton label="Angebot anfragen" size="lg" />
-          </ScrollReveal>
-        </div>
-      </section>
+        </section>
+      ) : null}
     </>
   );
 }

@@ -1,3 +1,7 @@
+# Keep the canonical trailing slash for the static Decap admin directory.
+RewriteEngine On
+RewriteRule ^admin$ /admin/ [R=301,L]
+
 # Cache images for 1 day (so updates are picked up within 24h)
 <filesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
   Header set Cache-Control "public, max-age=86400, must-revalidate"

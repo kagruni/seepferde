@@ -20,10 +20,16 @@ export default function HorseProfile({ horse }: { horse: Horse }) {
         <p className="text-text-secondary leading-relaxed mb-3">
           {horse.character}
         </p>
-        <div className="flex items-center gap-2 text-sm text-forest font-medium">
-          <span className="w-2 h-2 bg-forest rounded-full" />
-          {horse.role}
-        </div>
+        <ul className="flex flex-wrap gap-2" aria-label={`Einsatzbereiche von ${horse.name}`}>
+          {horse.roles.map((role) => (
+            <li
+              key={role}
+              className="rounded-full bg-forest/10 px-3 py-1 text-sm font-medium text-forest"
+            >
+              {role}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

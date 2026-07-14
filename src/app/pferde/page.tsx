@@ -1,54 +1,67 @@
 import type { Metadata } from "next";
-import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
 import HorseProfile from "@/components/common/HorseProfile";
 import Button from "@/components/ui/Button";
-import { getHorses } from "@/lib/content";
+import SectionDivider from "@/components/ui/SectionDivider";
+import { getHorses, getHorsesPageContent } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Unsere Pferde",
-  description: "Lernen Sie die Pferde und Ponys von See-Pferde Zwenkau kennen — treue Begleiter im Unterricht und auf dem Hof.",
-};
+export function generateMetadata(): Metadata {
+  const page = getHorsesPageContent();
+  return buildPageMetadata(page.seo, {
+    title: page.title,
+    description: page.intro,
+  });
+}
 
 export default function Pferde() {
+  const page = getHorsesPageContent();
   const horses = getHorses();
 
   return (
     <>
-      {/* Header */}
       <section className="bg-beige pt-28 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Unsere Vierbeiner</p>
-            <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4">Unsere Pferde</h1>
-            <p className="text-text-secondary text-lg max-w-2xl">
-              Jedes Pferd auf unserem Hof hat seinen eigenen Charakter und seine besonderen Stärken. Lernen Sie unsere treuen Partner kennen.
+            <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
+              {page.eyebrow}
             </p>
+            <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4">
+              {page.title}
+            </h1>
+            <p className="text-text-secondary text-lg max-w-2xl">{page.intro}</p>
           </ScrollReveal>
         </div>
       </section>
 
-      <SectionDivider />
+      <SectionDivider variant="horse" />
 
-      {/* Horse Grid */}
       <section className="bg-white py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {horses.map((horse, i) => (
-              <ScrollReveal key={horse.name} delay={i * 150}>
-                <HorseProfile horse={horse} />
-              </ScrollReveal>
-            ))}
-          </div>
+          {horses.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {horses.map((horse, index) => (
+                <ScrollReveal key={horse.slug} delay={index * 100} className="h-full">
+                  <HorseProfile horse={horse} />
+                </ScrollReveal>
+              ))}
+            </div>
+          ) : (
+            <p className="rounded-2xl bg-beige p-8 text-center text-text-secondary" role="status">
+              {page.emptyState}
+            </p>
+          )}
 
           <ScrollReveal delay={200}>
-            <div className="mt-16 bg-cream rounded-2xl p-8 md:p-10 border border-brown/8 text-center">
-              <h3 className="text-2xl mb-3">Weitere Pferde folgen</h3>
-              <p className="text-text-secondary max-w-lg mx-auto mb-6">
-                Unser Stall wächst — weitere Pferde und Ponys werden bald vorgestellt. Besuchen Sie uns auf dem Hof und lernen Sie alle persönlich kennen!
+            <aside className="mt-14 rounded-2xl border border-brown/12 bg-beige p-8 text-center md:p-10">
+              <h2 className="text-2xl sm:text-3xl mb-3">{page.closingTitle}</h2>
+              <p className="mx-auto max-w-2xl text-text-secondary leading-relaxed">
+                {page.closingBody}
               </p>
-              <Button href="/kontakt" variant="primary">Hof besuchen</Button>
-            </div>
+              <Button href="/kontakt" variant="primary" className="mt-6">
+                {page.closingCtaLabel}
+              </Button>
+            </aside>
           </ScrollReveal>
         </div>
       </section>

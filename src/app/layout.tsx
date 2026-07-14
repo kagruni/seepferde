@@ -4,7 +4,7 @@ import { SiteDataProvider } from "@/components/common/SiteDataProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/common/CookieConsent";
-import { getSiteSettings } from "@/lib/content";
+import { getContactSubjects, getSiteSettings } from "@/lib/content";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -20,6 +20,10 @@ const sourceSans = Source_Sans_3({
 });
 
 const siteSettings = getSiteSettings();
+const siteData = {
+  ...siteSettings,
+  contactSubjects: getContactSubjects(),
+};
 
 export const metadata: Metadata = {
   title: {
@@ -34,7 +38,7 @@ export const metadata: Metadata = {
     siteName: siteSettings.businessName,
     images: [
       {
-        url: siteSettings.ogImage,
+        url: siteSettings.defaultSocialImage,
         width: 1200,
         height: 800,
         alt: `${siteSettings.businessName} - Reitplatz mit Pferden am Zwenkauer See`,
@@ -66,15 +70,15 @@ export default function RootLayout({
                 postalCode: siteSettings.postalCode,
                 addressCountry: siteSettings.country,
               },
-              telephone: siteSettings.phone,
-              email: siteSettings.email,
+              ...(siteSettings.phone ? { telephone: siteSettings.phone } : {}),
+              ...(siteSettings.email ? { email: siteSettings.email } : {}),
               url: siteSettings.siteUrl,
             }),
           }}
         />
       </head>
       <body className={`${playfair.variable} ${sourceSans.variable} antialiased`}>
-        <SiteDataProvider value={siteSettings}>
+        <SiteDataProvider value={siteData}>
           <Header />
           <main>{children}</main>
           <Footer siteSettings={siteSettings} />

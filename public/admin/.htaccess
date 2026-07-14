@@ -1,0 +1,5 @@
+# Admin files are not hashed; editors must receive configuration and preview
+# updates immediately after a deployment.
+<FilesMatch "\.(html|yml|js|css)$">
+  Header set Cache-Control "no-cache, must-revalidate"
+</FilesMatch>

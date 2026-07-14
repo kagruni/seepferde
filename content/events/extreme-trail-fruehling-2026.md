@@ -1,13 +1,14 @@
 ---
 title: Extreme-Trail Workshop - Frühlingskurs
-slug: extreme-trail-fruehling-2026
+state: scheduled
 date: 2026-04-12
 endDate: 2026-04-12
 location: See-Pferde Zwenkau, Zwenkau
+category: workshop
+relatedOffer: extreme-trail
 description: Erleben Sie unseren Extreme-Trail Park im Frühling. Ein Tag voller Vertrauen, Kommunikation und Hindernisse aus natürlichen Materialien - für Mensch und Pferd.
 imageSrc: /images/angebote/extreme-trail.jpeg
 imageAlt: Extreme-Trail Workshop - Pferd und Reiter am Hindernis
-kategorie: workshop
 highlights:
   - Erster Extreme-Trail Park in Sachsen
   - Für Anfänger und Fortgeschrittene
@@ -15,8 +16,7 @@ highlights:
   - Eigenes Pferd oder Hofpferd möglich
   - 4-8 aktive Teilnehmer
   - Individuelle Betreuung
-status: upcoming
-featured: true
+capacity: 4-8 aktive Teilnehmer
 published: true
 sortOrder: 10
 ---

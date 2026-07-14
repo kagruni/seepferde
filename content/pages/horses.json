@@ -1,0 +1,14 @@
+{
+  "eyebrow": "Unsere Vierbeiner",
+  "title": "Unsere Pferde",
+  "intro": "Jedes Pferd auf unserem Hof hat seinen eigenen Charakter und seine besonderen Stärken. Lernen Sie unsere treuen Partner kennen.",
+  "emptyState": "Aktuell sind noch keine Pferdeprofile veröffentlicht.",
+  "closingTitle": "Weitere Pferde folgen",
+  "closingBody": "Unser Stall wächst — weitere Pferde und Ponys werden bald vorgestellt. Besuchen Sie uns auf dem Hof und lernen Sie alle persönlich kennen!",
+  "closingCtaLabel": "Hof besuchen",
+  "seo": {
+    "title": "Unsere Pferde",
+    "description": "Lernen Sie die Pferde und Ponys von See-Pferde Zwenkau kennen — treue Begleiter im Unterricht und auf dem Hof.",
+    "noIndex": false
+  }
+}

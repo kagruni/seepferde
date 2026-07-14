@@ -1,37 +1,15 @@
 {
   "businessName": "See-Pferde Zwenkau",
-  "legalName": "Mandy Kolatka",
-  "siteUrl": "https://mandykolatka.kajik.dev",
-  "defaultTitle": "See-Pferde Zwenkau - Pferdegestütztes Coaching & Workshops in Zwenkau",
-  "titleTemplate": "%s - See-Pferde Zwenkau",
-  "defaultDescription": "Pferdegestütztes Coaching, Workshops und Erlebnistage am Zwenkauer See — individuell, naturverbunden, unvergesslich.",
-  "address": "Hafenstraße 20, 04442 Zwenkau",
+  "phone": "",
+  "email": "",
+  "availabilityText": "Termine nach Vereinbarung",
+  "footerNote": "Termine nach Vereinbarung. Bitte kontaktieren Sie uns telefonisch oder per E-Mail.",
+  "street": "Hafenstraße 20",
   "postalCode": "04442",
   "city": "Zwenkau",
-  "country": "DE",
-  "phone": "[wird ergänzt]",
-  "email": "[wird ergänzt]",
-  "mailtoEmail": "kontakt@example.com",
-  "hours": "Termine nach Vereinbarung",
-  "footerNote": "Termine nach Vereinbarung. Bitte kontaktieren Sie uns telefonisch oder per E-Mail.",
-  "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=12.3246%2C51.2180%2C12.3346%2C51.2230&layer=mapnik&marker=51.2205%2C12.3296",
-  "heroImage": "/images/hero/hero-main.jpeg",
-  "heroWatercolorImage": "/images/hero/hero-main-watercolor.jpeg",
-  "ogImage": "/images/hero/hero-main.jpeg",
-  "navLinks": [
-    { "label": "Willkommen", "href": "/" },
-    { "label": "Angebote", "href": "/angebote" },
-    { "label": "Workshops", "href": "/veranstaltungen" },
-    { "label": "Hof-Infos", "href": "/ueber-uns" },
-    { "label": "Kontakt", "href": "/kontakt" }
-  ],
-  "contactSubjects": [
-    "Führungskräfte-Coaching",
-    "Teambuilding",
-    "Erlebnistag",
-    "Extreme-Trail",
-    "Working-Equitation",
-    "Garrocha",
-    "Allgemeine Anfrage"
-  ]
+  "countryCode": "DE",
+  "mapLocation": "{\"type\":\"Point\",\"coordinates\":[12.3296,51.2205]}",
+  "defaultDescription": "Pferdegestütztes Coaching, Workshops und Erlebnistage am Zwenkauer See — individuell, naturverbunden, unvergesslich.",
+  "defaultSocialImage": "/images/hero/hero-main.jpeg",
+  "defaultSocialImageAlt": "Panorama von See-Pferde Zwenkau mit Reitplatz und Zwenkauer See bei Sonnenuntergang"
 }

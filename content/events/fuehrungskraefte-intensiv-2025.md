@@ -1,20 +1,19 @@
 ---
 title: Führungskräfte-Coaching Intensivtag
-slug: fuehrungskraefte-intensiv-2025
+state: scheduled
 date: 2025-03-08
 location: See-Pferde Zwenkau, Zwenkau
+category: seminar
+relatedOffer: fuehrungskraefte-coaching
 description: Ein intensiver Coaching-Tag für Führungskräfte - pferdegestütztes Leadership-Training mit nachhaltiger Wirkung.
 imageSrc: /images/angebote/fuehrungskraefte-coaching.jpeg
 imageAlt: Führungskräfte-Coaching mit Pferd auf dem Reiterhof
-kategorie: seminar
 highlights:
   - Pferdegestütztes Leadership-Coaching
   - Kleine Gruppen für intensive Betreuung
   - Keine Reiterfahrung nötig
   - Nachhaltige Erkenntnisse
   - Auch für Unternehmen buchbar
-status: past
-featured: false
 published: true
 sortOrder: 40
 ---

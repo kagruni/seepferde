@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import { useSiteData } from "@/components/common/SiteDataProvider";
+import { primaryNavigation } from "@/lib/navigation";
 
 interface MobileMenuProps {
   open: boolean;
@@ -13,7 +13,6 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
-  const { navLinks } = useSiteData();
 
   useEffect(() => {
     if (open) {
@@ -93,7 +92,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
 
           {/* Nav links */}
           <nav className="flex flex-col gap-1 flex-1">
-            {navLinks.map((link, i) => (
+            {primaryNavigation.map((link, i) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -114,7 +113,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               size="lg"
               className="w-full"
             >
-              Buchen
+              Anfrage senden
             </Button>
           </div>
         </div>

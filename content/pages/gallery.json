@@ -1,0 +1,18 @@
+{
+  "eyebrow": "Eindrücke",
+  "title": "Galerie",
+  "intro": "Entdecken Sie Bilder von unserem Hof, unseren Pferden und dem Reitunterricht am Zwenkauer See.",
+  "categoryLabels": {
+    "hof": "Hof",
+    "pferde": "Pferde",
+    "coaching": "Coaching",
+    "workshops": "Workshops",
+    "events": "Events"
+  },
+  "emptyState": "In dieser Kategorie sind aktuell keine Bilder veröffentlicht.",
+  "seo": {
+    "title": "Galerie",
+    "description": "Eindrücke von See-Pferde Zwenkau — Bilder von unserem Hof, den Pferden und dem Reitunterricht in Zwenkau.",
+    "noIndex": false
+  }
+}

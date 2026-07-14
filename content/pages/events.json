@@ -1,0 +1,18 @@
+{
+  "eyebrow": "Termine & Events",
+  "title": "Veranstaltungen",
+  "intro": "Workshops, Kurse und Seminare bei See-Pferde Zwenkau — entdecken Sie unsere aktuellen Termine und lassen Sie sich von vergangenen Veranstaltungen inspirieren.",
+  "upcomingEyebrow": "Nächster Termin",
+  "upcomingTitle": "Kommende Veranstaltungen",
+  "pastEyebrow": "Rückblick",
+  "pastTitle": "Vergangene Veranstaltungen",
+  "emptyState": "Aktuell sind keine kommenden Veranstaltungen veröffentlicht. Schauen Sie bald wieder vorbei oder nehmen Sie Kontakt mit uns auf.",
+  "ctaTitle": "Interesse an einer Veranstaltung?",
+  "ctaBody": "Kontaktieren Sie uns für Anmeldung oder Fragen — wir beraten Sie gerne zu unseren aktuellen Terminen.",
+  "ctaLabel": "Kontakt aufnehmen",
+  "seo": {
+    "title": "Veranstaltungen",
+    "description": "Aktuelle und vergangene Veranstaltungen bei See-Pferde Zwenkau — Workshops, Kurse und Seminare rund um Pferde in Zwenkau.",
+    "noIndex": false
+  }
+}

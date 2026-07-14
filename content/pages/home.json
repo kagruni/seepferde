@@ -1,0 +1,38 @@
+{
+  "heroTitle": "Willkommen bei See-Pferde Zwenkau",
+  "heroSubtitle": "Pferdegestütztes Coaching, Workshops & Erlebnisse am Zwenkauer See — individuell, naturverbunden, unvergesslich.",
+  "heroImage": "/images/hero/hero-main.jpeg",
+  "heroImageAlt": "Panorama von See-Pferde Zwenkau mit Reitplatz und Zwenkauer See bei Sonnenuntergang",
+  "heroWatercolorImage": "/images/hero/hero-main-watercolor.jpeg",
+  "primaryCtaLabel": "Hier informieren",
+  "primaryCtaTarget": "/angebote",
+  "welcomeEyebrow": "Herzlich willkommen",
+  "welcomeTitle": "Ein Ort, an dem Pferdeträume wahr werden",
+  "welcomeBody": "Auf unserem Reiterhof in Zwenkau, direkt am wunderschönen Zwenkauer See, verbinden wir die Kraft der Pferde mit Coaching, Workshops und unvergesslichen Erlebnistagen.\n\nUnser pferdegestütztes Führungskräfte-Coaching und Teambuilding bietet Unternehmen eine einzigartige Möglichkeit, Führungsqualitäten zu entwickeln und Teamdynamiken nachhaltig zu stärken.\n\nIn unseren Workshops - vom ersten Extreme-Trail Park Sachsens bis hin zu Working-Equitation und Garrocha - erleben Reiter und Pferdebegeisterte Motivation und Freude.",
+  "welcomeImage": "/images/decorative/watercolor-horse.jpeg",
+  "welcomeImageAlt": "Aquarell-Illustration eines Pferdes im Trab",
+  "offersEyebrow": "Was wir bieten",
+  "offersTitle": "Unsere Angebote",
+  "featuredOffers": [
+    "fuehrungskraefte-coaching",
+    "erlebnistag",
+    "extreme-trail"
+  ],
+  "eventEyebrow": "Nächste Veranstaltung",
+  "contactEyebrow": "Persönlich erreichbar",
+  "contactTitle": "Lernen Sie den Hof kennen",
+  "contactBody": "Ob Coaching, Workshop oder eine erste unverbindliche Anfrage: Wir beraten Sie persönlich und finden gemeinsam das passende Angebot.",
+  "contactImage": "/images/hero/hero-main.jpeg",
+  "contactImageAlt": "Ansicht des Reiterhofs See-Pferde Zwenkau",
+  "contactHighlights": [
+    "Pferdegestütztes Coaching",
+    "Reiten & Sport",
+    "Events & Sport"
+  ],
+  "contactCtaLabel": "Zum Hof",
+  "seo": {
+    "title": "See-Pferde Zwenkau",
+    "description": "Pferdegestütztes Coaching, Workshops und Erlebnistage am Zwenkauer See — individuell, naturverbunden, unvergesslich.",
+    "noIndex": false
+  }
+}

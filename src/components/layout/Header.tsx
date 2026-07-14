@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Button from "@/components/ui/Button";
 import MobileMenu from "./MobileMenu";
-import { useSiteData } from "@/components/common/SiteDataProvider";
+import { primaryNavigation } from "@/lib/navigation";
 
 // Pages with dark image heroes where the nav should start transparent with white text
 const DARK_HERO_PATHS = new Set(["/"]);
@@ -15,7 +15,6 @@ const DARK_HERO_PREFIXES = ["/angebote/", "/veranstaltungen/"];
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { navLinks } = useSiteData();
   const pathname = usePathname();
 
   // Pages without a dark hero image should always show the solid (scrolled) nav style
@@ -57,7 +56,7 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1">
-              {navLinks.map((link) => (
+              {primaryNavigation.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -75,7 +74,7 @@ export default function Header() {
             {/* Desktop CTA */}
             <div className="hidden lg:block">
               <Button href="/kontakt" variant="primary" size="sm">
-                Buchen
+                Anfragen
               </Button>
             </div>
 

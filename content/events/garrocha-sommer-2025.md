@@ -1,20 +1,19 @@
 ---
 title: Garrocha Einführungskurs
-slug: garrocha-sommer-2025
+state: scheduled
 date: 2025-06-14
 location: See-Pferde Zwenkau, Zwenkau
+category: workshop
+relatedOffer: garrocha
 description: Einstieg in das Reiten mit der Garrocha - traditionelle südeuropäische Reitkunst als Motivation und Freude für Reiter und Pferd.
 imageSrc: /images/angebote/garrocha.jpeg
 imageAlt: Garrocha Kurs - Reiter mit Garrocha-Stange
-kategorie: workshop
 highlights:
   - Traditionelle südeuropäische Reitkunst
   - Einführung vom Boden und im Sattel
   - Erfahrene Anleitung
   - Sicheres Reiten im Schritt und Trab vorausgesetzt
   - Grundlagen einhändiges Reiten
-status: past
-featured: false
 published: true
 sortOrder: 30
 ---

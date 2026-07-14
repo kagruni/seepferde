@@ -1,6 +1,5 @@
 ---
 title: Teambuilding
-slug: teambuilding
 summary: Pferdegestütztes Teambuilding - das Pferd als neues Teammitglied.
 description: Teamdynamiken sichtbar machen, Vertrauen stärken und Zusammenarbeit nachhaltig verbessern.
 category: seminar
@@ -21,8 +20,18 @@ audience:
 format: Halbtägig oder ganztägig, für kleine Teams oder ganze Abteilungen
 specialNote: Keine Reiterfahrung nötig - gearbeitet wird gemeinsam mit dem Pferd am Boden.
 participantCount: Nach Gruppengröße planbar
+pricingOptions:
+  - label: Teambuilding
+    price: Preis auf Anfrage
+    unit: pro Teilnehmer
+    features:
+      - Pferdegestütztes Teambuilding
+      - Einzel- und Gruppencoaching
+      - Keine Reiterfahrung nötig
+      - Für Unternehmen und Teams
+    highlighted: true
+showOnPricesPage: true
 published: true
-featured: false
 sortOrder: 20
 ---
 Was passiert, wenn ein Team gemeinsam eine Aufgabe mit einem Pferd lösen muss? Rollen werden sichtbar, Kommunikationsmuster offengelegt und echte Stärken treten zutage.

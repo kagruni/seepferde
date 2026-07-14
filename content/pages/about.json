@@ -1,0 +1,19 @@
+{
+  "eyebrow": "See-Pferde Zwenkau",
+  "title": "Über uns",
+  "intro": "Lernen Sie uns kennen — unsere Philosophie, unser Team und unsere Leidenschaft für Pferde und Reitunterricht.",
+  "philosophyEyebrow": "Unsere Philosophie",
+  "philosophyTitle": "Mit Herz und Verstand — für Mensch und Pferd",
+  "philosophyBody": "Bei See-Pferde Zwenkau steht das Wohl der Pferde und die Freude am Reiten im Mittelpunkt. Wir glauben, dass ein behutsamer, respektvoller Umgang mit den Tieren die Grundlage für jedes erfolgreiche Reiterlebnis ist.\n\nUnser Unterricht ist individuell auf die Bedürfnisse jedes Reiters abgestimmt — ob jung oder alt, Anfänger oder Fortgeschrittener. In kleinen Gruppen oder im Einzelunterricht nehmen wir uns die Zeit, die Sie brauchen.\n\nUnser moderner Standort am Zwenkauer See bietet eine einzigartige Kulisse: zeitgenössische Architektur, grüne Koppeln und der Blick über den See schaffen eine Atmosphäre, in der man den Alltag hinter sich lassen kann.",
+  "philosophyImage": "/images/decorative/watercolor-horse.jpeg",
+  "philosophyImageAlt": "Aquarell-Illustration eines Pferdes",
+  "teamEyebrow": "Unser Team",
+  "teamTitle": "Die Menschen hinter dem Hof",
+  "teamIntro": "Lernen Sie die Menschen kennen, die See-Pferde Zwenkau mit persönlicher Betreuung und viel Nähe zu den Pferden gestalten.",
+  "ctaLabel": "Lernen Sie uns kennen",
+  "seo": {
+    "title": "Über uns",
+    "description": "Lernen Sie See-Pferde Zwenkau kennen — unsere Philosophie, unser Team und unsere Leidenschaft für Pferde und Reitunterricht.",
+    "noIndex": false
+  }
+}

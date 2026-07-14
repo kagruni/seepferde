@@ -3,94 +3,147 @@ import type { Metadata } from "next";
 import Button from "@/components/ui/Button";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
+import MarkdownContent from "@/components/common/MarkdownContent";
+import { getAboutPageContent, getTeamMembers } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Über uns",
-  description: "Lernen Sie See-Pferde Zwenkau kennen — unsere Philosophie, unser Team und unsere Leidenschaft für Pferde und Reitunterricht.",
-};
+export function generateMetadata(): Metadata {
+  const page = getAboutPageContent();
+  return buildPageMetadata(page.seo, {
+    title: page.title,
+    description: page.intro,
+    image: page.philosophyImage,
+    imageAlt: page.philosophyImageAlt,
+  });
+}
 
 export default function UeberUns() {
+  const page = getAboutPageContent();
+  const team = getTeamMembers();
+
   return (
     <>
-      {/* Hero */}
       <section className="bg-beige pt-28 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
-              See-Pferde Zwenkau
+              {page.eyebrow}
             </p>
             <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4">
-              Über uns
+              {page.title}
             </h1>
-            <p className="text-text-secondary text-lg max-w-2xl">
-              Lernen Sie uns kennen — unsere Philosophie, unser Team und unsere Leidenschaft für Pferde und Reitunterricht.
-            </p>
+            <p className="text-text-secondary text-lg max-w-2xl">{page.intro}</p>
           </ScrollReveal>
         </div>
       </section>
 
       <SectionDivider />
 
-      {/* Philosophy */}
       <section className="relative bg-white overflow-hidden">
-        <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: "url(/images/textures/paper-warm.jpeg)", backgroundSize: "cover" }} />
+        <div
+          className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{
+            backgroundImage: "url(/images/textures/paper-warm.jpeg)",
+            backgroundSize: "cover",
+          }}
+        />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <ScrollReveal>
               <div>
-                <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Unsere Philosophie</p>
-                <h2 className="text-3xl sm:text-4xl leading-tight mb-6">Mit Herz und Verstand — für Mensch und Pferd</h2>
-                <p className="text-text-secondary text-lg leading-relaxed mb-4">
-                  Bei See-Pferde Zwenkau steht das Wohl der Pferde und die Freude am Reiten im Mittelpunkt. Wir glauben, dass ein behutsamer, respektvoller Umgang mit den Tieren die Grundlage für jedes erfolgreiche Reiterlebnis ist.
+                <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
+                  {page.philosophyEyebrow}
                 </p>
-                <p className="text-text-secondary text-lg leading-relaxed mb-4">
-                  Unser Unterricht ist individuell auf die Bedürfnisse jedes Reiters abgestimmt — ob jung oder alt, Anfänger oder Fortgeschrittener. In kleinen Gruppen oder im Einzelunterricht nehmen wir uns die Zeit, die Sie brauchen.
-                </p>
-                <p className="text-text-secondary text-lg leading-relaxed">
-                  Unser moderner Standort am Zwenkauer See bietet eine einzigartige Kulisse: zeitgenössische Architektur, grüne Koppeln und der Blick über den See schaffen eine Atmosphäre, in der man den Alltag hinter sich lassen kann.
-                </p>
+                <h2 className="text-3xl sm:text-4xl leading-tight mb-6">
+                  {page.philosophyTitle}
+                </h2>
+                <MarkdownContent className="text-text-secondary text-lg">
+                  {page.philosophyBody}
+                </MarkdownContent>
               </div>
             </ScrollReveal>
             <ScrollReveal delay={200}>
               <div className="relative flex justify-center">
-                <Image src="/images/decorative/watercolor-horse.jpeg" alt="Aquarell-Illustration eines Pferdes" width={450} height={450} className="w-full max-w-sm opacity-75" />
+                <Image
+                  src={page.philosophyImage}
+                  alt={page.philosophyImageAlt}
+                  width={450}
+                  height={450}
+                  className="w-full max-w-sm opacity-75"
+                />
               </div>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* Team */}
       <section className="bg-beige py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-14">
-              <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Unser Team</p>
-              <h2 className="text-3xl sm:text-4xl">Die Menschen hinter dem Hof</h2>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={150}>
-            <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border border-brown/12 p-8 md:p-10 text-center">
-              <div className="w-32 h-32 rounded-full mx-auto mb-6 overflow-hidden relative">
-                <Image
-                  src="/images/team/mandy-portrait.jpeg"
-                  alt="Mandy Kolatka mit ihren Pferden"
-                  fill
-                  className="object-cover object-top"
-                />
-              </div>
-              <h3 className="text-2xl mb-1">Mandy Kolatka</h3>
-              <p className="text-gold font-semibold text-sm tracking-wide uppercase mb-4">Inhaberin & Reitlehrerin</p>
-              <p className="text-text-secondary leading-relaxed">
-                [Hier folgt ein persönlicher Text über Mandy Kolatka — ihre Erfahrung, ihre Leidenschaft für Pferde und ihre Vision für den Reiterhof. Dieser Platzhalter wird mit echten Informationen ersetzt.]
+              <p className="text-gold font-semibold tracking-widest uppercase text-sm mb-3">
+                {page.teamEyebrow}
               </p>
+              <h2 className="text-3xl sm:text-4xl">{page.teamTitle}</h2>
+              {page.teamIntro ? (
+                <p className="mt-4 mx-auto max-w-2xl text-text-secondary text-lg">
+                  {page.teamIntro}
+                </p>
+              ) : null}
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={300}>
+          {team.length > 0 ? (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {team.map((member, index) => (
+                <ScrollReveal key={member.slug} delay={index * 100} className="h-full">
+                  <article className="h-full bg-white rounded-2xl shadow-sm border border-brown/12 p-8 text-center">
+                    <div className="w-32 h-32 rounded-full mx-auto mb-6 overflow-hidden relative">
+                      <Image
+                        src={member.imageSrc}
+                        alt={member.imageAlt}
+                        fill
+                        className="object-cover object-top"
+                        sizes="128px"
+                      />
+                    </div>
+                    <h3 className="text-2xl mb-1">{member.name}</h3>
+                    <p className="text-gold font-semibold text-sm tracking-wide uppercase mb-4">
+                      {member.role}
+                    </p>
+                    <p className="text-text-secondary leading-relaxed">
+                      {member.shortBio}
+                    </p>
+                    {member.qualifications?.length ? (
+                      <ul className="mt-5 space-y-2 text-left text-sm text-text-secondary">
+                        {member.qualifications.map((qualification) => (
+                          <li key={qualification} className="flex gap-2">
+                            <span aria-hidden="true" className="text-gold">•</span>
+                            {qualification}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    {member.body ? (
+                      <MarkdownContent className="mt-5 text-left text-text-secondary">
+                        {member.body}
+                      </MarkdownContent>
+                    ) : null}
+                  </article>
+                </ScrollReveal>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-text-secondary">
+              Das Team wird in Kürze vorgestellt.
+            </p>
+          )}
+
+          <ScrollReveal delay={200}>
             <div className="text-center mt-12">
-              <Button href="/kontakt" variant="primary">Lernen Sie uns kennen</Button>
+              <Button href="/kontakt" variant="primary">
+                {page.ctaLabel}
+              </Button>
             </div>
           </ScrollReveal>
         </div>
