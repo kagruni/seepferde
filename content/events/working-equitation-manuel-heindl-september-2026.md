@@ -3,7 +3,7 @@ title: Working-Equitation-Kurs mit Manuel Heindl
 state: scheduled
 date: 2026-09-19
 endDate: 2026-09-20
-location: See-Pferde Zwenkau, Zwenkau
+location: Hafenstraße 20, 04442 Zwenkau
 category: workshop
 relatedOffer: working-equitation
 instructorName: Manuel Heindl
@@ -20,19 +20,19 @@ highlights:
   - Für Einsteiger und Fortgeschrittene
   - Pferde aller Rassen willkommen
   - 8 aktive Teilnehmer und 10 Zuschauer
-  - Snacks, Getränke und Mittagessen für aktive Teilnehmer inklusive
+  - Verpflegung und BEMER-Anwendung optional buchbar
 capacity: 8 aktive Teilnehmer und 10 Zuschauer
-priceDisplay: 210 € pro aktivem Teilnehmer und Tag · 15 € pro Zuschauer und Tag
-registrationLabel: Jetzt anfragen
+priceDisplay: 420 € für den zweitägigen Kurs mit eigenem Pferd
+registrationLabel: Online anmelden
 published: true
 sortOrder: 10
 ---
 Am 19. und 20. September 2026 findet bei See-Pferde Zwenkau ein Working-Equitation-Kurs mit [Manuel Heindl von Bavarian Lusitanos](https://www.bavarianlusitanos.com/) statt. Der Kurs richtet sich an Einsteiger und Fortgeschrittene mit Pferden aller Rassen. Sicheres Reiten im Schritt und Trab wird vorausgesetzt.
 
-Für jeden Kurstag sind pro aktivem Teilnehmer 45 Minuten Dressurarbeit, 45 Minuten Working Equitation und Reiter-Yoga vorgesehen. Snacks, Getränke und Mittagessen sind für aktive Teilnehmer im Kurspreis enthalten.
+Für jeden Kurstag sind pro aktivem Teilnehmer 45 Minuten Dressurarbeit, 45 Minuten Working Equitation und Reiter-Yoga vorgesehen.
 
-Die aktive Teilnahme kostet 210 € pro Person und Tag. Zuschauerplätze kosten 15 € pro Person und Tag; Verpflegung ist für Zuschauer nicht enthalten. Optional kann eine 15-minütige BEMER-Anwendung für 25 € hinzugebucht werden.
+Der zweitägige Kurs mit eigenem Pferd kostet 420 €. Für Samstag und Sonntag können jeweils eine Verpflegungspauschale mit Getränken, Snacks und Mittagessen für 20 € sowie eine 15-minütige BEMER-Anwendung für 25 € hinzugebucht werden.
 
 Die Anreise ist am Freitag, 18. September, ab 17:00 Uhr oder am Samstag, 19. September, ab 07:00 Uhr möglich.
 
-Für mitgebrachte Pferde stehen nach Verfügbarkeit feste Boxen, Panelboxen und eine selbst einzuzäunende Weidefläche zur Verfügung. Futter und Reinigung sind nicht enthalten und können gegen Aufpreis vereinbart werden. Alle Details finden Sie unter [Pferdeunterbringung](/pferdeunterbringung).
+Für mitgebrachte Pferde stehen nach Verfügbarkeit Außenboxen für 25 €, Panelboxen für 20 € und selbst einzuzäunende Weideflächen für 15 € zur Verfügung. Die Unterbringung kann für Freitag, Samstag und Sonntag einzeln gewählt werden. Futter und Ausmisten sind nicht im Preis enthalten und erfolgen durch den Teilnehmer. Alle Details finden Sie unter [Pferdeunterbringung](/pferdeunterbringung).

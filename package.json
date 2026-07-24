@@ -9,6 +9,7 @@
     "cms:bundle": "node scripts/build-admin-cms.mjs",
     "cms:bundle:check": "node scripts/build-admin-cms.mjs --check",
     "cms:auth:test": "php tests/cms-auth-test.php",
+    "registration:test": "tsx --test tests/working-equitation-registration.test.ts && php tests/working-equitation-registration-test.php && vitest run",
     "content:validate": "tsx scripts/validate-content.ts",
     "typecheck": "tsc --noEmit",
     "build": "next build",
@@ -31,14 +32,18 @@
     "@babel/traverse": "7.29.0",
     "@babel/types": "7.29.0",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "decap-server": "^3.9.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "jsdom": "^26.1.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.7"
   }
 }

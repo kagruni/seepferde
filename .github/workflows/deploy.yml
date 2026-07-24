@@ -53,6 +53,9 @@ jobs:
       - name: Test CMS authentication gateway
         run: npm run cms:auth:test
 
+      - name: Test Working Equitation registration
+        run: npm run registration:test
+
       - name: Verify CMS browser dialog replacements
         run: npm run cms:bundle:check
 
@@ -99,6 +102,9 @@ jobs:
 
       - name: Test CMS authentication gateway
         run: npm run cms:auth:test
+
+      - name: Test Working Equitation registration
+        run: npm run registration:test
 
       - name: Verify CMS browser dialog replacements
         run: npm run cms:bundle:check

@@ -12,6 +12,8 @@ const requiredFiles = [
   "admin/index.html",
   "cms-auth/auth.php",
   "cms-auth/api.php",
+  "kursanmeldung/working-equitation.php",
+  "downloads/anmeldeformular-working-equitation-kurs-september-2026.pdf",
   "angebote/index.html",
   "veranstaltungen/index.html",
   "kontakt/index.html",
@@ -52,6 +54,44 @@ for (const requiredDirective of [
   if (!sourceHtaccess.includes(requiredDirective)) {
     failures.push(`Missing Apache safeguard: ${requiredDirective}`);
   }
+}
+
+const sourcePdf = path.join(
+  root,
+  "public",
+  "downloads",
+  "anmeldeformular-working-equitation-kurs-september-2026.pdf",
+);
+const exportedPdf = path.join(
+  outputRoot,
+  "downloads",
+  "anmeldeformular-working-equitation-kurs-september-2026.pdf",
+);
+const [sourcePdfBytes, exportedPdfBytes] = await Promise.all([
+  readFile(sourcePdf),
+  readFile(exportedPdf).catch(() => Buffer.alloc(0)),
+]);
+if (!sourcePdfBytes.equals(exportedPdfBytes)) {
+  failures.push("Exported Working Equitation PDF differs from public source asset");
+}
+
+const workingEquitationPage = await readFile(
+  path.join(
+    outputRoot,
+    "veranstaltungen",
+    "working-equitation-manuel-heindl-september-2026",
+    "index.html",
+  ),
+  "utf8",
+).catch(() => "");
+const pdfDownloadHref =
+  'href="/downloads/anmeldeformular-working-equitation-kurs-september-2026.pdf"';
+const pdfDownloadActionCount =
+  workingEquitationPage.split(pdfDownloadHref).length - 1;
+if (pdfDownloadActionCount !== 1) {
+  failures.push(
+    `Expected exactly one Working Equitation PDF download action, found ${pdfDownloadActionCount}`,
+  );
 }
 
 for (const legacyFlatRoute of [

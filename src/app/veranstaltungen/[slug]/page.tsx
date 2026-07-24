@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Button from "@/components/ui/Button";
 import InquiryButton from "@/components/ui/InquiryButton";
+import WorkingEquitationRegistrationForm from "@/components/events/WorkingEquitationRegistrationForm";
 import MarkdownContent from "@/components/common/MarkdownContent";
 import SectionDivider from "@/components/ui/SectionDivider";
 import ScrollReveal from "@/components/common/ScrollReveal";
@@ -11,6 +12,7 @@ import {
   ArrowLeft,
   Calendar,
   CheckCircle2,
+  Download,
   ExternalLink,
   MapPin,
   Tag,
@@ -18,6 +20,10 @@ import {
 } from "lucide-react";
 import { getEventBySlug, getEvents } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
+import {
+  WORKING_EQUITATION_EVENT_ID,
+  WORKING_EQUITATION_PDF_PATH,
+} from "@/lib/working-equitation-registration";
 
 export const dynamicParams = false;
 
@@ -64,6 +70,8 @@ export default async function EventDetail({
   const isCancelled = event.state === "cancelled";
   const isSoldOut = event.state === "sold_out";
   const registrationUnavailable = isPast || isCancelled || isSoldOut;
+  const hasWorkingEquitationRegistration =
+    event.slug === WORKING_EQUITATION_EVENT_ID;
 
   return (
     <>
@@ -227,6 +235,23 @@ export default async function EventDetail({
                             : "Diese Veranstaltung hat bereits stattgefunden."}
                       </p>
                     </div>
+                  ) : hasWorkingEquitationRegistration ? (
+                    <div className="space-y-3">
+                      <Button
+                        href="#working-equitation-registration"
+                        className="w-full"
+                      >
+                        Online anmelden
+                      </Button>
+                      <a
+                        href={WORKING_EQUITATION_PDF_PATH}
+                        download
+                        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border-2 border-gold px-4 py-3 text-center font-semibold text-gold hover:bg-gold hover:text-white"
+                      >
+                        <Download className="h-4 w-4 shrink-0" aria-hidden="true" />
+                        PDF-Anmeldeformular
+                      </a>
+                    </div>
                   ) : (
                     <InquiryButton
                       subject={event.title}
@@ -240,6 +265,31 @@ export default async function EventDetail({
           </div>
         </div>
       </section>
+
+      {hasWorkingEquitationRegistration && !registrationUnavailable ? (
+        <section
+          id="working-equitation-registration"
+          className="scroll-mt-24 bg-beige py-20 md:py-24"
+        >
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-6">
+                <h2 className="text-3xl leading-tight sm:text-4xl">
+                  Verbindliche Kursanmeldung
+                </h2>
+                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-text-secondary">
+                  Melden Sie sich online an oder laden Sie das unveränderte
+                  Anmeldeformular als PDF herunter.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-brown/15 bg-cream p-5 shadow-lg shadow-brown/10 sm:p-8 md:p-10">
+                <WorkingEquitationRegistrationForm />
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+      ) : null}
 
       {/* Highlights */}
       {event.highlights.length > 0 && (
@@ -283,12 +333,22 @@ export default async function EventDetail({
             <p className="text-white/80 text-lg mb-8 max-w-lg mx-auto">
               {registrationUnavailable
                 ? "Schauen Sie sich unsere aktuellen Termine an oder kontaktieren Sie uns für eine individuelle Anfrage."
+                : hasWorkingEquitationRegistration
+                  ? "Füllen Sie die Kursanmeldung online aus. Ihre Auswahl und der serverseitig berechnete Gesamtbetrag werden vor dem Absenden vollständig angezeigt."
                 : `Senden Sie uns Ihre Anfrage. Wir melden uns über die in den Website-Einstellungen hinterlegte Kontaktadresse bei Ihnen zurück.`}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               {registrationUnavailable ? (
                 <Button href="/kontakt" variant="primary" size="lg">
                   Kontakt aufnehmen
+                </Button>
+              ) : hasWorkingEquitationRegistration ? (
+                <Button
+                  href="#working-equitation-registration"
+                  variant="primary"
+                  size="lg"
+                >
+                  Online anmelden
                 </Button>
               ) : (
                 <InquiryButton

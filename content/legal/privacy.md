@@ -19,6 +19,12 @@ Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben a
 
 Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO).
 
+### Online-Kursanmeldung
+
+Bei der verbindlichen Online-Anmeldung zum Working-Equitation-Kurs verarbeiten wir die von Ihnen eingegebenen Teilnehmer-, Kontakt-, Pferde- und Buchungsdaten. Zusätzlich speichern wir Ihre Bestätigungen der Teilnahme- und Stornierungsbedingungen, Ihre Datenschutz- sowie Foto- und Videoauswahl, den digital eingegebenen Namen und den serverseitig protokollierten Zeitpunkt. Die Daten werden auf dem Webserver in einem nicht öffentlich erreichbaren Bereich gespeichert und per E-Mail an die Kursorganisation sowie als Bestätigung an die angegebene E-Mail-Adresse übermittelt.
+
+Die Verarbeitung erfolgt zur Bearbeitung der Anmeldung, Durchführung des Kurses und Abwicklung der Zahlung auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO. Soweit eine Einwilligung erteilt wird, beruht die Verarbeitung zusätzlich auf Art. 6 Abs. 1 lit. a DSGVO. Die Foto- und Videoeinwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft widerrufen werden. Gesetzliche Aufbewahrungspflichten bleiben unberührt.
+
 ## 4. Cookies
 
 Diese Website verwendet Cookies. Cookies sind kleine Textdateien, die auf Ihrem Endgerät gespeichert werden. Wir unterscheiden zwischen:
