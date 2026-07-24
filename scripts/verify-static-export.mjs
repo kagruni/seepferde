@@ -50,6 +50,9 @@ for (const requiredDirective of [
   "Options -Indexes",
   "DirectoryIndex index.html",
   "RewriteRule ^admin$ /admin/ [R=301,L]",
+  '<FilesMatch "\\.(html|txt)$">',
+  'Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"',
+  'Header always set X-Accel-Expires "0"',
 ]) {
   if (!sourceHtaccess.includes(requiredDirective)) {
     failures.push(`Missing Apache safeguard: ${requiredDirective}`);

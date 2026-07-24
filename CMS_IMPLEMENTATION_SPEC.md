@@ -1341,7 +1341,7 @@ HTTP 406 before PHP executes.
 
 The gateway must:
 
-- load configuration from `CMS_AUTH_CONFIG` or `~/.config/seepferde-cms/config.php`;
+- load configuration from `CMS_AUTH_CONFIG` or `~/.config/seepferde-cms/cms-config-seepferde.php`;
 - refuse configuration and private-key files located under the document root;
 - verify passwords with `password_verify()` and store no plaintext password;
 - use a session cookie only for CSRF protection during the login form;
@@ -1415,20 +1415,20 @@ Steps:
 4. Validate content.
 5. Build.
 6. Verify expected output exists.
-7. Deploy `out/` to cPanel using rsync.
+7. Deploy `out/` to cPanel using FTPS.
 8. Record a clear success or failure summary.
 
 ### 26.3 Concurrency
 
-Use a production deployment concurrency group with `cancel-in-progress: false`. A new publication queues behind an active deployment instead of interrupting an in-progress rsync.
+Use a production deployment concurrency group with `cancel-in-progress: false`. A new publication queues behind an active deployment instead of interrupting an in-progress FTPS upload.
 
 ### 26.4 Deployment safety
 
 - Deployment secrets remain GitHub Actions secrets.
 - The production job uses a GitHub environment named `production` if available.
-- A failed build never runs rsync.
+- A failed build never runs the FTPS deployment.
 - A failed scheduled build must not remove the previously deployed site.
-- `--delete` remains permitted only because `out/` is the complete desired static state.
+- The FTPS state file limits automatic deletion to files previously published by the deployment action.
 
 ### 26.5 Preview deployments
 

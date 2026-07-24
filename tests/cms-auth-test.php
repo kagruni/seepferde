@@ -33,6 +33,17 @@ function remove_tree(string $path): void
 $temporaryDirectory = sys_get_temp_dir() . '/see-pferde-cms-test-' . bin2hex(random_bytes(6));
 mkdir($temporaryDirectory, 0700, true);
 
+$originalConfigPath = getenv('CMS_AUTH_CONFIG');
+$originalHome = getenv('HOME');
+putenv('CMS_AUTH_CONFIG');
+putenv('HOME=' . $temporaryDirectory);
+assert_true(
+    cms_config_path() === $temporaryDirectory . '/.config/seepferde-cms/cms-config-seepferde.php',
+    'Der Standardpfad verwendet den eindeutigen Namen der privaten CMS-Konfiguration.',
+);
+$originalConfigPath === false ? putenv('CMS_AUTH_CONFIG') : putenv('CMS_AUTH_CONFIG=' . $originalConfigPath);
+$originalHome === false ? putenv('HOME') : putenv('HOME=' . $originalHome);
+
 try {
     $config = [
         'site_origin' => 'https://mandykolatka.kajik.dev',
@@ -105,4 +116,3 @@ try {
 } finally {
     remove_tree($temporaryDirectory);
 }
-

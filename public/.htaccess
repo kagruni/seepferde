@@ -30,7 +30,11 @@ RewriteRule ^(.+)\.html$ /$1/ [R=301,L]
   Header set Cache-Control "public, max-age=31536000, immutable"
 </filesMatch>
 
-# HTML: no cache (always serve fresh)
-<filesMatch "\.(html)$">
-  Header set Cache-Control "no-cache, must-revalidate"
-</filesMatch>
+# HTML and Next.js route data are deployment-specific and must never be served
+# from the hosting proxy after a newer static export has been uploaded.
+<FilesMatch "\.(html|txt)$">
+  Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+  Header always set Pragma "no-cache"
+  Header always set Expires "Thu, 01 Jan 1970 00:00:00 GMT"
+  Header always set X-Accel-Expires "0"
+</FilesMatch>

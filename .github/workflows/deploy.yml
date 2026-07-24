@@ -124,12 +124,34 @@ jobs:
       - name: Verify clean-route export
         run: node scripts/verify-static-export.mjs
 
-      - name: Sync exported site to cPanel
-        uses: burnett01/rsync-deployments@7.0.2
+      - name: Validate FTPS deployment configuration
+        env:
+          CPANEL_FTP_HOST: ${{ vars.CPANEL_FTP_HOST }}
+          CPANEL_FTP_REMOTE_PATH: ${{ vars.CPANEL_FTP_REMOTE_PATH }}
+        run: |
+          if [[ -z "$CPANEL_FTP_HOST" ]]; then
+            echo "::error::Repository variable CPANEL_FTP_HOST is not configured."
+            exit 1
+          fi
+
+          if [[ -z "$CPANEL_FTP_REMOTE_PATH" ]]; then
+            echo "::error::Repository variable CPANEL_FTP_REMOTE_PATH is not configured."
+            exit 1
+          fi
+
+          if [[ "$CPANEL_FTP_REMOTE_PATH" != */ ]]; then
+            echo "::error::CPANEL_FTP_REMOTE_PATH must end with a slash."
+            exit 1
+          fi
+
+      - name: Sync exported site to cPanel over FTPS
+        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
         with:
-          switches: -avzr --delete
-          path: out/
-          remote_path: ${{ secrets.CPANEL_REMOTE_PATH }}
-          remote_host: ${{ secrets.CPANEL_HOST }}
-          remote_user: ${{ secrets.CPANEL_USERNAME }}
-          remote_key: ${{ secrets.CPANEL_SSH_KEY }}
+          server: ${{ vars.CPANEL_FTP_HOST }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          protocol: ftps
+          port: ${{ vars.CPANEL_FTP_PORT || '21' }}
+          security: strict
+          local-dir: ./out/
+          server-dir: ${{ vars.CPANEL_FTP_REMOTE_PATH }}

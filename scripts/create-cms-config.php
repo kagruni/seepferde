@@ -55,7 +55,7 @@ Erstellt die private Konfiguration für die CMS-Anmeldung.
 
 Verwendung:
   php scripts/create-cms-config.php \
-    --output=/home/USER/.config/seepferde-cms/config.php \
+    --output=/home/USER/.config/seepferde-cms/cms-config-seepferde.php \
     --username=mandy \
     --display-name="Mandy Kolatka" \
     --repository=kagruni/seepferde \
@@ -171,4 +171,3 @@ chmod($output, 0600);
 
 echo "Private CMS-Konfiguration erstellt: {$output}\n";
 echo "Dateirechte: 0600. Die Datei darf nicht in public_html liegen.\n";
-

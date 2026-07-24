@@ -92,6 +92,13 @@ describe("WorkingEquitationRegistrationForm", () => {
     expect(screen.getAllByText("510,00 €").length).toBeGreaterThan(0);
     await user.click(screen.getByRole("button", { name: "Weiter" }));
 
+    const participationConditions = screen.getByRole("region", {
+      name: "Teilnahmebedingungen",
+    });
+    expect(
+      within(participationConditions).getAllByRole("checkbox"),
+    ).toHaveLength(1);
+
     for (const checkbox of screen.getAllByRole("checkbox")) {
       await user.click(checkbox);
     }
@@ -125,6 +132,14 @@ describe("WorkingEquitationRegistrationForm", () => {
     expect(payload.horse.specialRequirements).toBe(
       "Benötigt Heu am Abend.",
     );
+    expect(payload.acknowledgements).toMatchObject({
+      ownRisk: true,
+      helmetDuty: true,
+      liabilityLimitation: true,
+      horseLiabilityInsurance: true,
+      horseHealthy: true,
+      participationTerms: true,
+    });
     expect(payload.acknowledgements.cancellationTerms).toBe(true);
     expect(payload.photoChoice).toBe("decline");
     expect(payload).not.toHaveProperty("totalCents");

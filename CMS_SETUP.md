@@ -58,7 +58,7 @@ nicht in das Repository legen.
 ### 3. Private Dateien auf cPanel ablegen
 
 Die folgenden Dateien liegen außerhalb von `public_html` beziehungsweise
-außerhalb des in `CPANEL_REMOTE_PATH` konfigurierten Webverzeichnisses:
+außerhalb des in `CPANEL_FTP_REMOTE_PATH` konfigurierten Webverzeichnisses:
 
 ```bash
 mkdir -p ~/.config/seepferde-cms
@@ -72,7 +72,7 @@ kopieren und dort ausführen:
 
 ```bash
 php ~/.config/seepferde-cms/create-cms-config.php \
-  --output="$HOME/.config/seepferde-cms/config.php" \
+  --output="$HOME/.config/seepferde-cms/cms-config-seepferde.php" \
   --username=mandy \
   --display-name="Mandy Kolatka" \
   --repository=kagruni/seepferde \
@@ -85,10 +85,10 @@ php ~/.config/seepferde-cms/create-cms-config.php \
 Das Werkzeug fragt das Passwort verdeckt ab, speichert nur einen
 `password_hash()`-Wert, erzeugt ein zufälliges Sitzungssignal und setzt die
 Dateirechte auf `0600`. Das kopierte Werkzeug danach wieder löschen; die
-erzeugte `config.php` und die PEM-Datei bleiben bestehen.
+erzeugte `cms-config-seepferde.php` und die PEM-Datei bleiben bestehen.
 
 Der Gateway sucht standardmäßig unter
-`~/.config/seepferde-cms/config.php`. Falls PHP auf dem Webserver kein
+`~/.config/seepferde-cms/cms-config-seepferde.php`. Falls PHP auf dem Webserver kein
 Benutzerverzeichnis erkennen kann, muss die Servervariable `CMS_AUTH_CONFIG`
 auf den absoluten privaten Pfad gesetzt werden. Der Gateway verweigert bewusst
 jede Konfigurations- oder Schlüsseldatei innerhalb des Webverzeichnisses.
@@ -258,19 +258,24 @@ Die generierte Datei nicht von Hand bearbeiten.
 
 Benötigte GitHub Actions Secrets:
 
-- `CPANEL_HOST`
-- `CPANEL_USERNAME`
-- `CPANEL_REMOTE_PATH`
-- `CPANEL_SSH_KEY`
+- `CPANEL_FTP_USERNAME`
+- `CPANEL_FTP_PASSWORD`
+
+Benötigte GitHub Actions Variables:
+
+- `CPANEL_FTP_HOST`
+- `CPANEL_FTP_REMOTE_PATH` (mit abschließendem `/`)
+- `CPANEL_FTP_PORT` (optional, Standard: `21`)
 
 Das Deployment synchronisiert erst nach erfolgreichem Build den Inhalt von
-`out/` mit dem Zielverzeichnis. Produktions-Deployments laufen seriell, damit
-zwei Veröffentlichungen sich nicht gegenseitig überschreiben.
+`out/` per explizitem FTPS mit strenger Zertifikatsprüfung in das Zielverzeichnis.
+Produktions-Deployments laufen seriell, damit zwei Veröffentlichungen sich nicht
+gegenseitig überschreiben.
 
-Der Sync verwendet `--delete`, betrifft jedoch nur `CPANEL_REMOTE_PATH`. Die
-private Konfiguration und der GitHub-App-Schlüssel müssen deshalb außerhalb
-dieses Pfades liegen. Sie werden weder gebaut noch von GitHub Actions
-übertragen oder gelöscht.
+Der FTPS-Sync verwaltet nur Dateien, die er selbst in
+`CPANEL_FTP_REMOTE_PATH` veröffentlicht hat. Die private Konfiguration und der
+GitHub-App-Schlüssel müssen außerhalb dieses Pfades liegen. Sie werden weder
+gebaut noch von GitHub Actions übertragen oder gelöscht.
 
 ## Webserver-Regel für den Admin
 
@@ -303,7 +308,7 @@ Gültigkeit.
 
 ### Zugang sofort sperren
 
-Die private `config.php` vorübergehend umbenennen oder für den PHP-Prozess
+Die private `cms-config-seepferde.php` vorübergehend umbenennen oder für den PHP-Prozess
 unlesbar machen. Die Anmeldeseite zeigt anschließend nur den neutralen Hinweis,
 dass die Verwaltung nicht eingerichtet ist. Zum dauerhaften Entzug zusätzlich
 die GitHub App aus dem Repository deinstallieren.
@@ -311,14 +316,14 @@ die GitHub App aus dem Repository deinstallieren.
 ### GitHub-App-Schlüssel rotieren
 
 In GitHub einen neuen privaten Schlüssel erzeugen, die neue PEM-Datei außerhalb
-des Webverzeichnisses hinterlegen, den Pfad in `config.php` aktualisieren und
+des Webverzeichnisses hinterlegen, den Pfad in `cms-config-seepferde.php` aktualisieren und
 einen vollständigen Redaktionsablauf testen. Erst danach den alten Schlüssel in
 GitHub löschen.
 
 ## Fehlerbehebung
 
 - **Anmeldung zeigt „noch nicht vollständig eingerichtet“:** Existenz,
-  Eigentümer und Modus `0600` von `~/.config/seepferde-cms/config.php` und
+  Eigentümer und Modus `0600` von `~/.config/seepferde-cms/cms-config-seepferde.php` und
   `github-app.pem` prüfen; bei abweichendem Pfad `CMS_AUTH_CONFIG` prüfen.
 - **Anmeldemaske endet mit 404:** `public/cms-auth/.htaccess`, `mod_rewrite` und
   die PHP-Zuordnung des cPanel-Hosts prüfen.

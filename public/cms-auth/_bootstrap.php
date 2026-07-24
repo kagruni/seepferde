@@ -27,7 +27,7 @@ function cms_config_path(): string
         throw new RuntimeException('CMS_AUTH_CONFIG ist nicht gesetzt und das Benutzerverzeichnis konnte nicht ermittelt werden.');
     }
 
-    return rtrim($home, DIRECTORY_SEPARATOR) . '/.config/seepferde-cms/config.php';
+    return rtrim($home, DIRECTORY_SEPARATOR) . '/.config/seepferde-cms/cms-config-seepferde.php';
 }
 
 /** @return array<string, mixed> */

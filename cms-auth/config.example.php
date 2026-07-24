@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-// Copy this file to ~/.config/seepferde-cms/config.php on the cPanel account.
+// Copy this file to ~/.config/seepferde-cms/cms-config-seepferde.php on the cPanel account.
 // Never place the completed file inside public_html or commit real secrets.
 return [
     'site_origin' => 'https://mandykolatka.kajik.dev',
@@ -25,4 +25,3 @@ return [
     'rate_limit_lockout_seconds' => 900,
     'max_request_bytes' => 8388608,
 ];
-

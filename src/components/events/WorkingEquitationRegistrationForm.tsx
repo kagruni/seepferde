@@ -38,6 +38,15 @@ const STEPS = [
   "Prüfen",
 ] as const;
 
+const PARTICIPATION_ACKNOWLEDGEMENT_FIELDS = [
+  "ownRisk",
+  "helmetDuty",
+  "liabilityLimitation",
+  "horseLiabilityInsurance",
+  "horseHealthy",
+  "participationTerms",
+] as const;
+
 const fieldIds: Record<string, string> = {
   "participant.fullName": "we-full-name",
   "participant.street": "we-street",
@@ -49,12 +58,12 @@ const fieldIds: Record<string, string> = {
   "horse.breed": "we-horse-breed",
   "horse.sex": "we-horse-sex",
   "horse.age": "we-horse-age",
-  "acknowledgements.ownRisk": "we-own-risk",
-  "acknowledgements.helmetDuty": "we-helmet-duty",
-  "acknowledgements.liabilityLimitation": "we-liability",
-  "acknowledgements.horseLiabilityInsurance": "we-horse-insurance",
-  "acknowledgements.horseHealthy": "we-horse-healthy",
-  "acknowledgements.participationTerms": "we-participation-terms",
+  "acknowledgements.ownRisk": "we-participation-conditions",
+  "acknowledgements.helmetDuty": "we-participation-conditions",
+  "acknowledgements.liabilityLimitation": "we-participation-conditions",
+  "acknowledgements.horseLiabilityInsurance": "we-participation-conditions",
+  "acknowledgements.horseHealthy": "we-participation-conditions",
+  "acknowledgements.participationTerms": "we-participation-conditions",
   "acknowledgements.cancellationTerms": "we-cancellation-terms",
   "acknowledgements.dataProcessing": "we-data-processing",
   photoChoice: "we-photo-consent-yes",
@@ -187,6 +196,28 @@ export default function WorkingEquitationRegistrationForm() {
     setErrors((current) => {
       const next = { ...current };
       delete next[`acknowledgements.${field}`];
+      return next;
+    });
+  };
+
+  const updateParticipationConditions = (checked: boolean) => {
+    setFormData((current) => ({
+      ...current,
+      acknowledgements: {
+        ...current.acknowledgements,
+        ownRisk: checked,
+        helmetDuty: checked,
+        liabilityLimitation: checked,
+        horseLiabilityInsurance: checked,
+        horseHealthy: checked,
+        participationTerms: checked,
+      },
+    }));
+    setErrors((current) => {
+      const next = { ...current };
+      for (const field of PARTICIPATION_ACKNOWLEDGEMENT_FIELDS) {
+        delete next[`acknowledgements.${field}`];
+      }
       return next;
     });
   };
@@ -404,6 +435,7 @@ export default function WorkingEquitationRegistrationForm() {
           formData={formData}
           errors={errors}
           onAcknowledgement={updateAcknowledgement}
+          onParticipationConditions={updateParticipationConditions}
           onPhotoChoice={(photoChoice) => {
             setFormData((current) => ({ ...current, photoChoice }));
             setErrors((current) => {
@@ -955,6 +987,7 @@ function ConditionsStep({
   formData,
   errors,
   onAcknowledgement,
+  onParticipationConditions,
   onPhotoChoice,
   onTypedName,
 }: {
@@ -964,9 +997,19 @@ function ConditionsStep({
     field: keyof WorkingEquitationFormData["acknowledgements"],
     checked: boolean,
   ) => void;
+  onParticipationConditions: (checked: boolean) => void;
   onPhotoChoice: (choice: "consent" | "decline") => void;
   onTypedName: (value: string) => void;
 }) {
+  const participationConditionsAccepted =
+    PARTICIPATION_ACKNOWLEDGEMENT_FIELDS.every(
+      (field) => formData.acknowledgements[field],
+    );
+  const participationConditionsError =
+    PARTICIPATION_ACKNOWLEDGEMENT_FIELDS.map(
+      (field) => errors[`acknowledgements.${field}`],
+    ).find(Boolean);
+
   return (
     <div className="space-y-8">
       <section aria-labelledby="we-participation-heading">
@@ -976,65 +1019,39 @@ function ConditionsStep({
         >
           Teilnahmebedingungen
         </h4>
-        <div className="space-y-3">
-          <Acknowledgement
-            id="we-own-risk"
-            checked={formData.acknowledgements.ownRisk}
-            error={errors["acknowledgements.ownRisk"]}
-            onChange={(checked) => onAcknowledgement("ownRisk", checked)}
-          >
-            Ich bestätige, dass die Teilnahme auf eigene Gefahr erfolgt.
-          </Acknowledgement>
-          <Acknowledgement
-            id="we-helmet-duty"
-            checked={formData.acknowledgements.helmetDuty}
-            error={errors["acknowledgements.helmetDuty"]}
-            onChange={(checked) => onAcknowledgement("helmetDuty", checked)}
-          >
-            Ich bestätige die Helmpflicht während des gesamten Kurses, sobald
-            ich mich auf dem Pferd befinde.
-          </Acknowledgement>
-          <Acknowledgement
-            id="we-liability"
-            checked={formData.acknowledgements.liabilityLimitation}
-            error={errors["acknowledgements.liabilityLimitation"]}
-            onChange={(checked) =>
-              onAcknowledgement("liabilityLimitation", checked)
-            }
-          >
-            Ich bestätige, dass der Veranstalter keine Haftung für Personen-,
-            Sach- oder Vermögensschäden übernimmt, soweit gesetzlich zulässig.
-          </Acknowledgement>
-          <Acknowledgement
-            id="we-horse-insurance"
-            checked={formData.acknowledgements.horseLiabilityInsurance}
-            error={errors["acknowledgements.horseLiabilityInsurance"]}
-            onChange={(checked) =>
-              onAcknowledgement("horseLiabilityInsurance", checked)
-            }
-          >
-            Ich bestätige, dass für das Pferd eine gültige
-            Haftpflichtversicherung besteht.
-          </Acknowledgement>
-          <Acknowledgement
-            id="we-horse-healthy"
-            checked={formData.acknowledgements.horseHealthy}
-            error={errors["acknowledgements.horseHealthy"]}
-            onChange={(checked) => onAcknowledgement("horseHealthy", checked)}
-          >
-            Ich bestätige, dass das Pferd gesund und frei von ansteckenden
-            Krankheiten ist.
-          </Acknowledgement>
-          <Acknowledgement
-            id="we-participation-terms"
-            checked={formData.acknowledgements.participationTerms}
-            error={errors["acknowledgements.participationTerms"]}
-            onChange={(checked) =>
-              onAcknowledgement("participationTerms", checked)
-            }
-          >
-            Ich erkenne die vorstehenden Teilnahmebedingungen an.
-          </Acknowledgement>
+        <div className="rounded-xl border border-brown/20 bg-beige/45 p-5">
+          <p className="text-sm font-semibold text-text">
+            Mit der gemeinsamen Bestätigung erkläre ich:
+          </p>
+          <ul className="mt-3 space-y-2 pl-5 text-sm leading-relaxed text-text-secondary marker:text-forest">
+            <li>Die Teilnahme erfolgt auf eigene Gefahr.</li>
+            <li>
+              Während des gesamten Kurses gilt Helmpflicht, sobald ich mich auf
+              dem Pferd befinde.
+            </li>
+            <li>
+              Der Veranstalter übernimmt keine Haftung für Personen-, Sach-
+              oder Vermögensschäden, soweit gesetzlich zulässig.
+            </li>
+            <li>
+              Für das Pferd besteht eine gültige Haftpflichtversicherung.
+            </li>
+            <li>
+              Das Pferd ist gesund und frei von ansteckenden Krankheiten.
+            </li>
+            <li>Ich erkenne diese Teilnahmebedingungen an.</li>
+          </ul>
+          <div className="mt-5 border-t border-brown/15 pt-4">
+            <Acknowledgement
+              id="we-participation-conditions"
+              checked={participationConditionsAccepted}
+              error={participationConditionsError}
+              onChange={onParticipationConditions}
+            >
+              Ich habe alle oben aufgeführten Teilnahmebedingungen gelesen und
+              akzeptiere sie gemeinsam.
+            </Acknowledgement>
+          </div>
         </div>
       </section>
 
