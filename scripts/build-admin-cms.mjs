@@ -31,6 +31,7 @@ const expected = {
   prompt: 5,
   beforeUnload: 2,
   authFrame: 1,
+  githubTreePath: 1,
 };
 const checkOnly = process.argv.includes("--check");
 const sourceFlag = process.argv.indexOf("--source");
@@ -38,6 +39,70 @@ const localSource = sourceFlag === -1 ? null : process.argv[sourceFlag + 1];
 
 function occurrences(source, fragment) {
   return source.split(fragment).length - 1;
+}
+
+function classHasMethod(classPath, methodName) {
+  return classPath
+    .get("body.body")
+    .some(
+      (memberPath) =>
+        memberPath.isClassMethod() &&
+        t.isIdentifier(memberPath.node.key, { name: methodName }),
+    );
+}
+
+function githubGetFileShaMethod(classPath) {
+  if (!classHasMethod(classPath, "checkMetadataRef")) return null;
+
+  return (
+    classPath
+      .get("body.body")
+      .find(
+        (memberPath) =>
+          memberPath.isClassMethod() &&
+          t.isIdentifier(memberPath.node.key, { name: "getFileSha" }),
+      ) ?? null
+  );
+}
+
+function isEncodedGithubTreePath(callPath) {
+  if (!t.isIdentifier(callPath.node.callee, { name: "encodeURIComponent" })) {
+    return false;
+  }
+
+  const templatePath = callPath.findParent((parentPath) =>
+    parentPath.isTemplateLiteral(),
+  );
+  return (
+    templatePath?.node.quasis.some(({ value }) =>
+      value.raw.includes("/git/trees/"),
+    ) ?? false
+  );
+}
+
+function analyzeGithubTreePath(source) {
+  const ast = parse(source, {
+    sourceType: "script",
+    allowReturnOutsideFunction: true,
+  });
+  let methods = 0;
+  let encodedPaths = 0;
+
+  traverse(ast, {
+    Class(classPath) {
+      const methodPath = githubGetFileShaMethod(classPath);
+      if (!methodPath) return;
+
+      methods += 1;
+      methodPath.traverse({
+        CallExpression(callPath) {
+          if (isEncodedGithubTreePath(callPath)) encodedPaths += 1;
+        },
+      });
+    },
+  });
+
+  return { methods, encodedPaths };
 }
 
 function assertPatchedBundle(source) {
@@ -71,6 +136,13 @@ function assertPatchedBundle(source) {
 
   if (occurrences(source, "window.CMSAuth.open") !== expected.authFrame) {
     failures.push("Die Anmeldung wird nicht zuverlässig im CMS-Overlay geöffnet.");
+  }
+
+  const githubTreePath = analyzeGithubTreePath(source);
+  if (githubTreePath.methods !== 1 || githubTreePath.encodedPaths !== 0) {
+    failures.push(
+      "Der GitHub-Dateipfad ist nicht cPanel-kompatibel (kodierte Schrägstriche).",
+    );
   }
 
   if (failures.length) {
@@ -183,9 +255,24 @@ const transformed = {
   prompt: 0,
   beforeUnload: 0,
   authFrame: 0,
+  githubTreePath: 0,
 };
 
 traverse(ast, {
+  Class(classPath) {
+    const methodPath = githubGetFileShaMethod(classPath);
+    if (!methodPath) return;
+
+    methodPath.traverse({
+      CallExpression(callPath) {
+        if (!isEncodedGithubTreePath(callPath)) return;
+
+        transformed.githubTreePath += 1;
+        callPath.replaceWith(callPath.node.arguments[0]);
+      },
+    });
+  },
+
   CallExpression(callPath) {
     const { node } = callPath;
 
@@ -268,5 +355,6 @@ console.log(
   `CMS-Bundle geschrieben: ${path.relative(root, outputPath)} ` +
     `(${transformed.confirm} Bestätigungen, ${transformed.prompt} Eingaben, ` +
     `${transformed.notice} Hinweise, ${transformed.beforeUnload} Unload-Hooks und ` +
-    `${transformed.authFrame} Anmelde-Popup ersetzt).`,
+    `${transformed.authFrame} Anmelde-Popup sowie ` +
+    `${transformed.githubTreePath} GitHub-Dateipfad ersetzt).`,
 );
