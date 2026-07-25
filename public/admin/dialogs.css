@@ -220,6 +220,8 @@
   z-index: 1;
   top: 14px;
   right: 14px;
+  display: inline-flex;
+  align-items: center;
   min-height: 38px;
   padding: 8px 11px;
   border: 1px solid #cfc5b8;
@@ -229,6 +231,7 @@
   font: inherit;
   font-size: 0.78rem;
   font-weight: 800;
+  text-decoration: none;
   cursor: pointer;
 }
 

@@ -5,12 +5,12 @@ backend:
   name: github
   repo: kagruni/seepferde
   branch: main
-  base_url: https://mandykolatka.kajik.dev
+  base_url: https://see-pferde-zwenkau.de
   # The public route names deliberately avoid `auth`, `login`, and `api` because
   # the cPanel ModSecurity rules reject those path segments with HTTP 406.
   auth_endpoint: cms-auth/form
-  api_root: https://mandykolatka.kajik.dev/cms-auth/repository
-  site_domain: mandykolatka.kajik.dev
+  api_root: https://see-pferde-zwenkau.de/cms-auth/repository
+  site_domain: see-pferde-zwenkau.de
   use_graphql: false
   squash_merges: true
   commit_messages:
@@ -27,8 +27,8 @@ local_backend:
 locale: de
 publish_mode: editorial_workflow
 
-site_url: https://mandykolatka.kajik.dev
-display_url: https://mandykolatka.kajik.dev
+site_url: https://see-pferde-zwenkau.de
+display_url: https://see-pferde-zwenkau.de
 show_preview_links: true
 
 logo:

@@ -59,7 +59,7 @@ Verwendung:
     --username=mandy \
     --display-name="Mandy Kolatka" \
     --repository=kagruni/seepferde \
-    --site-origin=https://mandykolatka.kajik.dev \
+    --site-origin=https://see-pferde-zwenkau.de \
     --app-id=123456 \
     --installation-id=12345678 \
     --private-key=/home/USER/.config/seepferde-cms/github-app.pem

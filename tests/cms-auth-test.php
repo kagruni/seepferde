@@ -46,8 +46,8 @@ $originalHome === false ? putenv('HOME') : putenv('HOME=' . $originalHome);
 
 try {
     $config = [
-        'site_origin' => 'https://mandykolatka.kajik.dev',
-        'site_id' => 'mandykolatka.kajik.dev',
+        'site_origin' => 'https://see-pferde-zwenkau.de',
+        'site_id' => 'see-pferde-zwenkau.de',
         'repository' => 'kagruni/seepferde',
         'branch' => 'main',
         'username' => 'mandy',

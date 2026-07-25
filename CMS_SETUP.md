@@ -20,7 +20,7 @@ Der cPanel-Webspace benötigt:
 - Apache mit `.htaccess`, `mod_rewrite` und `mod_headers`;
 - PHP 8.2 oder neuer;
 - PHP-Erweiterungen `curl`, `openssl` und `session`;
-- eine funktionierende HTTPS-Konfiguration für `mandykolatka.kajik.dev`.
+- eine funktionierende HTTPS-Konfiguration für `see-pferde-zwenkau.de`.
 
 Über das cPanel-Terminal prüfen:
 
@@ -36,7 +36,7 @@ eine App anlegen, zum Beispiel `See-Pferde Website CMS`.
 
 Konfiguration:
 
-- Homepage URL: `https://mandykolatka.kajik.dev`
+- Homepage URL: `https://see-pferde-zwenkau.de`
 - Webhooks: deaktiviert
 - Callback URL / Benutzerautorisierung: nicht erforderlich
 - Installierbar: nur im eigenen Konto
@@ -76,7 +76,7 @@ php ~/.config/seepferde-cms/create-cms-config.php \
   --username=mandy \
   --display-name="Mandy Kolatka" \
   --repository=kagruni/seepferde \
-  --site-origin=https://mandykolatka.kajik.dev \
+  --site-origin=https://see-pferde-zwenkau.de \
   --app-id=GITHUB_APP_ID \
   --installation-id=GITHUB_INSTALLATION_ID \
   --private-key="$HOME/.config/seepferde-cms/github-app.pem"
@@ -102,11 +102,11 @@ Merge in GitHub ausführt.
 
 ### 5. Anmeldung abnehmen
 
-1. `https://mandykolatka.kajik.dev/cms-auth/form?provider=github&site_id=mandykolatka.kajik.dev`
+1. `https://see-pferde-zwenkau.de/cms-auth/form?provider=github&site_id=see-pferde-zwenkau.de`
    öffnen und die gebrandete Anmeldemaske prüfen.
 2. Einen falschen Login testen: Die Meldung darf nicht verraten, ob Benutzername
    oder Passwort falsch war.
-3. `https://mandykolatka.kajik.dev/admin/` öffnen und mit dem eingerichteten
+3. `https://see-pferde-zwenkau.de/admin/` öffnen und mit dem eingerichteten
    Benutzer anmelden. Die Anmeldemaske erscheint innerhalb der
    Website-Verwaltung; es wird kein separates Browserfenster geöffnet.
 4. Einen sicheren Testentwurf anlegen, zur Prüfung geben, Checks abwarten und
@@ -282,8 +282,8 @@ gebaut noch von GitHub Actions übertragen oder gelöscht.
 Der einzige Admin-Einstieg ist `public/admin/index.html`. Nach dem Deployment
 müssen beide Aufrufe funktionieren:
 
-- `https://mandykolatka.kajik.dev/admin/`
-- `https://mandykolatka.kajik.dev/admin` als Redirect auf `/admin/`
+- `https://see-pferde-zwenkau.de/admin/`
+- `https://see-pferde-zwenkau.de/admin` als Redirect auf `/admin/`
 
 Die mit ausgelieferte `public/.htaccess` richtet diese Weiterleitung ein;
 Apache muss dafür Repository-Regeln per `.htaccess` erlauben. Die Adminseite ist

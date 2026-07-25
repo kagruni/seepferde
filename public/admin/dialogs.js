@@ -226,9 +226,9 @@
       overlay.setAttribute("aria-label", "Anmeldung zur Website-Verwaltung");
 
       var shell = element("div", "cms-auth-shell");
-      var close = element("button", "cms-auth-close", "Schließen");
-      close.type = "button";
-      close.setAttribute("aria-label", "Anmeldung schließen");
+      var close = element("a", "cms-auth-close", "Schließen");
+      close.href = "/";
+      close.setAttribute("aria-label", "Anmeldung schließen und zur Website zurückkehren");
 
       var frame = element("iframe", "cms-auth-frame");
       frame.src = url;
@@ -254,7 +254,6 @@
         closeAuthentication();
       }
 
-      close.addEventListener("click", closeAuthentication);
       document.addEventListener("keydown", onAuthKeyDown, true);
       shell.appendChild(close);
       shell.appendChild(frame);

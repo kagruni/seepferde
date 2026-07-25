@@ -2,7 +2,7 @@
 
 **Project:** See-Pferde Zwenkau / Reiterhof Mandy Kolatka<br>
 **Repository:** `kagruni/seepferde`<br>
-**Website:** `https://mandykolatka.kajik.dev`<br>
+**Website:** `https://see-pferde-zwenkau.de`<br>
 **CMS:** Git-based editor with a private username/password gateway and GitHub App backend<br>
 **Application:** Next.js 16 App Router, static export<br>
 **Specification status:** Ready for implementation<br>
@@ -325,18 +325,18 @@ backend:
   name: github
   repo: kagruni/seepferde
   branch: main
-  base_url: https://mandykolatka.kajik.dev
+  base_url: https://see-pferde-zwenkau.de
   auth_endpoint: cms-auth/form
-  api_root: https://mandykolatka.kajik.dev/cms-auth/repository
-  site_domain: mandykolatka.kajik.dev
+  api_root: https://see-pferde-zwenkau.de/cms-auth/repository
+  site_domain: see-pferde-zwenkau.de
   use_graphql: false
   squash_merges: true
 
 locale: de
 publish_mode: editorial_workflow
 
-site_url: https://mandykolatka.kajik.dev
-display_url: https://mandykolatka.kajik.dev
+site_url: https://see-pferde-zwenkau.de
+display_url: https://see-pferde-zwenkau.de
 show_preview_links: true
 
 logo:

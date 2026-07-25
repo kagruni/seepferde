@@ -5,8 +5,8 @@ declare(strict_types=1);
 // Copy this file to ~/.config/seepferde-cms/cms-config-seepferde.php on the cPanel account.
 // Never place the completed file inside public_html or commit real secrets.
 return [
-    'site_origin' => 'https://mandykolatka.kajik.dev',
-    'site_id' => 'mandykolatka.kajik.dev',
+    'site_origin' => 'https://see-pferde-zwenkau.de',
+    'site_id' => 'see-pferde-zwenkau.de',
     'repository' => 'kagruni/seepferde',
     'branch' => 'main',
 

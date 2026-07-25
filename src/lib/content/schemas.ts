@@ -203,7 +203,7 @@ export const siteSettingsSchema = z.preprocess((value) => {
       mailtoEmail: settings.email,
       mapEmbedUrl: `https://www.openstreetmap.org/export/embed.html?layer=mapnik&marker=${marker}`,
       ogImage: settings.defaultSocialImage,
-      siteUrl: "https://mandykolatka.kajik.dev",
+      siteUrl: "https://see-pferde-zwenkau.de",
       defaultTitle:
         "See-Pferde Zwenkau - Pferdegestütztes Coaching & Workshops in Zwenkau",
       titleTemplate: "%s - See-Pferde Zwenkau",
