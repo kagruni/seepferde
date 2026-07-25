@@ -13,5 +13,6 @@ RewriteRule ^repository/(.*)$ api.php?path=$1 [QSA,END,B]
 
 <FilesMatch "\.(php|json)$">
   Header set Cache-Control "no-store, max-age=0"
+  Header set X-Accel-Expires "0"
   Header set X-Robots-Tag "noindex, nofollow, noarchive"
 </FilesMatch>

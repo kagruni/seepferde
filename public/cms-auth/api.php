@@ -23,6 +23,7 @@ function cms_proxy_query_string(): string
 {
     $query = $_GET;
     unset($query['path']);
+    unset($query['_cms_nc']);
     return http_build_query($query, '', '&', PHP_QUERY_RFC3986);
 }
 

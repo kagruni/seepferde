@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once dirname(__DIR__) . '/public/cms-auth/_bootstrap.php';
+require_once dirname(__DIR__) . '/public/cms-auth/api.php';
 
 $assertions = 0;
 
@@ -62,6 +62,20 @@ try {
     ];
 
     $now = 1_800_000_000;
+
+    $originalQuery = $_GET;
+    $_GET = [
+        'path' => 'repos/kagruni/seepferde/pulls',
+        'base' => 'main',
+        'state' => 'open',
+        '_cms_nc' => 'browser-cache-buster',
+    ];
+    assert_true(
+        cms_proxy_query_string() === 'base=main&state=open',
+        'Der interne Browser-Cache-Parameter wird nicht an GitHub weitergereicht.',
+    );
+    $_GET = $originalQuery;
+
     $token = cms_issue_session_token($config, $now);
     $claims = cms_verify_session_token($token, $config, $now + 30);
     assert_true(is_array($claims), 'Ein gültiges Sitzungstoken wird akzeptiert.');

@@ -268,7 +268,10 @@ function cms_send_api_headers(array $config): void
     header('Access-Control-Allow-Headers: Authorization, Content-Type, Accept');
     header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
     header('Access-Control-Max-Age: 600');
-    header('Cache-Control: no-store');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, private');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    header('X-Accel-Expires: 0');
     header('Referrer-Policy: no-referrer');
     header('X-Content-Type-Options: nosniff');
     header('X-Frame-Options: DENY');

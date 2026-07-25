@@ -8,7 +8,7 @@
     "cms:proxy": "PORT=8082 MODE=git decap-server",
     "cms:bundle": "node scripts/build-admin-cms.mjs",
     "cms:bundle:check": "node scripts/build-admin-cms.mjs --check",
-    "cms:auth:test": "php tests/cms-auth-test.php",
+    "cms:auth:test": "node --test tests/repository-api-cache.test.mjs && php tests/cms-auth-test.php",
     "registration:test": "tsx --test tests/working-equitation-registration.test.ts && php tests/working-equitation-registration-test.php && vitest run",
     "content:validate": "tsx scripts/validate-content.ts",
     "typecheck": "tsc --noEmit",
