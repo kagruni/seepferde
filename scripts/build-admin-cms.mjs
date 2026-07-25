@@ -31,7 +31,7 @@ const expected = {
   prompt: 5,
   beforeUnload: 2,
   authFrame: 1,
-  githubTreePath: 1,
+  githubPathSegments: 5,
 };
 const checkOnly = process.argv.includes("--check");
 const sourceFlag = process.argv.indexOf("--source");
@@ -65,7 +65,7 @@ function githubGetFileShaMethod(classPath) {
   );
 }
 
-function isEncodedGithubTreePath(callPath) {
+function isEncodedGithubPathSegment(callPath) {
   if (!t.isIdentifier(callPath.node.callee, { name: "encodeURIComponent" })) {
     return false;
   }
@@ -73,36 +73,36 @@ function isEncodedGithubTreePath(callPath) {
   const templatePath = callPath.findParent((parentPath) =>
     parentPath.isTemplateLiteral(),
   );
+  const githubPathPrefixes = ["/git/trees/", "/git/refs/", "/branches/"];
   return (
     templatePath?.node.quasis.some(({ value }) =>
-      value.raw.includes("/git/trees/"),
+      githubPathPrefixes.some((prefix) => value.raw.includes(prefix)),
     ) ?? false
   );
 }
 
-function analyzeGithubTreePath(source) {
+function analyzeGithubPathSegments(source) {
   const ast = parse(source, {
     sourceType: "script",
     allowReturnOutsideFunction: true,
   });
-  let methods = 0;
+  let classes = 0;
   let encodedPaths = 0;
 
   traverse(ast, {
     Class(classPath) {
-      const methodPath = githubGetFileShaMethod(classPath);
-      if (!methodPath) return;
+      if (!githubGetFileShaMethod(classPath)) return;
 
-      methods += 1;
-      methodPath.traverse({
+      classes += 1;
+      classPath.traverse({
         CallExpression(callPath) {
-          if (isEncodedGithubTreePath(callPath)) encodedPaths += 1;
+          if (isEncodedGithubPathSegment(callPath)) encodedPaths += 1;
         },
       });
     },
   });
 
-  return { methods, encodedPaths };
+  return { classes, encodedPaths };
 }
 
 function assertPatchedBundle(source) {
@@ -138,10 +138,10 @@ function assertPatchedBundle(source) {
     failures.push("Die Anmeldung wird nicht zuverlässig im CMS-Overlay geöffnet.");
   }
 
-  const githubTreePath = analyzeGithubTreePath(source);
-  if (githubTreePath.methods !== 1 || githubTreePath.encodedPaths !== 0) {
+  const githubPathSegments = analyzeGithubPathSegments(source);
+  if (githubPathSegments.classes !== 1 || githubPathSegments.encodedPaths !== 0) {
     failures.push(
-      "Der GitHub-Dateipfad ist nicht cPanel-kompatibel (kodierte Schrägstriche).",
+      "Die GitHub-Datei- und Branchpfade sind nicht cPanel-kompatibel.",
     );
   }
 
@@ -255,19 +255,18 @@ const transformed = {
   prompt: 0,
   beforeUnload: 0,
   authFrame: 0,
-  githubTreePath: 0,
+  githubPathSegments: 0,
 };
 
 traverse(ast, {
   Class(classPath) {
-    const methodPath = githubGetFileShaMethod(classPath);
-    if (!methodPath) return;
+    if (!githubGetFileShaMethod(classPath)) return;
 
-    methodPath.traverse({
+    classPath.traverse({
       CallExpression(callPath) {
-        if (!isEncodedGithubTreePath(callPath)) return;
+        if (!isEncodedGithubPathSegment(callPath)) return;
 
-        transformed.githubTreePath += 1;
+        transformed.githubPathSegments += 1;
         callPath.replaceWith(callPath.node.arguments[0]);
       },
     });
@@ -356,5 +355,5 @@ console.log(
     `(${transformed.confirm} Bestätigungen, ${transformed.prompt} Eingaben, ` +
     `${transformed.notice} Hinweise, ${transformed.beforeUnload} Unload-Hooks und ` +
     `${transformed.authFrame} Anmelde-Popup sowie ` +
-    `${transformed.githubTreePath} GitHub-Dateipfad ersetzt).`,
+    `${transformed.githubPathSegments} GitHub-Pfadsegmente ersetzt).`,
 );
