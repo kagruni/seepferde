@@ -1021,7 +1021,7 @@ function ConditionsStep({
         </h4>
         <div className="rounded-xl border border-brown/20 bg-beige/45 p-5">
           <p className="text-sm font-semibold text-text">
-            Mit der gemeinsamen Bestätigung erkläre ich:
+            Mit der Bestätigung erkläre ich:
           </p>
           <ul className="mt-3 space-y-2 pl-5 text-sm leading-relaxed text-text-secondary marker:text-forest">
             <li>Die Teilnahme erfolgt auf eigene Gefahr.</li>
@@ -1039,7 +1039,6 @@ function ConditionsStep({
             <li>
               Das Pferd ist gesund und frei von ansteckenden Krankheiten.
             </li>
-            <li>Ich erkenne diese Teilnahmebedingungen an.</li>
           </ul>
           <div className="mt-5 border-t border-brown/15 pt-4">
             <Acknowledgement
@@ -1049,7 +1048,7 @@ function ConditionsStep({
               onChange={onParticipationConditions}
             >
               Ich habe alle oben aufgeführten Teilnahmebedingungen gelesen und
-              akzeptiere sie gemeinsam.
+              akzeptiere sie.
             </Acknowledgement>
           </div>
         </div>

@@ -98,6 +98,19 @@ describe("WorkingEquitationRegistrationForm", () => {
     expect(
       within(participationConditions).getAllByRole("checkbox"),
     ).toHaveLength(1);
+    expect(
+      within(participationConditions).queryByText(
+        "Ich erkenne diese Teilnahmebedingungen an.",
+      ),
+    ).toBeNull();
+    expect(
+      within(participationConditions).getByLabelText(
+        "Ich habe alle oben aufgeführten Teilnahmebedingungen gelesen und akzeptiere sie.",
+      ),
+    ).toBeTruthy();
+    expect(
+      within(participationConditions).queryByText(/gemeinsam/i),
+    ).toBeNull();
 
     for (const checkbox of screen.getAllByRole("checkbox")) {
       await user.click(checkbox);
