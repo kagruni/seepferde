@@ -9,6 +9,9 @@ const outputRoot = path.join(root, "out");
 const requiredFiles = [
   "index.html",
   ".htaccess",
+  "favicon.ico",
+  "icon.png",
+  "apple-icon.png",
   "admin/index.html",
   "cms-auth/auth.php",
   "cms-auth/api.php",
@@ -87,6 +90,15 @@ const workingEquitationPage = await readFile(
   ),
   "utf8",
 ).catch(() => "");
+for (const iconLink of [
+  'rel="icon" href="/favicon.ico?',
+  'rel="icon" href="/icon.png?',
+  'rel="apple-touch-icon" href="/apple-icon.png?',
+]) {
+  if (!workingEquitationPage.includes(iconLink)) {
+    failures.push(`Missing global icon metadata: ${iconLink}`);
+  }
+}
 const pdfDownloadHref =
   'href="/downloads/anmeldeformular-working-equitation-kurs-september-2026.pdf"';
 const pdfDownloadActionCount =
