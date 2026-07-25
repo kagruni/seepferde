@@ -2,6 +2,8 @@ Options -Indexes
 DirectoryIndex disabled
 
 RewriteEngine On
+RewriteCond %{HTTP:Authorization} ^(.+)$
+RewriteRule ^ - [E=HTTP_AUTHORIZATION:%1]
 RewriteRule ^form/?$ auth.php [END]
 RewriteRule ^repository/(.*)$ api.php?path=$1 [QSA,END,B]
 

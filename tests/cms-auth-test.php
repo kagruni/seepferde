@@ -80,6 +80,25 @@ try {
     assert_true(!cms_api_path_is_allowed('repos/kagruni/seepferde/../other', 'GET', $config), 'Pfadtraversierung wird abgelehnt.');
     assert_true(!cms_api_path_is_allowed('repos/kagruni/seepferde/%2e%2e/other', 'GET', $config), 'Doppelt kodierte Pfadtraversierung wird abgelehnt.');
 
+    $originalAuthorization = $_SERVER['HTTP_AUTHORIZATION'] ?? null;
+    $originalRedirectAuthorization = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? null;
+    unset($_SERVER['HTTP_AUTHORIZATION']);
+    $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] = 'Bearer cpanel-forwarded-token';
+    assert_true(
+        cms_authorization_token() === 'cpanel-forwarded-token',
+        'Der von cPanel/PHP-FPM weitergereichte Authorization-Header wird erkannt.',
+    );
+    if ($originalAuthorization === null) {
+        unset($_SERVER['HTTP_AUTHORIZATION']);
+    } else {
+        $_SERVER['HTTP_AUTHORIZATION'] = $originalAuthorization;
+    }
+    if ($originalRedirectAuthorization === null) {
+        unset($_SERVER['REDIRECT_HTTP_AUTHORIZATION']);
+    } else {
+        $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] = $originalRedirectAuthorization;
+    }
+
     $_SERVER['REMOTE_ADDR'] = '192.0.2.25';
     assert_true(!cms_rate_limit_is_blocked($config, 'mandy', $now), 'Ein neuer Benutzer ist nicht gesperrt.');
     cms_rate_limit_record_failure($config, 'mandy', $now);

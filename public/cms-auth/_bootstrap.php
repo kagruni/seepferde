@@ -236,6 +236,12 @@ function cms_verify_session_token(string $token, array $config, ?int $now = null
 function cms_authorization_token(): ?string
 {
     $authorization = (string) ($_SERVER['HTTP_AUTHORIZATION'] ?? '');
+    if ($authorization === '') {
+        $authorization = (string) ($_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '');
+    }
+    if ($authorization === '') {
+        $authorization = (string) (getenv('HTTP_AUTHORIZATION') ?: getenv('REDIRECT_HTTP_AUTHORIZATION') ?: '');
+    }
     if ($authorization === '' && function_exists('apache_request_headers')) {
         $headers = apache_request_headers();
         $authorization = is_array($headers) ? (string) ($headers['Authorization'] ?? $headers['authorization'] ?? '') : '';
