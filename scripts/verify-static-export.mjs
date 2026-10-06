@@ -103,9 +103,12 @@ const pdfDownloadHref =
   'href="/downloads/anmeldeformular-working-equitation-kurs-september-2026.pdf"';
 const pdfDownloadActionCount =
   workingEquitationPage.split(pdfDownloadHref).length - 1;
-if (pdfDownloadActionCount !== 1) {
+const expectedPdfDownloadActionCount = workingEquitationPage.includes(
+  'id="working-equitation-registration"',
+) ? 1 : 0;
+if (pdfDownloadActionCount !== expectedPdfDownloadActionCount) {
   failures.push(
-    `Expected exactly one Working Equitation PDF download action, found ${pdfDownloadActionCount}`,
+    `Expected ${expectedPdfDownloadActionCount} Working Equitation PDF download actions, found ${pdfDownloadActionCount}`,
   );
 }
 

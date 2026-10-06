@@ -8,6 +8,11 @@
 **Specification status:** Ready for implementation<br>
 **Last updated:** 13 July 2026
 
+**Amendment, 6 October 2026:** Daily builds have been removed at the owner's request.
+This supersedes all daily-build requirements below. Automatic builds run on changes;
+manual runs remain available. Date-dependent content updates on the next build, and
+an expired featured event must not block validation or deployment.
+
 ---
 
 ## 1. Purpose

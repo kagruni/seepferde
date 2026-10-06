@@ -198,8 +198,8 @@ startet den Produktions-Build.
 - Ausgebuchte und abgesagte Veranstaltungen zeigen keinen aktiven
   Anmeldebutton.
 - Zeitgesteuerte Hinweise werden einschließlich Start- und Enddatum angezeigt.
-- Ein täglicher Build aktualisiert datumsabhängige Inhalte auch dann, wenn an
-  diesem Tag kein Redakteur veröffentlicht.
+- Datumsabhängige Inhalte werden beim nächsten Build nach einer Änderung
+  aktualisiert. Es gibt keinen täglichen Build; ein manueller Start bleibt möglich.
 
 ### Preise
 
@@ -253,8 +253,7 @@ Die generierte Datei nicht von Hand bearbeiten.
 
 - Pull Requests: Validierung, Typprüfung, Lint und statischer Build;
 - Push auf `main`: gleiche Prüfungen und danach Deployment;
-- manuellen Start;
-- täglichen Zeitplan für datumsabhängige Inhalte.
+- manuellen Start.
 
 Benötigte GitHub Actions Secrets:
 

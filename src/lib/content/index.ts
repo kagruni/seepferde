@@ -476,17 +476,12 @@ function buildContentSnapshot(options: { validateAdmin?: boolean } = {}): BuildR
     });
     if (home.value.featuredEvent) {
       const event = events.find((entry) => entry.slug === home.value?.featuredEvent);
-      if (
-        !event ||
-        !event.published ||
-        event.state === "cancelled" ||
-        event.chronology === "past"
-      ) {
+      if (!event || !event.published || event.state === "cancelled") {
         issues.push(
           issue(
             home.filePath,
             "featuredEvent",
-            `Die hervorgehobene Veranstaltung „${home.value.featuredEvent}“ fehlt, ist verborgen, abgesagt oder bereits vorbei.`
+            `Die hervorgehobene Veranstaltung „${home.value.featuredEvent}“ fehlt, ist verborgen oder abgesagt.`
           )
         );
       }

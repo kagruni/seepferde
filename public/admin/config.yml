@@ -911,7 +911,7 @@ collections:
         time_format: false
         format: YYYY-MM-DD
         picker_utc: false
-        hint: Optional und einschließlich. Geplante Wechsel werden durch den täglichen statischen Build sichtbar.
+        hint: Optional und einschließlich. Datumsabhängige Änderungen werden bei der nächsten Veröffentlichung sichtbar.
       - { label: Link-Text, name: linkLabel, widget: string, required: false, hint: Muss zusammen mit einem Link-Ziel ausgefüllt werden., pattern: ['^.{0,40}$', 'Bitte verwenden Sie höchstens 40 Zeichen.'] }
       - label: Link-Ziel
         name: linkHref
